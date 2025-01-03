@@ -5,6 +5,7 @@ import './App.css';
 import Welcome from "../Welcome/Welcome"
 import About from "../About/About"
 import Contact from "../Contact/Contact"
+import User from "../User/User"
 import SignIn from "../SignIn/SignIn"
 import NoPage from "../NoPage/NoPage"
 
@@ -28,6 +29,7 @@ export default function App() {
 
           <Route index element ={<SignIn/>}/>
           <Route path="/about" element={<About/>}/>
+          <Route path="/user" element={<User/>}/>
           <Route path="/contact" element={<Contact/>}/>
           <Route path="/signin" element={<SignIn/>}/>
           <Route path="/signup" element={<SignIn/>}/>
@@ -50,4 +52,3 @@ export default function App() {
     </div>
   )
 }
-

@@ -13,6 +13,7 @@ export default function Header() {
                 <a href="home" className="header-link" style={{ color: "#F5585E" }}>Home</a>
                 <a href="about" className="header-link" style={{ color: "#FFC551" }}>About</a>
                 <a href="contact" className="header-link" style={{ color: "#00984D" }}>Contact</a>
+                <a href="user" className="header-link" style={{ color: "#00984D" }}>User</a>
             </nav>
         </header>
     );
