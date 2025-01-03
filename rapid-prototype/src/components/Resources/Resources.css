@@ -3,10 +3,9 @@
   grid-template-columns: repeat(2, 1fr); /* Two boxes per row */
   gap: 40px; /* Spacing between boxes */
   padding: 5px;
-  height: 10vh;
-  box-sizing: border-box;
   margin-left: 44vh;
-  margin-bottom: 20px;
+  margin-bottom: 20px; /* Ensures space between resources and button */
+  box-sizing: border-box;
 }
 
 .resource-box {
@@ -52,14 +51,8 @@
 .center-button-container {
   display: flex;
   justify-content: center;
-  align-items: center;
-  position: absolute;
-  bottom: -5vh; /* Position button at the bottom */
-  left: 0;
-  right: 0;
   margin-left: 43vh;
-  margin-bottom: 5vh;
-  margin-top: 20px;
+  margin-top: 20px; /* Ensures spacing between the resources and button */
 }
 
 .center-button {
@@ -71,7 +64,6 @@
   border-radius: 8px;
   font-size: 18px;
   cursor: pointer;
-  margin-bottom: 5vh;
   transition: background-color 0.3s ease;
 }
 
