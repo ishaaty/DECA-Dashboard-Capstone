@@ -11,8 +11,8 @@ export default function FundraiserCard(props) {
         navigate('/fundraiserapproval'); // Navigate to the "another" page
     };
 
-    const renderParticipantContent = (props) => {
-        if (props.userRole === 'participant') {
+    const renderParticipantContent = (userRole) => {
+        if (userRole === 'participant') {
             return (
                 <>
                     <div class="fundsignup">
@@ -24,8 +24,8 @@ export default function FundraiserCard(props) {
         return null; // Return nothing if not admin
     };
 
-    const renderAdminContent = (props) => {
-        if (props.userRole === 'admin') {
+    const renderAdminContent = (userRole) => {
+        if (userRole === 'admin') {
             return (
                 <>
                     <div class="approval">
