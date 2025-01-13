@@ -26,5 +26,5 @@ app.get('/users', (req, res)=> {
 })
 
 app.listen(8081, ()=> {
-    console.log("Listening on https://localhost:8081/users");
+    console.log("Listening on http://localhost:8081/users");
 })

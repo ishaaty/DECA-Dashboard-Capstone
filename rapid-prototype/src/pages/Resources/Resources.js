@@ -4,8 +4,8 @@ import Menu from '../../components/Menu/Menu';
 import Resources from '../../components/Resources/Resources';
 import { useState } from 'react';
 
-const ResourcesPage = () => {
-  const userRole = 'admin'; // Set to 'admin' or any other role for testing
+const ResourcesPage = (props) => {
+  
   const [resources, setResources] = useState([
     { text: 'Deca+', link: 'https://www.decaplus.org/' },
     { text: 'Naviance', link: 'https://example.com/link3' },
@@ -18,7 +18,7 @@ const ResourcesPage = () => {
       <Header />
       <Menu />
       <h1>Resources</h1>
-      <Resources resources={resources} setResources={setResources} userRole={userRole} />
+      <Resources resources={resources} setResources={setResources} userRole={props.userRole} />
     </div>
   );
 };

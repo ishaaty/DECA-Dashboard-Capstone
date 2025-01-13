@@ -7,12 +7,12 @@ export default function FundraiserCard(props) {
     const navigate = useNavigate();
 
     const handleButtonClick = () => {
-        console.log("hit")
+        console.log("hit") 
         navigate('/fundraiserapproval'); // Navigate to the "another" page
     };
 
-    const renderParticipantContent = (userRole) => {
-        if (userRole === 'participant') {
+    const renderParticipantContent = (props) => {
+        if (props.userRole === 'participant') {
             return (
                 <>
                     <div class="fundsignup">
@@ -24,15 +24,15 @@ export default function FundraiserCard(props) {
         return null; // Return nothing if not admin
     };
 
-    const renderAdminContent = (userRole) => {
-        if (userRole === 'admin') {
+    const renderAdminContent = (props) => {
+        if (props.userRole === 'admin') {
             return (
                 <>
                     <div class="approval">
                         <button id="approval" onClick={handleButtonClick}>View Request</button>
                     </div>
                 </>
-            );
+            )
         }
         return null; // Return nothing if not admin
     };
