@@ -2,11 +2,29 @@ import './Home.css';
 import Header from '../../components/Header/Header';
 import Menu from '../../components/Menu/Menu';
 
+import React from 'react';
+import api from '../../services/axiosConfig';
+
+const createUser = async () => {
+  try {
+    const response = await api.post('/users/create', {
+      username: 'exampleUser',
+      email: 'user@example.com',
+      password: 'securepassword',
+    });
+    console.log('User created:', response.data);
+  } catch (error) {
+    console.error('Error creating user:', error.response?.data || error.message);
+  }
+};
+
+
 export default function Home() {
     return (
         <>
             <Header />
             <Menu />
+
             <div className="home-container">
                 <div className="calendar-container">
                 <h3>Calendar</h3>
