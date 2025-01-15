@@ -4,6 +4,8 @@ import Menu from '../../components/Menu/Menu';
 
 import React from 'react';
 import api from '../../services/axiosConfig';
+import AddGCalEvent from './AddGCalEvent/AddGCalEvent';
+import AddAnnounce from './AddAnnounce/AddAnnounce';
 
 const createUser = async () => {
   try {
@@ -36,6 +38,11 @@ export default function Home() {
                         frameBorder="0" 
                         scrolling="no"
                     ></iframe>
+                    <div> 
+                        {/* MAKE HORIZONTALLY ALIGN */}
+                        <AddGCalEvent />
+                        <AddAnnounce />
+                    </div>
                 </div>
                 <div className="sidebar-container">
                     <div className="announcements-box">
@@ -43,12 +50,6 @@ export default function Home() {
                         <ul>
                             <li>Bake Sale - October 9</li>
                             <li>Signup to volunteer!</li>
-                        </ul>
-                    </div>
-                    <div className="events-box">
-                        <h3>Upcoming Events</h3>
-                        <ul>
-                            <li>Competition - March 20</li>
                         </ul>
                     </div>
                 </div>
