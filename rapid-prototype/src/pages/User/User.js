@@ -2,11 +2,11 @@ import './User.css';
 import Header from '../../components/Header/Header'
 
 import React from 'react';
-import api from '../../services/axiosConfig';
+import axios from '../../services/axiosConfig';
 
 const createUser = async () => {
   try {
-    const response = await api.post('http://localhost:8081/user/create', {
+    const response = await axios.post('http://localhost:8081/user/create', {
       first_name: 'user',
       last_name: 'lastname',
       email: 'user@email.com',

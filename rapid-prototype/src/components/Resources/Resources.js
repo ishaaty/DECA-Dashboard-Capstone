@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Resources.css';
+
+import axios from '../../services/axiosConfig';
 
 // Single Resource Component
 const Resource = ({ text, link, pdf, onDelete, userRole }) => {
@@ -27,36 +29,65 @@ const Resource = ({ text, link, pdf, onDelete, userRole }) => {
 
 // Resources List Component
 const Resources = ({ resources, userRole }) => {
-  const [resourceList, setResourceList] = useState(resources);
+  const [resourceList, setResourceList] = useState([]);
+
+  // Synchronize resourceList state with resources prop
+  useEffect(() => {
+    setResourceList(resources);
+  }, [resources]);
+
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [newResource, setNewResource] = useState({ text: '', link: '', pdf: '' });
 
-  const handleAddResource = () => {
+
+  const handleAddResource = async () => {
     if (!newResource.text || (!newResource.link && !newResource.pdf)) {
       alert('Please provide a name and either a link or a PDF file.');
       return;
     }
-    setResourceList([...resourceList, newResource]);
-    setIsPopupOpen(false);
-    setNewResource({ text: '', link: '', pdf: '' });
+  
+    try {
+      const resourceData = {
+        resource_name: newResource.text,
+        web_url: newResource.link,
+        file_url: newResource.pdf,
+      };
+  
+      // send the information on the resource to add to the backend
+      const response = await axios.post('http://localhost:8081/resources/add', resourceData);
+      setResourceList([...resourceList, response.data]);
+      setIsPopupOpen(false);
+      setNewResource({ text: '', link: '', pdf: '' });
+    } catch (error) {
+      console.error('Error adding resource:', error);
+      alert('Failed to add resource.');
+    }
   };
+  
 
-  const handleDeleteResource = (index) => {
-    const updatedResources = resourceList.filter((_, i) => i !== index);
-    setResourceList(updatedResources);
+  const handleDeleteResource = async (id) => {
+    try {
+      // send the id of the resource to delete to the backend
+      await axios.delete(`http://localhost:8081/resources/delete/${id}`);
+      setResourceList(resourceList.filter((resource) => resource.resource_id !== id)); // Update local state
+    } catch (error) {
+      console.error('Error deleting resource:', error);
+      alert('Failed to delete resource.');
+    }
   };
+  
 
   return (
     <>
       <div className="resources-container">
         {resourceList.map((resource, index) => (
           <Resource
-            key={index}
-            text={resource.text}
-            link={resource.link}
-            pdf={resource.pdf}
+            key={resource.resource_id}
+            text={resource.resource_name || resource.text}
+            link={resource.web_url || resource.link}
+            pdf={resource.file_url || resource.pdf}
             userRole={userRole}
-            onDelete={() => handleDeleteResource(index)}
+            onDelete={() => handleDeleteResource(resource.resource_id)}
           />
         ))}
       </div>

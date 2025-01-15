@@ -2,16 +2,27 @@ import './Resources.css';
 import Header from '../../components/Header/Header';
 import Menu from '../../components/Menu/Menu';
 import Resources from '../../components/Resources/Resources';
-import { useState } from 'react';
+
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const ResourcesPage = () => {
   const userRole = 'admin'; // Set to 'admin' or any other role for testing
-  const [resources, setResources] = useState([
-    { text: 'Deca+', link: 'https://www.decaplus.org/' },
-    { text: 'Naviance', link: 'https://example.com/link3' },
-    { text: 'PDF Forms', link: 'https://example.com/link5' },
-    { text: 'Community Pass', link: 'https://example.com/link7' },
-  ]);
+  const [resources, setResources] = useState([]);
+
+  // Fetch resources from axios
+  useEffect(() => {
+    const fetchResources = async () => {
+      try {
+        const response = await axios.get('http://localhost:8081/resources/display');
+        setResources(response.data);
+      } catch (error) {
+        console.error('Error fetching resources:', error);
+      }
+    };
+
+    fetchResources();
+  }, []);
 
   return (
     <div className="resources-page">

@@ -1,24 +1,28 @@
-const express = require('express');
 const mysql = require('mysql');
-const cors = require('cors');
 require('dotenv').config();
 
+const express = require('express');
 const app = express();
-// app.use(cors());
 
 // Enable CORS for requests from the frontend (React app)
+const cors = require('cors');
 app.use(cors({
   origin: 'http://localhost:3000', // React app
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Explicitly allow OPTIONS
-  allowedHeaders: ['Content-Type', 'Authorization'], // Include Authorization
-  credentials: true, // If using cookies or authorization headers
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'], 
+  credentials: true, 
 }));
 
 app.use(express.json()); // Middleware to parse JSON request bodies
 app.use(express.urlencoded({ extended: true }));
 
+
 const userRoutes = require('./routes/userRoutes');
 app.use('/user', userRoutes);
+
+const resourcesRouter = require('./routes/resourceRoutes');
+app.use('/resources', resourcesRouter);
+
 
 const sequelize = require('./config/db');
 sequelize.authenticate()
