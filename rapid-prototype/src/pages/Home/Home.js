@@ -20,8 +20,20 @@ const createUser = async () => {
   }
 };
 
+function renderAdminContent(userRole){
+    if (userRole === "admin"){
+        return (
+            <div>
+                <AddGCalEvent /> 
+                <AddAnnounce />
+            </div>
+        )
+    }
+    return null;
+}
 
-export default function Home() {
+
+export default function Home(props) {
     return (
         <>
             <Header />
@@ -38,11 +50,8 @@ export default function Home() {
                         frameBorder="0" 
                         scrolling="no"
                     ></iframe>
-                    <div> 
-                        {/* MAKE HORIZONTALLY ALIGN */}
-                        <AddGCalEvent />
-                        <AddAnnounce />
-                    </div>
+
+                    {renderAdminContent(props.userRole)}
                 </div>
                 <div className="sidebar-container">
                     <div className="announcements-box">
