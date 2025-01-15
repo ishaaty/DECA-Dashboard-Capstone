@@ -55,7 +55,7 @@ app.get('/users', (req, res)=> {
 })
 
 app.listen(8081, ()=> {
-    console.log("listening");
+    console.log("Listening on http://localhost:8081/users");
 })
 
 // Sync Sequelize models with database

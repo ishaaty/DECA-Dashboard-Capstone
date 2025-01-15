@@ -7,7 +7,7 @@ export default function FundraiserCard(props) {
     const navigate = useNavigate();
 
     const handleButtonClick = () => {
-        console.log("hit")
+        console.log("hit") 
         navigate('/fundraiserapproval'); // Navigate to the "another" page
     };
 
@@ -32,7 +32,7 @@ export default function FundraiserCard(props) {
                         <button id="approval" onClick={handleButtonClick}>View Request</button>
                     </div>
                 </>
-            );
+            )
         }
         return null; // Return nothing if not admin
     };

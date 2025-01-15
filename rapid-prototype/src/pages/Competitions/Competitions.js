@@ -2,6 +2,7 @@ import './Competitions.css';
 import Header from '../../components/Header/Header'
 import Menu from '../../components/Menu/Menu'
 import CompetitionLevelCard from '../../components/CompetionLevelCard/CompetitionLevelCard'
+// user type is not relevant here as of now
 
 export default function Competitions() {
     return (

@@ -8,7 +8,8 @@ import ExportCard from '../../components/ExportCard/ExportCard'
 export default function Participants(props) {
 
     const renderAdminContent = () => {
-        if (props.userRole === 'admin' || true) {
+        // admin and board members can access this
+        if (props.userRole !== 'participant') {
             return (
                 <ExportCard />
             );

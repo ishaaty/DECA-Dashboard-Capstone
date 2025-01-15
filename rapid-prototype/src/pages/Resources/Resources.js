@@ -6,7 +6,7 @@ import Resources from '../../components/Resources/Resources';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const ResourcesPage = () => {
+const ResourcesPage = (props) => {
   const userRole = 'admin'; // Set to 'admin' or any other role for testing
   const [resources, setResources] = useState([]);
 
@@ -29,7 +29,7 @@ const ResourcesPage = () => {
       <Header />
       <Menu />
       <h1>Resources</h1>
-      <Resources resources={resources} setResources={setResources} userRole={userRole} />
+      <Resources resources={resources} setResources={setResources} userRole={props.userRole} />
     </div>
   );
 };
