@@ -47,12 +47,12 @@ export default function App() {
           <Route path="/studentprofile" element={<StudentProfile/>}/>
 
           <Route path="/fundraisers" element={<Fundraisers userRole={userType} />}/>
+          {/* fundraiserapproval only accessible to admins */}
           <Route path="/fundraiserapproval" element={<FundraiserApproval/>}/>
 
           <Route path="/participants" element={<Participants userRole={userType}/>}/>
 
           <Route path="/resources" element={<Resources userRole={userType} />}/>
-
 
           <Route path="*" element={<NoPage/>}/>
 
