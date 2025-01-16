@@ -71,7 +71,7 @@ const AddGCalEvent= () => {
             </label>
             
             <label>
-              All Day
+              All Day:
               <input
                 type="checkbox"
                 value={newEvent.isAllDay}
@@ -79,7 +79,7 @@ const AddGCalEvent= () => {
               />
             </label>
             <label>
-              Start Date
+              Start Date:
               <input
                 type="date"
                 value={newEvent.startDate}
@@ -88,7 +88,7 @@ const AddGCalEvent= () => {
             </label>
 
             <label>
-              Start Time
+              Start Time:
               <input
                 type="time"
                 value={newEvent.startTime}
