@@ -23,7 +23,7 @@ import StudentProfile from '../StudentProfile/StudentProfile';
 
 export default function App() {
 
-  const userType = "participant";
+  const userType = "admin";
 
   return (
     <div>
