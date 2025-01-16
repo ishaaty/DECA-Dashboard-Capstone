@@ -38,7 +38,7 @@ export default function App() {
           <Route path="/signin" element={<SignIn/>}/>
 
           {/* pages that DO change by userRole */}
-          <Route path="/home" element={<Home/>}/>
+          <Route path="/home" element={<Home userRole={userType} />}/>
 
           <Route path="/competitions" element={<Competitions/>}/>
           <Route path="/viewaddevents" element={<ViewAddEvents/>}/>
@@ -47,12 +47,12 @@ export default function App() {
           <Route path="/studentprofile" element={<StudentProfile/>}/>
 
           <Route path="/fundraisers" element={<Fundraisers userRole={userType} />}/>
+          {/* fundraiserapproval only accessible to admins */}
           <Route path="/fundraiserapproval" element={<FundraiserApproval/>}/>
 
           <Route path="/participants" element={<Participants userRole={userType}/>}/>
 
           <Route path="/resources" element={<Resources userRole={userType} />}/>
-
 
           <Route path="*" element={<NoPage/>}/>
 
