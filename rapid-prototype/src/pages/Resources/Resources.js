@@ -1,13 +1,13 @@
 import './Resources.css';
 import Header from '../../components/Header/Header';
 import Menu from '../../components/Menu/Menu';
-import Resources from '../../components/Resources/Resources';
+import Resources from './ResourceCard/ResourceCard';
 
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const ResourcesPage = (props) => {
-  const userRole = 'admin'; // Set to 'admin' or any other role for testing
+  // const userRole = 'admin'; // Set to 'admin' or any other role for testing
   const [resources, setResources] = useState([]);
 
   // Fetch resources from axios

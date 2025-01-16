@@ -1,7 +1,7 @@
 import './Fundraisers.css';
 import Header from '../../components/Header/Header'
 import Menu from '../../components/Menu/Menu'
-import FundraiserCard from '../../components/FundraiserCard/FundraiserCard'
+import FundraiserCard from './/FundraiserCard/FundraiserCard'
 
 export default function Fundraisers(props) {
 

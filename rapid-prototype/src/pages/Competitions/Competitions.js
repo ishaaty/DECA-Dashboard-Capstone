@@ -1,7 +1,7 @@
 import './Competitions.css';
 import Header from '../../components/Header/Header'
 import Menu from '../../components/Menu/Menu'
-import CompetitionLevelCard from '../../components/CompetionLevelCard/CompetitionLevelCard'
+import CompetitionLevelCard from './/CompetionLevelCard/CompetitionLevelCard'
 // user type is not relevant here as of now
 
 export default function Competitions() {
@@ -15,7 +15,7 @@ export default function Competitions() {
                 <a href="viewaddevents" ><CompetitionLevelCard name="Regionals" color="#F5585E" /></a>
                 <CompetitionLevelCard name="States" color="#FFC511" />
                 <CompetitionLevelCard name="Nationals" color="#00529B" />
-                <CompetitionLevelCard name="Internationals" color="#00984D" />
+                {/* <CompetitionLevelCard name="Internationals" color="#00984D" /> */}
 
             </div>
         </div>

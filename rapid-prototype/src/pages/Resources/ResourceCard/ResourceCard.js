@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import './Resources.css';
+import './ResourceCard.css';
 
-import axios from '../../services/axiosConfig';
+import axios from '../../../services/axiosConfig';
 
 // Single Resource Component
 const Resource = ({ text, link, pdf, onDelete, userRole }) => {
