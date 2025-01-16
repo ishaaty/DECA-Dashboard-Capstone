@@ -38,7 +38,7 @@ export default function App() {
           <Route path="/signin" element={<SignIn/>}/>
 
           {/* pages that DO change by userRole */}
-          <Route path="/home" element={<Home/>}/>
+          <Route path="/home" element={<Home userRole={userType} />}/>
 
           <Route path="/competitions" element={<Competitions/>}/>
           <Route path="/viewaddevents" element={<ViewAddEvents/>}/>

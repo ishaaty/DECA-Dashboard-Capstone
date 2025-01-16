@@ -2,8 +2,8 @@ import './Participants.css';
 import Header from '../../components/Header/Header'
 import Menu from '../../components/Menu/Menu'
 import ParticipantCard from '../../components/ParticipantCard/ParticipantCard'
-import AdminCard from '../../components/AdminCard/AdminCard'
-import ExportCard from '../../components/ExportCard/ExportCard'
+import AdminCard from './/AdminCard/AdminCard'
+import ExportCard from './/ExportCard/ExportCard'
 
 export default function Participants(props) {
 
