@@ -1,12 +1,12 @@
 import './ViewAddEvents.css';
-import Header from '../../components/Header/Header'
-import Menu from '../../components/Menu/Menu'
+import Header from '../../../components/Header/Header'
+import Menu from '../../../components/Menu/Menu'
+import CreateEvent from '../CreateEvent/CreateEvent'
 
 export default function ViewAddEvents(props) {
 
-    const userRole = "admin";
 
-    if (userRole === "admin"){
+    if (props.userRole === "admin"){
         return (
             <>
                 <Header />
@@ -19,7 +19,7 @@ export default function ViewAddEvents(props) {
                         </button>
                     </a>
                     <div>
-                        <h1 style={{ color: "#F5585E", alignItems: "center" }}>Current Events:</h1>
+                        <h1 style={{ color: "#F5585E", alignItems: "center" }}>Current Events:</h1> 
                         <button id="roleplay" style={{ backgroundColor: "#E3E8F1", color: "#6786A3", marginRight: "45px"}}>
                             <h1>Roleplays</h1>
                             <h2>Description: </h2>
@@ -38,27 +38,8 @@ export default function ViewAddEvents(props) {
                     </div>
                 </div>
 
-                <div class="add-event-container">
-                    <h1 style={{ color: "#F5585E", alignItems: "center" }}>Add Event:</h1>
-                    <button>
-                        <h3>Name</h3>
-                    </button>
-                    <button>
-                        <h3>Description</h3>
-                    </button>
-                    <button>
-                        <h3>Date/Time</h3>
-                    </button>
-                    <button>
-                        <h3>Requirement1</h3>
-                    </button>
-                    <button>
-                        <h3>Requirment2</h3>
-                    </button>
-                    <button id="submit-btn">
-                        <h2>Submit</h2>
-                    </button>
-                </div>
+                <CreateEvent />
+
 
             </>
         )
