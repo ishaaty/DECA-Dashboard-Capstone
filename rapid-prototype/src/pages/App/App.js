@@ -17,7 +17,7 @@ import Participants from "../Participants/Participants"
 import ParticipantDetails from "../Participants/ParticipantDetails"
 import Resources from "../Resources/Resources"
 import FundraiserApproval from "../Fundraisers/FundraiserApproval/FundraiserApproval"
-import ViewAddEvents from '../ViewAddEvents/ViewAddEvents';
+import ViewAddEvents from '../Competitions/ViewAddEvents/ViewAddEvents';
 import ViewRequesters from '../ViewRequesters/ViewRequesters';
 import Roommates from '../Roommates/Roommates';
 import StudentProfile from '../StudentProfile/StudentProfile';
@@ -45,8 +45,8 @@ export default function App() {
           {/* pages that DO change by userRole */}
           <Route path="/home" element={<Home userRole={userType} />}/>
 
-          <Route path="/competitions" element={<Competitions/>}/>
-          <Route path="/viewaddevents" element={<ViewAddEvents/>}/>
+          <Route path="/competitions" element={<Competitions userRole={userType} />}/>
+          <Route path="/viewaddevents" element={<ViewAddEvents userRole={userType}/>}/>
           <Route path="/viewrequesters" element={<ViewRequesters/>}/>
           <Route path="/roommates" element={<Roommates/>}/>
           <Route path="/studentprofile" element={<StudentProfile/>}/>
