@@ -14,6 +14,7 @@ import Home from "../Home/Home"
 import Competitions from "../Competitions/Competitions"
 import Fundraisers from "../Fundraisers/Fundraisers"
 import Participants from "../Participants/Participants"
+import ParticipantDetails from "../Participants/ParticipantDetails"
 import Resources from "../Resources/Resources"
 import FundraiserApproval from "../Fundraisers/FundraiserApproval/FundraiserApproval"
 import ViewAddEvents from '../Competitions/ViewAddEvents/ViewAddEvents';
@@ -24,6 +25,10 @@ import StudentProfile from '../StudentProfile/StudentProfile';
 export default function App() {
 
   const userType = "admin";
+  const userFirst = "Isha";
+  const userLast = "Tyagi";
+  const userEmail = "ishtya25@bergen.org";
+  const userClass = "2025";
 
   return (
     <div>
@@ -51,6 +56,7 @@ export default function App() {
           <Route path="/fundraiserapproval" element={<FundraiserApproval/>}/>
 
           <Route path="/participants" element={<Participants userRole={userType}/>}/>
+          <Route path="/participantdetails" element={<ParticipantDetails userRole={userType} userFirst={userFirst} userLast={userLast} userEmail={userEmail} userClass={userClass}/>}/>
 
           <Route path="/resources" element={<Resources userRole={userType} />}/>
 

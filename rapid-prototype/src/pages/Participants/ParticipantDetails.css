@@ -1,0 +1,32 @@
+#detailname {
+    color: #F5585E;
+}
+
+#detailemail {
+    color: #FFC511;
+}
+
+#detailclass {
+    color: #00984D;
+}
+
+.partdetailcontainer {
+    grid-template-columns: auto;
+    margin-left: 25vw;
+    display: grid;
+    padding: 5px;
+}
+
+.partevents {
+    background-color: #E3E8F1;
+    padding: 5px;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+    border-radius: 4px;
+    width: 20vw;
+    /* height: 15vh; */
+}
+
+#parteventhead {
+    margin-top: 0px;
+}

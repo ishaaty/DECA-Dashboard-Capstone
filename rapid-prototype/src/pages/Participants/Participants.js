@@ -1,7 +1,6 @@
 import './Participants.css';
 import Header from '../../components/Header/Header'
 import Menu from '../../components/Menu/Menu'
-import ParticipantCard from '../../components/ParticipantCard/ParticipantCard'
 import AdminCard from './/AdminCard/AdminCard'
 import ExportCard from './/ExportCard/ExportCard'
 
@@ -29,17 +28,21 @@ export default function Participants(props) {
                     <div>
                     <div>
                         <h3 id="advisors">Advisors</h3>
-                        <AdminCard name="Mr. Gutierrez" email="josgut@bergen.org" year="20XX" />
+                        <AdminCard name="Mr. Gutierrez" email="josgut@bergen.org"/>
                     </div>
                     <div>
                         <h3 id="board">Board Members</h3>
-                        <ParticipantCard name="Jeannelle Tellado" email="jeatel25@bergen.org" grade="2025" events="Regional Binder" />
+                        <AdminCard name="Jeannelle Tellado" email="jeatel25@bergen.org"/>
                     </div>
                     <div>
                         <h3 id="member">Members</h3>
-                        <ParticipantCard name="Isha Tyagi" email="ishtya25@bergen.org" grade="2025" events="Regional Roleplay" />
-                        <ParticipantCard name="Julia Thompson" email="jultho25@bergen.org" grade="2025" events="Regional Binder" />
-                        <ParticipantCard name="Ashley Johnson" email="ashjoh25@bergen.org" grade="2025" events="Regional Roleplay" />
+                        <div class="partlist">
+                            <a class="partanchor" href="participantdetails">
+                                <h4 class="partname">Isha Tyagi</h4>
+                            </a>
+                            <h4 class="partname">Julia Thompson</h4>
+                            <h4 class="partname">Ashley Johnson</h4>
+                        </div>
                     </div>
 
                     </div>
