@@ -17,14 +17,14 @@ import Participants from "../Participants/Participants"
 import ParticipantDetails from "../Participants/ParticipantDetails"
 import Resources from "../Resources/Resources"
 import FundraiserApproval from "../Fundraisers/FundraiserApproval/FundraiserApproval"
-import ViewAddEvents from '../Competitions/ViewAddEvents/ViewAddEvents';
-import ViewRequesters from '../ViewRequesters/ViewRequesters';
+import EventsPage from '../Competitions/EventsPage/EventsPage';
+import ViewRequesters from '../Competitions/ViewRequesters/ViewRequesters';
 import Roommates from '../Roommates/Roommates';
-import StudentProfile from '../StudentProfile/StudentProfile';
+import TodoListPage from '../Competitions/TodoListPage/TodoListPage';
 
 export default function App() {
 
-  const userType = "admin";
+  const userType = "participant";
   const userFirst = "Isha";
   const userLast = "Tyagi";
   const userEmail = "ishtya25@bergen.org";
@@ -46,10 +46,10 @@ export default function App() {
           <Route path="/home" element={<Home userRole={userType} />}/>
 
           <Route path="/competitions" element={<Competitions userRole={userType} />}/>
-          <Route path="/viewaddevents" element={<ViewAddEvents userRole={userType}/>}/>
+          <Route path="/events" element={<EventsPage userRole={userType}/>}/>
           <Route path="/viewrequesters" element={<ViewRequesters/>}/>
           <Route path="/roommates" element={<Roommates/>}/>
-          <Route path="/studentprofile" element={<StudentProfile/>}/>
+          <Route path="/todolist" element={<TodoListPage userRole={userType}/>}/>
 
           <Route path="/fundraisers" element={<Fundraisers userRole={userType} />}/>
           {/* fundraiserapproval only accessible to admins */}
