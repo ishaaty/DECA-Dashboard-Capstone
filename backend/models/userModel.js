@@ -41,7 +41,7 @@ module.exports = (sequelize) => {
       allowNull: true,
     },
     dob: {
-      type: DataTypes.STRING(45),
+      type: DataTypes.DATE,
       allowNull: true,
     },
     email: {
@@ -59,8 +59,7 @@ module.exports = (sequelize) => {
       defaultValue: DataTypes.NOW,
     },
   }, {
-    tableName: 'users',
-    timestamps: false, // Set to true if you also have `updated_at`
+    tableName: 'users',  // Explicitly specify the table name
+    timestamps: false,   // Set to true if you have `updated_at`
   });
-
 };

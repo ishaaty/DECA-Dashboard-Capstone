@@ -2,36 +2,100 @@ const express = require('express');
 const router = express.Router();
 const { User, Event } = require('../models');
 
-// Fetch participant details along with their events
+// Route to fetch users by position
+router.get('/displayusers', async (req, res) => {
+  const { position } = req.query;
+
+  try {
+    // Fetch users with the specified position
+    console.log(User.getTableName());
+    const users = await User.findAll({
+      where: { position },
+    });
+
+    if (!users || users.length === 0) {
+      return res.status(404).json({ message: 'No users found for the given position.' });
+    }
+
+    res.json(users);
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    res.status(500).json({ error: 'Failed to fetch users.' });
+  }
+});
+
+// Route to fetch a user's details along with their events
 router.get('/displaydetails', async (req, res) => {
   const { userFirst, userLast } = req.query;
 
   try {
-    // Fetch the user by first and last name along with their associated events
+    console.log('Fetching user details for:', userFirst, userLast);
+
+    // Fetch the user by first and last name, including associated events
     const user = await User.findOne({
       where: { first_name: userFirst, last_name: userLast },
       include: {
-        model: Event,
-        through: { attributes: [] }, // Exclude the join table data (user_event_xref)
+        model: Event,  // Include the associated Event model
+        through: { attributes: [] },  // Exclude join table data (user_event_xref)
       },
     });
 
     if (!user) {
-      return res.status(404).json({ error: 'User not found' });
+      return res.status(404).json({ message: 'User not found.' });
     }
 
-    // Return the user details along with the events they are associated with
+    console.log('User events:', user.Events);  // Check what is returned in user.Events
+
+    // Ensure events are included and map them to a simplified structure
+    const userEvents = user.Events.map(event => ({
+      eventName: event.event_name,
+      eventDate: event.event_date
+    }));
+
+    if (userEvents.length === 0) {
+      return res.status(404).json({
+        message: 'User found, but no associated events.',
+        user: {
+          userFirst: user.first_name,
+          userLast: user.last_name,
+          userEmail: user.email,
+          userClass: user.user_class,
+          events: [],
+        },
+      });
+    }
+
+    // Return the user details and associated events
     res.json({
       userFirst: user.first_name,
       userLast: user.last_name,
       userEmail: user.email,
       userClass: user.user_class,
-      events: user.Events.map(event => event.event_name),
+      events: userEvents,  // Return the events in the response
     });
   } catch (error) {
     console.error('Error fetching participant details:', error);
-    res.status(500).json({ error: 'Failed to fetch participant details' });
+    res.status(500).json({ error: 'Failed to fetch participant details.' });
   }
 });
 
+
+
+// Route to fetch all events
+router.get('/events', async (req, res) => {
+  try {
+    const events = await Event.findAll();
+
+    if (!events || events.length === 0) {
+      return res.status(404).json({ message: 'No events found.' });
+    }
+
+    res.json(events);
+  } catch (error) {
+    console.error('Error fetching events:', error);
+    res.status(500).json({ error: 'Failed to fetch events.' });
+  }
+});
+
+// Export the router
 module.exports = router;

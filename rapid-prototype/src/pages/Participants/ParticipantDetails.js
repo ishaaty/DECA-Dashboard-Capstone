@@ -32,11 +32,13 @@ export default function ParticipantDetails({ userFirst, userLast }) {
     if (!participant || !participant.events || participant.events.length === 0) {
       return <p>No events registered.</p>;
     }
-
-    return participant.events.map((eventName, index) => (
-      <p key={index} className="event-name">{eventName}</p>
+  
+    return participant.events.map((event, index) => (
+      <p key={index} className="event-name">{event.eventName}</p>
     ));
   };
+  
+  
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
