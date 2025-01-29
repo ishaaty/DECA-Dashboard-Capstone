@@ -43,7 +43,7 @@ export default function EventCard(props){
                 <h1>{props.title}</h1>
                 <div className="align-center">
                     <ViewEventBtn title={props.title} descrip={props.descrip} date={props.date} />
-                    <a href="studentprofile">
+                    <a href="todolist">
                         <button className="view-requesters-btn">
                             View Todo List
                         </button>

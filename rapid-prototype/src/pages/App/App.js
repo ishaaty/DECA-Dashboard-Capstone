@@ -18,9 +18,9 @@ import ParticipantDetails from "../Participants/ParticipantDetails"
 import Resources from "../Resources/Resources"
 import FundraiserApproval from "../Fundraisers/FundraiserApproval/FundraiserApproval"
 import EventsPage from '../Competitions/EventsPage/EventsPage';
-import ViewRequesters from '../ViewRequesters/ViewRequesters';
+import ViewRequesters from '../Competitions/ViewRequesters/ViewRequesters';
 import Roommates from '../Roommates/Roommates';
-import StudentProfile from '../Competitions/TodoListPage/TodoListPage';
+import TodoListPage from '../Competitions/TodoListPage/TodoListPage';
 
 export default function App() {
 
@@ -49,7 +49,7 @@ export default function App() {
           <Route path="/events" element={<EventsPage userRole={userType}/>}/>
           <Route path="/viewrequesters" element={<ViewRequesters/>}/>
           <Route path="/roommates" element={<Roommates/>}/>
-          <Route path="/studentprofile" element={<StudentProfile/>}/>
+          <Route path="/todolist" element={<TodoListPage userRole={userType}/>}/>
 
           <Route path="/fundraisers" element={<Fundraisers userRole={userType} />}/>
           {/* fundraiserapproval only accessible to admins */}
