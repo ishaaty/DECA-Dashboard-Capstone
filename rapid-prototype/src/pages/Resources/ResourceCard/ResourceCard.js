@@ -41,8 +41,14 @@ const Resources = ({ resources, userRole }) => {
 
 
   const handleAddResource = async () => {
+    
     if (!newResource.text || (!newResource.link && !newResource.pdf)) {
       alert('Please provide a name and either a link or a PDF file.');
+      return;
+    }
+
+    if (newResource.link && newResource.pdf) {
+      alert('Please provide either a link or a PDF file, not both.');
       return;
     }
   

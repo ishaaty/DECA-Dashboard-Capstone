@@ -2,7 +2,6 @@ import './Competitions.css';
 import Header from '../../components/Header/Header'
 import Menu from '../../components/Menu/Menu'
 import CompetitionLevelCard from './/CompetionLevelCard/CompetitionLevelCard'
-// user type is not relevant here as of now
 
 export default function Competitions() {
     return (
@@ -16,7 +15,6 @@ export default function Competitions() {
                 <CompetitionLevelCard name="States" color="#FFC511" />
                 <CompetitionLevelCard name="Nationals" color="#00529B" />
                 {/* <CompetitionLevelCard name="Internationals" color="#00984D" /> */}
-
             </div>
         </div>
     )
