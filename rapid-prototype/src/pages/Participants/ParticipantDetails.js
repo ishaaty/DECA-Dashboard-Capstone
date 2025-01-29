@@ -9,6 +9,8 @@ export default function ParticipantDetails({ userFirst, userLast }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+
+
   useEffect(() => {
     const fetchParticipantDetails = async () => {
       try {
@@ -28,6 +30,8 @@ export default function ParticipantDetails({ userFirst, userLast }) {
   }, [userFirst, userLast]);
   
 
+
+  // Display the events that were retrieved from the database
   const renderEvents = () => {
     if (!participant || !participant.events || participant.events.length === 0) {
       return <p>No events registered.</p>;
@@ -39,9 +43,10 @@ export default function ParticipantDetails({ userFirst, userLast }) {
   };
   
   
-
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
+
+
 
   return (
     <>

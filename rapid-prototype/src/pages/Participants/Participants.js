@@ -9,8 +9,10 @@ import axios from 'axios';
 export default function Participants(props) {
   const [participants, setParticipants] = useState([]);
   const [boardMembers, setBoardMembers] = useState([]);
-  const [admins, setAdmins] = useState([]);  // Added state for admins
+  const [admins, setAdmins] = useState([]);
   const [error, setError] = useState(null);
+
+  
 
   useEffect(() => {
     const fetchUsersByRole = async (role, setState) => {
@@ -29,9 +31,12 @@ export default function Participants(props) {
     // Fetch participants, board members, and admins
     fetchUsersByRole('participant', setParticipants);
     fetchUsersByRole('board member', setBoardMembers);
-    fetchUsersByRole('admin', setAdmins);  // Fetch admins
+    fetchUsersByRole('admin', setAdmins);
   }, []);
 
+
+
+  // If the user is an admin, include an export card
   const renderAdminContent = () => {
     if (props.userRole !== 'participant') {
       return <ExportCard />;
@@ -39,6 +44,9 @@ export default function Participants(props) {
     return null;
   };
 
+
+
+  // Display the participants that were retrieved from the database
   const renderParticipants = () => {
     if (error) return <p>{error}</p>;
     if (participants.length === 0) return <p>Loading participants...</p>;
@@ -56,6 +64,8 @@ export default function Participants(props) {
     ));
   };
 
+
+   // Display the board members that were retrieved from the database
   const renderBoardMembers = () => {
     if (error) return <p>{error}</p>;
     if (boardMembers.length === 0) return <p>Loading board members...</p>;
@@ -69,7 +79,8 @@ export default function Participants(props) {
     ));
   };
 
-  const renderAdmins = () => {  // Render admins under Advisors section
+    // Display the admins that were retrieved from the database
+  const renderAdmins = () => {
     if (error) return <p>{error}</p>;
     if (admins.length === 0) return <p>Loading admins...</p>;
 
@@ -81,6 +92,8 @@ export default function Participants(props) {
       />
     ));
   };
+
+
 
   return (
     <>

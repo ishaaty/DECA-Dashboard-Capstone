@@ -24,7 +24,9 @@ router.get('/displayusers', async (req, res) => {
   }
 });
 
-// Route to fetch a user's details along with their events
+
+
+// Route to fetch a user's info and events
 router.get('/displaydetails', async (req, res) => {
   const { userFirst, userLast } = req.query;
 
@@ -35,8 +37,8 @@ router.get('/displaydetails', async (req, res) => {
     const user = await User.findOne({
       where: { first_name: userFirst, last_name: userLast },
       include: {
-        model: Event,  // Include the associated Event model
-        through: { attributes: [] },  // Exclude join table data (user_event_xref)
+        model: Event,  
+        through: { attributes: [] },  
       },
     });
 
@@ -44,9 +46,6 @@ router.get('/displaydetails', async (req, res) => {
       return res.status(404).json({ message: 'User not found.' });
     }
 
-    console.log('User events:', user.Events);  // Check what is returned in user.Events
-
-    // Ensure events are included and map them to a simplified structure
     const userEvents = user.Events.map(event => ({
       eventName: event.event_name,
       eventDate: event.event_date
@@ -71,7 +70,7 @@ router.get('/displaydetails', async (req, res) => {
       userLast: user.last_name,
       userEmail: user.email,
       userClass: user.user_class,
-      events: userEvents,  // Return the events in the response
+      events: userEvents,
     });
   } catch (error) {
     console.error('Error fetching participant details:', error);

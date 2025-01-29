@@ -1,11 +1,13 @@
 const express = require('express');
 const cors = require('cors');
-const mysql = require('mysql'); // For your raw SQL queries
-require('dotenv').config(); // Load environment variables
+const mysql = require('mysql'); // For raw SQL queries
+require('dotenv').config();
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+
 
 // Enable CORS for requests from the frontend (React app)
 app.use(cors({
@@ -15,6 +17,7 @@ app.use(cors({
   credentials: true,
 }));
 
+
 // Set up raw MySQL database connection
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
@@ -22,6 +25,7 @@ const db = mysql.createConnection({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
 });
+
 
 // Test MySQL connection
 db.connect(err => {
@@ -32,6 +36,8 @@ db.connect(err => {
   }
 });
 
+
+
 // Import routes
 const userRoutes = require('./routes/userRoutes');
 app.use('/user', userRoutes);
@@ -40,7 +46,8 @@ const resourcesRouter = require('./routes/resourceRoutes');
 app.use('/resources', resourcesRouter);
 
 const participantRoutes = require('./routes/participantRoutes');
-app.use('/participantdetails', participantRoutes); // Register the route correctly
+app.use('/participantdetails', participantRoutes);
+
 
 
 // Define test routes
@@ -55,6 +62,8 @@ app.get('/users', (req, res) => {
     return res.json(data);
   });
 });
+
+
 
 // Start the server
 const PORT = process.env.PORT || 8081;
