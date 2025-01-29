@@ -1,23 +1,23 @@
 import React, { useState } from 'react';
-import './CreateEvent.css';
+import './CreateEventBtn.css';
 
-const CreateEvent = () => {
+const CreateEventBtn = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [newEvent, setNewEvent] = useState({ title: '', descrip: '', date: '', time: ''});
+  const [newEvent, setNewEvent] = useState({ title: '', descrip: '', date: '', time: '', requirements: [] });
 
   const handleEvent = () => {
     if (!newEvent.title) {
       alert('Please provide a title.');
       return;
     }
-    console.log('New Event:', newEvent); // Log the new resource
+    console.log('New Event:', newEvent);
     setIsPopupOpen(false);
-    setNewEvent({ title: '', descrip: '', date: '', time: '' });
+    setNewEvent({ title: '', descrip: '', date: '', time: '', requirements: [] });
   };
 
   return (
-    <>
-      <div className="center-button-container">
+    <div className="create-event-container">
+      <div>
         <button className="center-button" onClick={() => setIsPopupOpen(true)}>
           Create Event
         </button>
@@ -39,9 +39,7 @@ const CreateEvent = () => {
               <input
                 type="text"
                 value={newEvent.descrip}
-                onChange={(e) =>
-                  setNewEvent({ ...newEvent, descrip: e.target.value })
-                }
+                onChange={(e) => setNewEvent({ ...newEvent, descrip: e.target.value })}
               />
             </label>
             <label>
@@ -49,9 +47,7 @@ const CreateEvent = () => {
               <input
                 type="date"
                 value={newEvent.date}
-                onChange={(e) =>
-                  setNewEvent({ ...newEvent, date: e.target.value })
-                }
+                onChange={(e) => setNewEvent({ ...newEvent, date: e.target.value })}
               />
             </label>
             <label>
@@ -59,11 +55,19 @@ const CreateEvent = () => {
               <input
                 type="time"
                 value={newEvent.time}
-                onChange={(e) =>
-                  setNewEvent({ ...newEvent, time: e.target.value })
-                }
+                onChange={(e) => setNewEvent({ ...newEvent, time: e.target.value })}
               />
             </label>
+            <label>
+              Requirements:
+              {/* FIGURE THIS ONE OUT */}
+              <input
+                type="text"
+                value={newEvent.requirements}
+                onChange={(e) => setNewEvent({ ...newEvent, requirements: e.target.value })}
+              />
+            </label>
+
             <div className="popup-buttons">
               <button onClick={handleEvent}>Create Event</button>
               <button onClick={() => setIsPopupOpen(false)}>Cancel</button>
@@ -71,8 +75,8 @@ const CreateEvent = () => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
-export default CreateEvent;
+export default CreateEventBtn;

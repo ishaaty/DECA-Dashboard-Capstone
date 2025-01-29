@@ -2,13 +2,14 @@
     color: white;
     border-radius: 20px;
     width: 250px;
-    height: 250px;
+    height: 300px;
+    cursor: pointer;
 }
 
 
 .competition-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 columns of equal width */
+    grid-template-columns: repeat(3, 1fr); /* 2 columns of equal width */
     grid-template-rows: repeat(2, auto);  /* 2 rows, height adjusts to content */
     gap: 75px; /* Space between the cards */
     justify-items: center; /* Center cards horizontally */
