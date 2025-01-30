@@ -12,8 +12,15 @@ export default function FundraiserApproval() {
         <>
             <Header />
             <Menu />
+            
             <h1 id="fundheader">Fundraiser Approval</h1>
+
             <div class="fundapprovals">
+            <a href="fundraisers">
+                <button style={{ backgroundColor: "#00529B", color:"white" }}>
+                    Exit
+                </button>
+                </a>
                 <ParticipantCard name="Isha Tyagi" email="ishtya25@bergen.org" grade="2025" events="Regional Roleplay" />
                 <ApprovalButtons />
                 <ParticipantCard name="Julia Thompson" email="jultho25@bergen.org" grade="2025" events="Regional Binder" />

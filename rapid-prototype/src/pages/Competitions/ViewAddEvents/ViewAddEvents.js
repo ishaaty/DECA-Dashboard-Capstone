@@ -12,6 +12,11 @@ export default function ViewAddEvents(props) {
                 <Header />
                 <Menu />
                 <div style={{ color: "#00529B", alignItems: "center" }} className="add-event-container">
+                <a href="competitions">
+                <button style={{ backgroundColor: "#00529B", color:"white" }}>
+                    Exit
+                </button>
+                </a>
                     <h1 style={{ color: "#00529B" }}>View & Add Events: Regionals</h1>
                     <a href="roommates">
                         <button style={{ backgroundColor: "#00529B", color:"white" }}>

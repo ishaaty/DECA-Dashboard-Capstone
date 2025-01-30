@@ -11,7 +11,11 @@ export default function ViewRequesters() {
                 <Menu />
 
                 <h1 className="header-text">View Requesters: Regionals (Roleplays)</h1>
-
+                <a href="viewaddevents">
+                <button style={{ backgroundColor: "#00529B", color:"white" }}>
+                    Exit
+                </button>
+                </a>
                 <div class="hori">
 
                     <div>
