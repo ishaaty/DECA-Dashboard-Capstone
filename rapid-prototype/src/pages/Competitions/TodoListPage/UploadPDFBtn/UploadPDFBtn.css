@@ -1,0 +1,20 @@
+button.edit-event-dets-btn {
+    background-color: #6786A3;
+    color: white;
+    border-radius: 5px;
+    padding: 8px 16px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.upload-pdf-btn {
+    background-color: #F5585E;
+    color: white;
+    text-decoration: none;
+    padding: 10px 32px;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}

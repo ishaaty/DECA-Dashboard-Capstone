@@ -1,0 +1,18 @@
+.fund-container {
+    display: flex;
+    gap: 30px; /* Reduce this value to bring the columns closer */
+    justify-content: center; /* Center them on the page */
+    align-items: flex-start;
+}
+
+.fundapprovals {
+    flex: 1;
+    max-width: 200px; /* Reduce max width if needed */
+}
+
+.fund-container {
+    display: flex;
+    gap: 30px; /* Reduce this value to bring the columns closer */
+    justify-content: center; /* Center them on the page */
+    align-items: flex-start;
+}

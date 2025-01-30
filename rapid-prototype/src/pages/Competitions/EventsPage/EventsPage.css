@@ -1,0 +1,54 @@
+.events-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 28px;
+    justify-content: center;
+    margin-top: 16px;
+}
+
+.btns-h-align {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.add-event-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin: 20px;
+}
+
+.add-event-container .button-container {
+    display: flex;
+    flex-direction: row; /* Align items horizontally */
+    justify-content: center; /* Center items horizontally */
+    align-items: center; /* Center items vertically */
+    gap: 0px; /* Add spacing between the button and <CreateEvent /> */
+}
+
+.add-event-container button {
+    width: 200px;
+    padding: 10px;
+    background-color: #E3E8F1;
+    color: #6786A3;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-event-container h1 {
+    margin-bottom: 20px;
+}
+
+#submit-btn {
+    background-color: #00529B;
+    color: white;
+}
+
+#roleplay, #binder {
+    width: 250px;
+}
