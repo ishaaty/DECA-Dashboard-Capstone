@@ -18,7 +18,7 @@ export default function FundraiserApproval() {
             <div class="fundapprovals">
             <a href="fundraisers">
                 <button style={{ backgroundColor: "#00529B", color:"white" }}>
-                    Exit
+                    Back
                 </button>
                 </a>
                 <ParticipantCard name="Isha Tyagi" email="ishtya25@bergen.org" grade="2025" events="Regional Roleplay" />
