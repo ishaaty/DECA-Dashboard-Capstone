@@ -52,3 +52,18 @@
 #roleplay, #binder {
     width: 250px;
 }
+
+#main {
+    width: 950px;
+    /* border: 1px dotted black; */
+    display: flex;
+    align-items: center;
+  }
+  
+h1 {
+    margin: 0;
+}
+  
+button {
+    margin-left: auto;
+}
