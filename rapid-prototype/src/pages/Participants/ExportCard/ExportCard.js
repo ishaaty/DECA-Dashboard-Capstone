@@ -18,6 +18,9 @@ export default function ExportCard() {
                     <button id="png">png</button>
                 </div>
             </div>
+            <a href="/unapprovedparticipants">
+                <h4>View Unapproved Users</h4>
+            </a>
         </>
     )
 }

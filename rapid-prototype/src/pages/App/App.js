@@ -15,6 +15,7 @@ import Competitions from "../Competitions/Competitions"
 import Fundraisers from "../Fundraisers/Fundraisers"
 import Participants from "../Participants/Participants"
 import ParticipantDetails from "../Participants/ParticipantDetails"
+import UnapprovedParticipants from "../Participants/UnapprovedParticipants"
 import Resources from "../Resources/Resources"
 import FundraiserApproval from "../Fundraisers/FundraiserApproval/FundraiserApproval"
 import EventsPage from '../Competitions/EventsPage/EventsPage';
@@ -24,7 +25,7 @@ import TodoListPage from '../Competitions/TodoListPage/TodoListPage';
 
 export default function App() {
 
-  const userType = "participant";
+  const userType = "admin";
   const userFirst = "Isha";
   const userLast = "Tyagi";
   const userEmail = "ishtya25@bergen.org";
@@ -57,6 +58,7 @@ export default function App() {
 
           <Route path="/participants" element={<Participants userRole={userType}/>}/>
           <Route path="/participantdetails" element={<ParticipantDetails userRole={userType} userFirst={userFirst} userLast={userLast} userEmail={userEmail} userClass={userClass}/>}/>
+          <Route path="/unapprovedparticipants" element={<UnapprovedParticipants userRole={userType}/>}/>
 
           <Route path="/resources" element={<Resources userRole={userType} />}/>
 
