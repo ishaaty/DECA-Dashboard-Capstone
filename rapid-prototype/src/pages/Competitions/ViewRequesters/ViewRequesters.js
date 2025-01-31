@@ -12,7 +12,7 @@ export default function FundraiserApproval() {
         <>
             <Header />
             <Menu />
-            <h1 id="fundheader">Fundraiser Approval</h1>
+            <h1 className="comp" style={{marginBottom: "20px"}}>Event Approval</h1>
             <div style={{ display: "flex", gap: "0px" }}>
                 <div className="fundapprovals">
                     <h1>Requesters</h1>

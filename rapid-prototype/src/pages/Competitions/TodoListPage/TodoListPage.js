@@ -15,9 +15,11 @@ export default function TodoListPage(props) {
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", marginTop: "50px", gap: "20px" }}>
     
                     <h1 className="header-text">Julia Thompson: Binder Event</h1>
+                    
     
                     <button style={{ backgroundColor: "#E3E8F1", borderRadius: "20px", padding: "30px"}}>
                         <h1>To Do List</h1>
+                        
 
                         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                             <select id="status" name="status">
@@ -53,8 +55,13 @@ export default function TodoListPage(props) {
                 <Menu />
     
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", marginTop: "50px", gap: "20px" }}>
-    
+
                     <h1 className="header-text">Binder Event</h1>
+                    <a href="events">
+                    <button style={{ backgroundColor: "#00529B", color:"white" }}>
+                        Back
+                    </button>
+                    </a>
     
                     <button style={{ backgroundColor: "#E3E8F1", borderRadius: "20px", padding: "30px", width: "400px" }}>
                         <h1>To Do List</h1>
