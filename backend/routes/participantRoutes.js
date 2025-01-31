@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { User, Event } = require('../models');
+const {Op} = require('sequelize')
 
 // Route to fetch users by position
 router.get('/displayusers', async (req, res) => {
@@ -15,6 +16,28 @@ router.get('/displayusers', async (req, res) => {
 
     if (!users || users.length === 0) {
       return res.status(404).json({ message: 'No users found for the given position.' });
+    }
+
+    res.json(users);
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    res.status(500).json({ error: 'Failed to fetch users.' });
+  }
+});
+
+// Route to fetch users with no role
+router.get('/displayunapprovedusers', async (req, res) => {
+  const { position } = req.query;
+
+  try {
+    // Fetch users with the specified position
+    console.log(User.getTableName());
+    const users = await User.findAll({
+      where: {position: { [Op.is]: null }}
+    });
+
+    if (!users || users.length === 0) {
+      return res.status(404).json({ message: 'No users found without a position.' });
     }
 
     res.json(users);
