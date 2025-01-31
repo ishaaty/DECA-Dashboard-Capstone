@@ -46,11 +46,12 @@ export default function EventsPage(props) {
                
                 <div id="main">
                 <a href="competitions">
-                <button>
-                    Back
-                </button>
+                    <button id="ahh">
+                    <img src="blue.png"></img>
+                    </button>
                 </a>
                 </div>
+
                     <h1 style={{ color: "#00529B" }}>Regionals</h1>
 
 

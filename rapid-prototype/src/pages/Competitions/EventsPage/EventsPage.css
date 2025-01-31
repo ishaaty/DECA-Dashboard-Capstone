@@ -54,7 +54,8 @@
 }
 
 #main {
-    width: 950px;
+    width: 60vw;
+    height: 1vh;
     /* border: 1px dotted black; */
     display: flex;
     align-items: center;
@@ -64,6 +65,14 @@ h1 {
     margin: 0;
 }
   
-button {
-    margin-left: auto;
+#ahh {
+    width: 1vw;
+    height: 1vh;
+    background-color: transparent;
+}
+
+img {
+    width: 3vw;
+    height: 6vh;
+    /* background-color: black; */
 }
