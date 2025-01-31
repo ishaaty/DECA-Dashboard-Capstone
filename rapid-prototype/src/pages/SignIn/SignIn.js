@@ -11,12 +11,14 @@ export default function SignIn() {
         <div>
     </div>
             <Header />
-            <div>
-                <img src="decaLogo.png" alt="decaLogoNotWorking"></img>
+            <div style={{ marginTop: "100px", marginBottom: "75px" }}>
+                <img src="decaLogo.png" alt="DECA Logo Not Working" />
             </div>
+
+
             <div class="button-container">
-                <a href="/login" id="signupbtn"><strong>Login</strong></a>
-                <a href="/logout" id="loginbtn"><strong>Logout</strong></a>
+                <a href="home" id="signupbtn"><strong>Admin</strong></a>
+                <a href="home" id="loginbtn"><strong>Participant</strong></a>
             </div>
         </>
     )

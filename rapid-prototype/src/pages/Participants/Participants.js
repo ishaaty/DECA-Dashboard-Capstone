@@ -73,7 +73,8 @@ export default function Participants(props) {
     return boardMembers.map((boardMember) => (
       <AdminCard
         key={boardMember.user_id}
-        name={`${boardMember.first_name} ${boardMember.last_name}`}
+        firstName={boardMember.first_name}
+        lastName={boardMember.last_name}
         email={boardMember.email}
       />
     ));
@@ -87,8 +88,10 @@ export default function Participants(props) {
     return admins.map((admin) => (
       <AdminCard
         key={admin.user_id}
-        name={`${admin.first_name} ${admin.last_name}`}
+        firstName={admin.first_name}
+        lastName={admin.last_name}
         email={admin.email}
+        role="admin"
       />
     ));
   };
