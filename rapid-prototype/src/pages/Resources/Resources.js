@@ -28,7 +28,7 @@ const ResourcesPage = (props) => {
     <div className="resources-page">
       <Header />
       <Menu />
-      <h1>Resources</h1>
+      <h1 className="comp">Resources</h1>
       <Resources resources={resources} setResources={setResources} userRole={props.userRole} />
     </div>
   );
