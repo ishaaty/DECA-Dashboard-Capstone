@@ -48,12 +48,12 @@
   color: white;
 }
 
-.center-button-container {
+/* .center-button-container {
   display: flex;
   justify-content: center;
   margin-left: 43vh;
-  margin-top: 20px; /* Ensures spacing between the resources and button */
-}
+  margin-top: 20px;
+} */
 
 .center-button {
   background-color: #F5585E;
