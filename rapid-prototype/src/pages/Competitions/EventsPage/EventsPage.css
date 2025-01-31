@@ -56,7 +56,6 @@
 #main {
     width: 60vw;
     height: 1vh;
-    /* border: 1px dotted black; */
     display: flex;
     align-items: center;
   }
@@ -74,5 +73,4 @@ h1 {
 img {
     width: 3vw;
     height: 6vh;
-    /* background-color: black; */
 }

@@ -27,3 +27,26 @@
     text-align: center; /* Centers text */
     gap: 20px; /* Adds spacing between elements */
 }
+
+#placement {
+    width: 6vw;
+    height: 1vh;
+    background-color: transparent;
+    border: transparent;
+}
+/*
+img {
+    width: 3vw;
+    height: 6vh;
+}
+
+#main {
+    width: 50vw;
+    height: 15vh;
+    display: flex;
+    align-items: center;
+  }
+
+h1 {
+    margin: 0;
+} */

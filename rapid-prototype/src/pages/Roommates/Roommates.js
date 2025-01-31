@@ -13,11 +13,13 @@ export default function Roommates(props) {
                 
                 
                 <div class="cnterr-container">
+                <div id="main">
                 <a href="events">
-                <button style={{ backgroundColor: "#00529B", color:"white" }}>
-                    Back
-                </button>
+                    <button id="placement">
+                    <img src="blue.png"></img>
+                    </button>
                 </a>
+                </div>
 
                     <h1 style={{ color: "#00529B" }}>Roommates: Regionals</h1>
 
