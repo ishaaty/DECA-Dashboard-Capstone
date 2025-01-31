@@ -1,0 +1,19 @@
+.toapprove {
+    margin-left: 25vw;
+}
+
+.approvals {
+    padding-left: 25vw;
+}
+
+.approvepartcont {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    width: 35vw;
+    margin-bottom: 2vw;
+    margin-top: 1vw;
+}
+
+.userselection {
+    font-size: 1.5em;
+}
