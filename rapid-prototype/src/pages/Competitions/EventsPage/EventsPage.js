@@ -43,12 +43,17 @@ export default function EventsPage(props) {
                 <Header />
                 <Menu />
                 <div style={{ color: "#00529B", alignItems: "center" }} className="add-event-container">
+               
+                <div id="main">
                 <a href="competitions">
-                <button style={{ backgroundColor: "#00529B", color:"white" }}>
+                <button>
                     Back
                 </button>
                 </a>
+                </div>
                     <h1 style={{ color: "#00529B" }}>Regionals</h1>
+
+
                     <a href="roommates">
                         <button style={{ backgroundColor: "#00529B", color:"white", fontSize: "18px" }}>
                             View Roommates
