@@ -119,5 +119,48 @@ router.get('/events', async (req, res) => {
   }
 });
 
+
+
+// Route to update user role
+router.put("/updateusers", async (req, res) => {
+  const { userIds, position } = req.body;
+  
+  if (!Array.isArray(userIds) || userIds.length === 0) {
+    return res.status(400).json({ error: "No users selected." });
+  }
+
+  try {
+    await User.update(
+      { position: position }, 
+      { where: { user_id: userIds } }
+    );
+    res.json({ message: "Users updated successfully" });
+  } catch (error) {
+    console.error("Error updating users:", error);
+    res.status(500).json({ error: "Failed to update users." });
+  }
+});
+
+
+
+router.delete("/deleteusers", async (req, res) => {
+  const { userIds } = req.body; // Expecting an array of user IDs
+
+  if (!Array.isArray(userIds) || userIds.length === 0) {
+    return res.status(400).json({ error: "Invalid user selection" });
+  }
+
+  try {
+    await User.destroy({ where: { user_id: userIds } });
+    res.status(200).json({ message: "Users deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting users:", error);
+    res.status(500).json({ error: "Failed to delete users" });
+  }
+});
+
+
+
+
 // Export the router
 module.exports = router;

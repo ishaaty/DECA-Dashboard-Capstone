@@ -44,6 +44,10 @@
     color: #00529B;
 }
 
+#viewunapproved {
+    color: white;
+}
+
 #switchlabel {
     padding-right: 10%;
     color: white;
