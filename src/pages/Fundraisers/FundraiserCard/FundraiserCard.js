@@ -111,7 +111,7 @@ const Fundraisers = ({ fundraisers, userRole }) => {
                   />
                 </label>
                 <label>
-                  description:
+                  Description:
                   <input
                     type="description"
                     value={newFundraiser.description}
@@ -121,7 +121,7 @@ const Fundraisers = ({ fundraisers, userRole }) => {
                   />
                 </label>
                 <label>
-                  date:
+                  Date:
                   <input
                     type="date"
                     value={newFundraiser.date}
