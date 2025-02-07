@@ -5,15 +5,15 @@ const ViewEventBtn = (props) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [newEvent, setNewEvent] = useState({ title: '', descrip: '', date: '', time: '', requirements: [] });
 
-  const handleEvent = () => {
-    if (!newEvent.title) {
-      alert('Please provide a title.');
-      return;
-    }
-    console.log('New Event:', newEvent);
-    setIsPopupOpen(false);
-    setNewEvent({ title: '', descrip: '', date: '', time: '', requirements: [] });
-  };
+  // const handleEvent = () => {
+  //   if (!newEvent.title) {
+  //     alert('Please provide a title.');
+  //     return;
+  //   }
+  //   console.log('New Event:', newEvent);
+  //   setIsPopupOpen(false);
+  //   setNewEvent({ title: '', descrip: '', date: '', time: '', requirements: [] });
+  // };
 
   return (
     <div className="create-event-container">
@@ -48,5 +48,4 @@ const ViewEventBtn = (props) => {
     </div>
   );
 };
-
 export default ViewEventBtn;
