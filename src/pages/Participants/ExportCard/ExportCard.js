@@ -17,10 +17,10 @@ export default function ExportCard() {
                     <button id="jpeg">jpeg</button>
                     <button id="png">png</button>
                 </div>
-            </div>
-            <a href="/unapprovedparticipants">
+                <a id="viewunapproved" href="/unapprovedparticipants">
                 <h4>View Unapproved Users</h4>
             </a>
+            </div>
         </>
     )
 }

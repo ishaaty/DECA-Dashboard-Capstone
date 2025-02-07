@@ -1,43 +1,37 @@
 import './Fundraisers.css';
-import Header from '../../components/Header/Header'
-import Menu from '../../components/Menu/Menu'
-import FundraiserCard from './/FundraiserCard/FundraiserCard'
+import Header from '../../components/Header/Header';
+import Menu from '../../components/Menu/Menu';
+import Fundraisers from './FundraiserCard/FundraiserCard';
 
-export default function Fundraisers(props) {
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
-    const renderAdminContent = (userRole) => {
-        if (userRole === 'admin') {
-            return (
-                <>
-                    <div class="createfund">
-                        <h2 id="createhead">Add Event</h2>
-                        <div class="fundentries">
-                            <input type="text" id="newfundname" placeholder="Add Name..."></input>
-                            <input type="text" id="newfunddesc" placeholder="Add Description...">
-                            </input><input type="text" id="newfunddate" placeholder="Add Date..."></input>
-                            <input type="text" id="newfundtime" placeholder="Add Time..."></input>
-                            <div class="fundsubmit">
-                                <button id="fundsubmit">Submit</button>
-                            </div>
-                        </div>
-                    </div>
-                </>
-            );
-        }
-        return null; // Return nothing if not admin
+const FundraisersPage = (props) => {
+  // const userRole = 'admin'; // Set to 'admin' or any other role for testing
+  const [fundraisers, setFundraisers] = useState([]);
+
+  // Fetch fundraiser from axios
+  useEffect(() => {
+    const fetchFundraisers = async () => {
+      try {
+        const response = await axios.get('http://localhost:8081/fundraisers/display');
+        fetchFundraisers(response.data);
+      } catch (error) {
+        console.error('Error fetching fundraisers:', error);
+      }
     };
 
-    return (
-        <>
-            <Header />
-            <Menu />
-            <h1 id="fundheader">Fundraisers</h1>
-            <div class="funds">
-                <FundraiserCard userRole = {props.userRole} name="Back to School Night" desc="Students will run a table at Back to School Night selling BCA merch." date="September 20, 2025" time="6:00pm to 8:00pm" backgroundColor="#F5585E" />
-                <FundraiserCard userRole = {props.userRole} name="Induction Ceremnoy" desc="While parents are entering the building, students will run a table with refreshments." date="September 20, 2025" time="6:00pm to 8:00pm" backgroundColor="#FFC511" />
-                <FundraiserCard userRole = {props.userRole} name="Bake Sale" desc="There will be a table by the lower lot with food to sell as students leave the building." date="October 5, 2025" time="3:30pm to 4:30pm" backgroundColor="#00984D" />
-            </div>
-            {renderAdminContent(props.userRole)}
-        </>
-    )
-}
+    fetchFundraisers();
+  }, []);
+
+  return (
+    <div className="fundraisers-page">
+      <Header />
+      <Menu />
+      <h1>Fundraisers</h1>
+      <Fundraisers fundraisers={fundraisers} setFundraisers={setFundraisers} userRole={props.userRole} />
+    </div>
+  );
+};
+
+export default FundraisersPage;

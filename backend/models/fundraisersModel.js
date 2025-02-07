@@ -8,11 +8,7 @@ module.exports = (sequelize) => {
       allowNull: false,
       autoIncrement: true
     },
-    location: {
-      type: DataTypes.STRING(45),
-      allowNull: true
-    },
-    fund_date: {
+    date: {
       type: DataTypes.DATE,
       allowNull: true
     },
