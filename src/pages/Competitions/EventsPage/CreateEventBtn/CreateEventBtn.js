@@ -3,7 +3,7 @@ import './CreateEventBtn.css';
 
 const CreateEventBtn = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [newEvent, setNewEvent] = useState({ title: '', descrip: '', date: '', time: '', requirements: [] });
+  const [newEvent, setNewEvent] = useState({ title: '', descrip: '', location: '', date: '', time: '', requirements: [] });
 
   const handleEvent = () => {
     if (!newEvent.title) {
@@ -12,7 +12,7 @@ const CreateEventBtn = () => {
     }
     console.log('New Event:', newEvent);
     setIsPopupOpen(false);
-    setNewEvent({ title: '', descrip: '', date: '', time: '', requirements: [] });
+    setNewEvent({ title: '', descrip: '', location: '', date: '', time: '', requirements: [] });
   };
 
   return (
@@ -40,6 +40,14 @@ const CreateEventBtn = () => {
                 type="text"
                 value={newEvent.descrip}
                 onChange={(e) => setNewEvent({ ...newEvent, descrip: e.target.value })}
+              />
+            </label>
+            <label>
+              Location:
+              <input
+                type="text"
+                value={newEvent.location}
+                onChange={(e) => setNewEvent({ ...newEvent, location: e.target.value })}
               />
             </label>
             <label>

@@ -4,7 +4,7 @@ import Menu from '../../../components/Menu/Menu'
 import ParticipantCard from '../../../components/ParticipantCard/ParticipantCard';
 import ApprovalButtons from '../../../components/ApprovalButtons/ApprovalButtons';
 
-export default function FundraiserApproval() {
+export default function ViewRequesters() {
 
     // let userRole = "admin" || false;
 
