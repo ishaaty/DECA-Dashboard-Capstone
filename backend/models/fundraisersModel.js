@@ -8,17 +8,21 @@ module.exports = (sequelize) => {
       allowNull: false,
       autoIncrement: true
     },
-    date: {
+    fund_location: {
+      type: DataTypes.STRING(45),
+      allowNull: false
+    },
+    fund_date: {
       type: DataTypes.DATE,
-      allowNull: true
+      allowNull: false
     },
-    description: {
+    fund_description: {
       type: DataTypes.STRING(45),
-      allowNull: true
+      allowNull: false
     },
-    title: {
-      type: DataTypes.STRING(45),
-      allowNull: true
+    fund_name: {
+      type: DataTypes.STRING(45), 
+      allowNull: false
     }
   }, {
     tableName: 'fundraiser',
