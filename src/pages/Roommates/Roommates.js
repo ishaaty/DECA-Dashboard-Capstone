@@ -16,7 +16,7 @@ export default function Roommates(props) {
                 <div id="main">
                 <a href="events">
                     <button id="placement">
-                    <img src="blue.png"></img>
+                    <img src="blue.png" alt=""></img>
                     </button>
                 </a>
                 </div>
