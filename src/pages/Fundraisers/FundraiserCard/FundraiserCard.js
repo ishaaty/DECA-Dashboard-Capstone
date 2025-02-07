@@ -4,12 +4,13 @@ import './FundraiserCard.css';
 import axios from '../../../services/axiosConfig';
 
 // Single Fundraiser Component
-const Fundraiser = ({ title, description, date, userRole, onDelete }) => {
+const Fundraiser = ({ fund_name, fund_location, fund_date, fund_description, userRole, onDelete }) => {
   return (
     <div className="fundraiser-box">
-      <p className="fundraiser-title">{title}</p>
-      <p className="fundraiser-descrip">{description}</p>
-      <p className="fundraiser-date">{date}</p>
+      <p className="fund-name">{fund_name}</p>
+      <p className="fund-description">{fund_description}</p>
+      <p className="fund-date">{fund_date}</p>
+      <p className="fund-location">{fund_location}</p>
       {userRole === 'admin' && (
         <button className="fundraiser-button" onClick={onDelete}>
           Delete
@@ -29,20 +30,21 @@ const Fundraisers = ({ fundraisers, userRole }) => {
   }, [fundraisers]);
 
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [newFundraiser, setNewFundraiser] = useState({ title: '', description: '', date: '' });
+  const [newFundraiser, setNewFundraiser] = useState({ fund_name: '', fund_description: '', fund_date: '', fund_location: '' });
 
 
   const handleAddFundraiser = async () => {
-    if (!newFundraiser.title || !newFundraiser.description || !newFundraiser.date) {
-      alert('Please provide a title, description, and date.');
+    if (!newFundraiser.fund_name || !newFundraiser.fund_description || !newFundraiser.fund_date || !newFundraiser.fund_location) {
+      alert('Please provide a title, description, location, and date.');
       return;
     }
   
     try {
       const FundraiserData = {
-        name: newFundraiser.title,
-        description: newFundraiser.description,
-        date: newFundraiser.date,
+        fund_name: newFundraiser.fund_name,
+        fund_description: newFundraiser.fund_description,
+        fund_date: newFundraiser.fund_date,
+        fund_location: newFundraiser.fund_location
       };
   
       console.log('Sending payload:', FundraiserData); // Log the payload
@@ -52,7 +54,7 @@ const Fundraisers = ({ fundraisers, userRole }) => {
       console.log('Fundraiser added:', response.data);
       setFundraiserList([...fundraiserList, response.data]);
       setIsPopupOpen(false);
-      setNewFundraiser({ title: '', description: '', date: ''});
+      setNewFundraiser({ fund_name: '', fund_description: '', fund_date: '', fund_location: ''});
     } catch (error) {
       if (error.response) {
         console.error('Error adding fundraiser:', error.response.data);
@@ -69,7 +71,7 @@ const Fundraisers = ({ fundraisers, userRole }) => {
     try {
       // send the id of the fundraiser to delete to the backend
       await axios.delete(`http://localhost:8081/fundraisers/delete/${id}`);
-      setFundraiserList(fundraiserList.filter((fundraiser) => fundraiser.fundraiser_id !== id)); // Update local state
+      setFundraiserList(fundraiserList.filter((fundraiser) => fundraisers.fundraiser_id !== id)); // Update local state
     } catch (error) {
       console.error('Error deleting fundraiser:', error);
       alert('Failed to delete fundraiser.');
@@ -80,14 +82,15 @@ const Fundraisers = ({ fundraisers, userRole }) => {
   return (
     <>
       <div className="fundraisers-container">
-        {fundraiserList.map((fundraiser, index) => (
+        {fundraiserList.map((fundraisers, index) => (
           <Fundraiser
-            key={fundraiser.fundraiser_id}
-            title={fundraiser.fundraiser_name || fundraiser.title}
-            description={fundraiser.fundraiser_description || fundraiser.description}
-            date={fundraiser.fundraiser_date || fundraiser.date}
+            key={fundraisers.fundraiser_id}
+            fund_name={fundraisers.fund_name}
+            fund_description={fundraisers.fundr_description}
+            fund_date={fundraisers.fund_date}
+            fund_location={fundraisers.fund_location}
             userRole={userRole}
-            onDelete={() => handleDeleteFundraiser(fundraiser.fundraiser_id)}
+            onDelete={() => handleDeleteFundraiser(fundraisers.fundraiser_id)}
           />
         ))}
       </div>
@@ -105,30 +108,40 @@ const Fundraisers = ({ fundraisers, userRole }) => {
                 <label>
                   Name:
                   <input
-                    type="title"
+                    type="fund_name"
                     value={newFundraiser.title}
-                    onChange={(e) => setNewFundraiser({ ...newFundraiser, title: e.target.value })}
+                    onChange={(e) => setNewFundraiser({ ...newFundraiser, fund_name: e.target.value })}
                   />
                 </label>
                 <label>
                   Description:
                   <input
-                    type="description"
-                    value={newFundraiser.description}
+                    type="fund_description"
+                    value={newFundraiser.fund_description}
                     onChange={(e) =>
-                      setNewFundraiser({ ...newFundraiser, description: e.target.value })
+                      setNewFundraiser({ ...newFundraiser, fund_description: e.target.value })
                     }
                   />
                 </label>
                 <label>
                   Date:
                   <input
-                    type="date"
-                    value={newFundraiser.date}
+                    type="fund_date"
+                    value={newFundraiser.fund_date}
                     onChange={(e) =>
-                      setNewFundraiser({ ...newFundraiser, date: e.target.value })
+                      setNewFundraiser({ ...newFundraiser, fund_date: e.target.value })
                     }
                   />
+                </label>
+                <label>
+                  Location: 
+                  <input
+                  type="fund_location"
+                  value={newFundraiser.fund_location}
+                  onChange={(e) =>
+                  setNewFundraiser({ ...newFundraiser, fund_location: e.target.value})
+                }
+                />
                 </label>
                 <div className="popup-buttons">
                   <button onClick={handleAddFundraiser}>Add Fundraiser</button>
