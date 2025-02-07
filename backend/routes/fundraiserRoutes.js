@@ -6,7 +6,7 @@ const Fundraisers = require('../models/fundraisersModel')(sequelize);
 // Display fundraisers when the fundraisers page is opened
 router.get('/display', async (req, res) => {
     try {
-        const fundraisers = await Fundrasiers.findAll(); // retrieve the existing fundraisers
+        const fundraisers = await Fundraisers.findAll(); // retrieve the existing fundraisers
         res.json(fundraisers);
     } catch (error) {
         console.error('Error fetching fundraisers:', error);
