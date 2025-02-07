@@ -12,6 +12,9 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING(45),
       allowNull: false,
     },
+    comp_descrip: {
+      type: DataTypes.STRING(45),
+    },
     comp_location: {
       type: DataTypes.STRING(45),
     },

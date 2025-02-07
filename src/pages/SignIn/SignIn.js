@@ -11,7 +11,7 @@ export default function SignIn() {
         <div>
     </div>
             <Header />
-            <div style={{ marginTop: "100px", marginBottom: "75px" }}>
+            <div className="mainPg" style={{ marginTop: "100px", marginBottom: "75px" }}>
                 <img src="decaLogo.png" alt="DECA Logo Not Working" />
             </div>
 

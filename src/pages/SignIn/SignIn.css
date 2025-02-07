@@ -33,8 +33,14 @@
 /* Image styling */
 img {
     height: 300px;
+    width: 300px;
     display: block;
     margin: 0 auto;
+}
+
+.mainPg {
+    height: 300px !important;
+    width: 300px !important;
 }
 
 /* Button container */

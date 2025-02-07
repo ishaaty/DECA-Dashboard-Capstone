@@ -20,7 +20,7 @@ const ResourcesPage = (props) => {
         console.error('Error fetching resources:', error);
       }
     };
-
+    
     fetchResources();
   }, []);
 
