@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 
 // pre sign-in & general pages
-import Welcome from "../Welcome/Welcome"
+// import Welcome from "../Welcome/Welcome"
 import About from "../About/About"
 import Contact from "../Contact/Contact"
 import User from "../User/User"

@@ -7,18 +7,18 @@ import api from '../../services/axiosConfig';
 import AddGCalEvent from './AddGCalEvent/AddGCalEvent';
 import AddAnnounce from './AddAnnounce/AddAnnounce';
 
-const createUser = async () => {
-  try {
-    const response = await api.post('/users/create', {
-      username: 'exampleUser',
-      email: 'user@example.com',
-      password: 'securepassword',
-    });
-    console.log('User created:', response.data);
-  } catch (error) {
-    console.error('Error creating user:', error.response?.data || error.message);
-  }
-};
+// const createUser = async () => {
+//   try {
+//     const response = await api.post('/users/create', {
+//       username: 'exampleUser',
+//       email: 'user@example.com',
+//       password: 'securepassword',
+//     });
+//     console.log('User created:', response.data);
+//   } catch (error) {
+//     console.error('Error creating user:', error.response?.data || error.message);
+//   }
+// };
 
 function renderAdminContent(userRole){
     if (userRole === "admin"){
@@ -49,6 +49,7 @@ export default function Home(props) {
                         height="400vh" 
                         frameBorder="0" 
                         scrolling="no"
+                        title=''
                     ></iframe>
 
                     {renderAdminContent(props.userRole)}
