@@ -7,6 +7,7 @@ import Menu from "../../components/Menu/Menu";
 export default function UnapprovedParticipants({ userRole }) {
   const [users, setUsers] = useState([]);
   const [selectedUsers, setSelectedUsers] = useState({});
+  const [selectedRole, setSelectedRole] = useState(""); // Stores the selected role
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -32,7 +33,11 @@ export default function UnapprovedParticipants({ userRole }) {
     }));
   };
 
-  const updateUserRole = async (newRole) => {
+  const handleRoleChange = (event) => {
+    setSelectedRole(event.target.value);
+  };
+
+  const updateUserRole = async () => {
     const selectedIds = Object.keys(selectedUsers).filter((id) => selectedUsers[id]);
 
     if (selectedIds.length === 0) {
@@ -40,49 +45,29 @@ export default function UnapprovedParticipants({ userRole }) {
       return;
     }
 
+    if (!selectedRole) {
+      alert("Please select a role.");
+      return;
+    }
+
     try {
       await axios.put("http://localhost:8081/participantdetails/updateusers", {
         userIds: selectedIds,
-        position: newRole,
+        position: selectedRole,
       });
 
+      // Update UI with new role
       setUsers((prevUsers) =>
         prevUsers.map((user) =>
-          selectedIds.includes(user.user_id.toString()) ? { ...user, position: newRole } : user
+          selectedIds.includes(user.user_id.toString()) ? { ...user, position: selectedRole } : user
         )
       );
+
       setSelectedUsers({});
+      alert("User roles updated successfully!");
     } catch (error) {
       console.error("Error updating users:", error);
       alert("Failed to update users.");
-    }
-  };
-
-  const deleteUsers = async () => {
-    const selectedIds = Object.keys(selectedUsers).filter((id) => selectedUsers[id]);
-
-    if (selectedIds.length === 0) {
-      alert("Please select at least one user to deny.");
-      return;
-    }
-
-    if (!window.confirm("Are you sure you want to delete the selected users?")) {
-      return;
-    }
-
-    try {
-      await axios.delete("http://localhost:8081/participantdetails/deleteusers", {
-        data: { userIds: selectedIds }, // Pass userIds in request body
-      });
-
-      // Remove deleted users from state
-      setUsers((prevUsers) =>
-        prevUsers.filter((user) => !selectedIds.includes(user.user_id.toString()))
-      );
-      setSelectedUsers({});
-    } catch (error) {
-      console.error("Error deleting users:", error);
-      alert("Failed to delete users.");
     }
   };
 
@@ -107,10 +92,18 @@ export default function UnapprovedParticipants({ userRole }) {
           </div>
         ))}
 
+        <div className="roleselection">
+          <label>Select Role: </label>
+          <select value={selectedRole} onChange={handleRoleChange}>
+            <option value="">--Select Role--</option>
+            <option value="Participant">Participant</option>
+            <option value="Board Member">Board Member</option>
+            <option value={null}>No Role</option>
+          </select>
+        </div>
+
         <div className="approvepartcont">
-          <button onClick={() => updateUserRole("Participant")}>Approve (Member)</button>
-          <button onClick={() => updateUserRole("Board Member")}>Approve (Board)</button>
-          <button onClick={deleteUsers}>Deny Request</button>
+          <button onClick={updateUserRole}>Update Role</button>
         </div>
       </div>
     </>
