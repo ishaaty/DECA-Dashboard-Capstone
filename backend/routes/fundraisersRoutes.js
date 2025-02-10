@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const sequelize = require('../config/db');
-const Fundraisers = require('../models/fundraiserModel')(sequelize);
+const Fundraisers = require('../models/fundraisersModel')(sequelize);
 
-// Display fundraisers when the fundraiser page is opened
+// Display fundraisers when the fundraisers page is opened
 router.get('/display', async (req, res) => {
     try {
         const fundraisers = await Fundraisers.findAll(); // retrieve the existing fundraisers
@@ -14,19 +14,20 @@ router.get('/display', async (req, res) => {
     }
 });
 
-// Add a new fundraiser to the database
+// Add a new fundraisers to the database
 router.post('/add', async (req, res) => {
-    const { fundraiser_name, description, date} = req.body;
+    const { fund_location, fund_date, fund_description, fund_name } = req.body;
 
-    if (!fundraiser_name || (!date && !description)) {
-        return res.status(400).json({ error: 'Fundraiser name, description, date are required.' });
+    if (!fund_name || (!fund_description && !fund_date && !fund_location)) {
+        return res.status(400).json({ error: 'Fundraiser name, description, location, and date are required.' });
     }
 
     try {
         const newFundraiser = await Fundraisers.create({
-            fundraiser_name,
-            description,
-            date,
+            fund_location,
+            fund_date,
+            fund_description,
+            fund_name,
         });
         res.status(201).json(newFundraiser); // Return the newly created fundraiser
     } catch (error) {

@@ -45,8 +45,14 @@ app.use('/user', userRoutes);
 const resourcesRouter = require('./routes/resourceRoutes');
 app.use('/resources', resourcesRouter);
 
+const eventsRouter = require('./routes/eventsRoute');
+app.use('/events', eventsRouter);
+
 const participantRoutes = require('./routes/participantRoutes');
 app.use('/participantdetails', participantRoutes);
+
+const fundraisersRoutes = require('./routes/fundraisersRoutes');
+app.use('/fundraisers', fundraisersRoutes);
 
 
 
@@ -62,7 +68,6 @@ app.get('/users', (req, res) => {
     return res.json(data);
   });
 });
-
 
 
 // Start the server

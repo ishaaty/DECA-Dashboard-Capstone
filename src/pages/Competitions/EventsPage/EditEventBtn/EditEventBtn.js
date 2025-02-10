@@ -3,7 +3,7 @@ import './EditEventBtn.css';
 
 const EditEventBtn = (props) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [newEvent, setNewEvent] = useState({ title: '', descrip: '', date: '', time: '', requirements: [] });
+  const [newEvent, setNewEvent] = useState({ title: '', descrip: '', location: '', date: '', time: '', requirements: [] });
 
   const handleEvent = () => {
     if (!newEvent.title) {
@@ -12,7 +12,7 @@ const EditEventBtn = (props) => {
     }
     console.log('New Event:', newEvent);
     setIsPopupOpen(false);
-    setNewEvent({ title: '', descrip: '', date: '', time: '', requirements: [] });
+    setNewEvent({ title: '', descrip: '', location: '', date: '', time: '', requirements: [] });
   };
 
   return (
@@ -40,6 +40,14 @@ const EditEventBtn = (props) => {
                 type="text"
                 value={props.descrip}
                 onChange={(e) => setNewEvent({ ...newEvent, descrip: e.target.value })}
+              />
+            </label>
+            <label>
+              Location:
+              <input
+                type="text"
+                value={props.location}
+                onChange={(e) => setNewEvent({ ...newEvent, location: e.target.value })}
               />
             </label>
             <label>
