@@ -113,8 +113,6 @@ export default function EventsPage(props) {
                                     // onDelete={() => handleDeleteEvent(event.event_id)}
                                 />
                             ))}
-                            <EventCard acquired={false} title={"Roleplay"} descrip={"Roleplaya"} date={"2024-02-29"} />
-                            <EventCard acquired={false} title={"Skit"} descrip={"This is a skit, same thing as a play"} date={"2025-02-14"} />
                         </div>
                     </div>
                     <div >
