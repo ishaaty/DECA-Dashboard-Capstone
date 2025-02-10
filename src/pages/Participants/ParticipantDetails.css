@@ -1,5 +1,6 @@
 #detailname {
     color: #F5585E;
+    padding-top: 8vh;
 }
 
 #detailemail {
@@ -8,6 +9,10 @@
 
 #detailclass {
     color: #00984D;
+}
+
+#detailname, #detailemail, #detailclass {
+    margin-top: 1vh;
 }
 
 .partdetailcontainer {
@@ -20,13 +25,35 @@
 .partevents {
     background-color: #E3E8F1;
     padding: 5px;
-    margin-top: 3vh;
+    margin-top: 1vh;
     margin-bottom: 3vh;
-    border-radius: 4px;
+    padding-left: 1vw;
+    border-radius: 10px;
     width: 20vw;
     /* height: 15vh; */
 }
 
 #parteventhead {
     margin-top: 0px;
+}
+
+#pickrole {
+    font-family: "Lexend Deca";
+    font-weight: bold;
+}
+
+#updatebtn {
+    background-color: #00984D;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    margin-left: 1vw;
+}
+
+.roleselect {
+    margin-left: 1vw;
+    font-family: "Lexend Deca";
 }
