@@ -1,10 +1,28 @@
 import './EventsPage.css';
-import Header from '../../../components/Header/Header'
-import Menu from '../../../components/Menu/Menu'
-import CreateEventBtn from './CreateEventBtn/CreateEventBtn'
-import EventCard from './EventCard/EventCard'
+import Header from '../../../components/Header/Header';
+import Menu from '../../../components/Menu/Menu';
+import CreateEventBtn from './CreateEventBtn/CreateEventBtn';
+import EventCard from './EventCard/EventCard';
+
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 export default function EventsPage(props) {
+
+    const [events, setEvents] = useState([]);
+
+    // Fetch resources from axios
+    useEffect(() => {
+        const fetchEvents = async () => {
+        try {
+            const response = await axios.get('http://localhost:8081/event/display');
+            setEvents(response.data);
+        } catch (error) {
+            console.error('Error fetching events:', error);
+        }
+        };
+        fetchEvents();
+    }, []);
 
     if (props.userRole === "admin"){
         return (
