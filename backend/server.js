@@ -48,6 +48,9 @@ app.use('/resources', resourcesRouter);
 const participantRoutes = require('./routes/participantRoutes');
 app.use('/participantdetails', participantRoutes);
 
+const fundraisersRouter = require('./routes/fundraiserRoutes');
+app.use('/fundraisers', fundraisersRouter);
+
 
 
 // Define test routes
