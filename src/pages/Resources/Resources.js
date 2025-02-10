@@ -1,7 +1,7 @@
 import './Resources.css';
 import Header from '../../components/Header/Header';
 import Menu from '../../components/Menu/Menu';
-import Resources from './ResourceCard/ResourceCard';
+import ResourceCards from './ResourceCard/ResourceCard';
 
 import { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -29,7 +29,7 @@ const ResourcesPage = (props) => {
       <Header />
       <Menu />
       <h1 className="comp">Resources</h1>
-      <Resources resources={resources} setResources={setResources} userRole={props.userRole} />
+      <ResourceCards resources={resources} setResources={setResources} userRole={props.userRole} />
     </div>
   );
 };

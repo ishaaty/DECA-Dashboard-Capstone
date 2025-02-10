@@ -24,7 +24,7 @@ sequelize.authenticate()
 
   
 const User = require('./userModel')(sequelize, DataTypes);
-const Event = require('./eventModel')(sequelize, DataTypes);
+const Event = require('./eventsModel')(sequelize, DataTypes);
 const UserEventXref = require('./user_event_xrefModel')(sequelize, DataTypes);
 const Competition = require('./competitionModel')(sequelize, DataTypes);
 const UserCompXref = require('./user_comp_xrefModel')(sequelize, DataTypes);
