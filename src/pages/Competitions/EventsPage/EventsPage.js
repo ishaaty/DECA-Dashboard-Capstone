@@ -100,13 +100,41 @@ export default function EventsPage(props) {
                         <h1 style={{ color: "#F5585E", alignItems: "center" }}>All Events:</h1>
                         <div className="events-container">
                             {/* <EventCard acquired={false} title={"Binder"} descrip={"This is a binders event"} date={"2025-01-31"} /> */}
+                            {events.map((event, index) => (
+                                <EventCard
+                                    key={event.event_id}
+                                    acquired={false}
+                                    title={event.event_name}
+                                    descrip={event.event_descrip}
+                                    location={event.location}
+                                    date={event.date}
+                                    time={event.time}
+                                    userRole={props.userRole}
+                                    // onDelete={() => handleDeleteEvent(event.event_id)}
+                                />
+                            ))}
                             <EventCard acquired={false} title={"Roleplay"} descrip={"Roleplaya"} date={"2024-02-29"} />
                             <EventCard acquired={false} title={"Skit"} descrip={"This is a skit, same thing as a play"} date={"2025-02-14"} />
                         </div>
                     </div>
-                    <div>
-                        <h1 style={{ color: "#F5585E", alignItems: "center" }}>My Events:</h1>
-                        <EventCard acquired={true} title={"Binder"} descrip={"This is a binders event"} date={"2025-01-31"} />
+                    <div >
+                        <h1 style={{ color: "#F5585E", alignItems: "center", marginTop: "30px" }}>My Events:</h1>
+                        <div className="events-container">
+                            {events.map((event, index) => (
+                                <EventCard
+                                    key={event.event_id}
+                                    acquired={true}
+                                    title={event.event_name}
+                                    descrip={event.event_descrip}
+                                    location={event.location}
+                                    date={event.date}
+                                    time={event.time}
+                                    userRole={props.userRole}
+                                    // onDelete={() => handleDeleteEvent(event.event_id)}
+                                />
+                            ))}
+
+                        </div>
                     </div>
                 </div>
 
