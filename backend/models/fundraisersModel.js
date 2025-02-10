@@ -13,7 +13,7 @@ module.exports = (sequelize) => {
       allowNull: false
     },
     fund_date: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
       allowNull: false
     },
     fund_description: {

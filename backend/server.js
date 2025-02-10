@@ -51,8 +51,8 @@ app.use('/events', eventsRouter);
 const participantRoutes = require('./routes/participantRoutes');
 app.use('/participantdetails', participantRoutes);
 
-const fundraisersRouter = require('./routes/fundraiserRoutes');
-app.use('/fundraisers', fundraisersRouter);
+const fundraisersRoutes = require('./routes/fundraisersRoutes');
+app.use('/fundraisers', fundraisersRoutes);
 
 
 
