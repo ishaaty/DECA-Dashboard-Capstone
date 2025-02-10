@@ -15,7 +15,7 @@ export default function EventsPage(props) {
     useEffect(() => {
         const fetchEvents = async () => {
         try {
-            const response = await axios.get('http://localhost:8081/event/display');
+            const response = await axios.get('http://localhost:8081/events/display');
             setEvents(response.data);
         } catch (error) {
             console.error('Error fetching events:', error);
@@ -50,11 +50,22 @@ export default function EventsPage(props) {
                     </div>
 
                     <div>
-                        <h1 style={{ color: "#F5585E" }}>All Events:</h1>
+                        <h1 style={{ color: "#F5585E", zIndex: "999" }}>All Events:</h1>
                         <div className="events-container">
-                            <EventCard acquired={null} title={"Binder"} descrip={"This is a binders event"} date={"2025-01-31"} />
-                            <EventCard acquired={null} title={"Roleplay"} descrip={"Roleplaya"} date={"2024-02-29"} />
-                            <EventCard acquired={null} title={"Skit"} descrip={"This is a skit, same thing as a play"} date={"2025-02-14"} />
+                            {events.map((event, index) => (
+                                <EventCard
+                                    key={event.event_id}
+                                    acquired={null}
+                                    title={event.event_name}
+                                    descrip={event.event_descrip}
+                                    location={event.location}
+                                    date={event.date}
+                                    time={event.time}
+                                    userRole={props.userRole}
+                                    // onDelete={() => handleDeleteEvent(event.event_id)}
+                                />
+                            ))}
+
                         </div>
                     </div>
                 </div>
