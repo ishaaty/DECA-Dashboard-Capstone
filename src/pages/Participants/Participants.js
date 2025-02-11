@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import './Participants.css';
 import Header from '../../components/Header/Header';
 import Menu from '../../components/Menu/Menu';
@@ -11,8 +12,6 @@ export default function Participants(props) {
   const [boardMembers, setBoardMembers] = useState([]);
   const [admins, setAdmins] = useState([]);
   const [error, setError] = useState(null);
-
-  
 
   useEffect(() => {
     const fetchUsersByRole = async (role, setState) => {
@@ -34,8 +33,6 @@ export default function Participants(props) {
     fetchUsersByRole('admin', setAdmins);
   }, []);
 
-
-
   // If the user is an admin, include an export card
   const renderAdminContent = () => {
     if (props.userRole !== 'participant') {
@@ -44,28 +41,25 @@ export default function Participants(props) {
     return null;
   };
 
-
-
   // Display the participants that were retrieved from the database
   const renderParticipants = () => {
     if (error) return <p>{error}</p>;
     if (participants.length === 0) return <p>Loading participants...</p>;
 
     return participants.map((participant) => (
-      <a
+      <Link
         key={participant.user_id}
         className="partanchor"
-        href={`/participantdetails?userFirst=${participant.first_name}&userLast=${participant.last_name}`}
+        to={`/participantdetails?userFirst=${participant.first_name}&userLast=${participant.last_name}`} // Use 'Link' for navigation
       >
         <h4 className="partname">
           {participant.first_name} {participant.last_name}
         </h4>
-      </a>
+      </Link>
     ));
   };
 
-
-   // Display the board members that were retrieved from the database
+  // Display the board members that were retrieved from the database
   const renderBoardMembers = () => {
     if (error) return <p>{error}</p>;
     if (boardMembers.length === 0) return <p>Loading board members...</p>;
@@ -80,7 +74,7 @@ export default function Participants(props) {
     ));
   };
 
-    // Display the admins that were retrieved from the database
+  // Display the admins that were retrieved from the database
   const renderAdmins = () => {
     if (error) return <p>{error}</p>;
     if (admins.length === 0) return <p>Loading admins...</p>;
@@ -96,13 +90,10 @@ export default function Participants(props) {
     ));
   };
 
-
-
   return (
     <>
       <Header />
       <Menu />
-
       <div>
         <h1 id="partheader">Participants</h1>
         <div className="partcontainer">

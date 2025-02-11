@@ -15,12 +15,12 @@ const FundraisersPage = (props) => {
     const fetchFundraisers = async () => {
       try {
         const response = await axios.get('http://localhost:8081/fundraisers/display');
-        fetchFundraisers(response.data);
+        setFundraisers(response.data); // Correct way to update the state
       } catch (error) {
         console.error('Error fetching fundraisers:', error);
       }
     };
-
+  
     fetchFundraisers();
   }, []);
 
@@ -28,7 +28,7 @@ const FundraisersPage = (props) => {
     <div className="fundraisers-page">
       <Header />
       <Menu />
-      <h1>Fundraisers</h1>
+      <h1 className='comp'>Fundraisers</h1>
       <Fundraisers fundraisers={fundraisers} setFundraisers={setFundraisers} userRole={props.userRole} />
     </div>
   );

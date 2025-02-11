@@ -1,4 +1,4 @@
-.resources-container {
+.fundraisers-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr); /* Two boxes per row */
     gap: 40px; /* Spacing between boxes */
@@ -8,31 +8,36 @@
     box-sizing: border-box;
   }
   
-  .resource-box {
+  .fundraiser-box {
     background-color: #00529B;
     color: white;
     padding: 16px;
     border-radius: 8px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 8px;
     height: 20vh;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
   
-  .resource-text {
-    font-size: 30px;
-    padding: 10px;
+  .fundraiser-title {
+    font-size: 20px;
+    padding: 0px;
+    margin: 0;
+  }
+  .fundraiser-text {
+    font-size: 15px;
+    padding: 0px;
     margin: 0;
   }
   
-  .resource-buttons {
+  .fundraiser-buttons {
     display: flex;
     padding: 25px 10px;
     gap: 16px;
   }
   
-  .resource-button {
+  .fundraiser-button {
     background-color: white;
     color: #00529B;
     text-decoration: none;
@@ -43,7 +48,7 @@
     text-align: center;
   }
   
-  .resource-button:hover {
+  .fundraiser-button:hover {
     background-color: #003563;
     color: white;
   }

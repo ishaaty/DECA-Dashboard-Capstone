@@ -4,6 +4,7 @@
 
 .approvals {
     padding-left: 25vw;
+    margin-top: 8vh;
 }
 
 .approvepartcont {
@@ -16,5 +17,9 @@
 
 .userselection {
     font-size: 1.5em;
+}
+
+.roleselection {
+    margin-top: 3vh;
 }
 

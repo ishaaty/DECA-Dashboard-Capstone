@@ -33,8 +33,14 @@ router.get('/displayunapprovedusers', async (req, res) => {
     // Fetch users with the specified position
     console.log(User.getTableName());
     const users = await User.findAll({
-      where: {position: { [Op.is]: null }}
-    });
+      where: {
+        [Op.or]: [
+          { position: { [Op.is]: null } },
+          { position: "" },
+          { position: "no role" }
+        ]
+      }
+    })
 
     if (!users || users.length === 0) {
       return res.status(404).json({ message: 'No users found without a position.' });
@@ -71,29 +77,17 @@ router.get('/displaydetails', async (req, res) => {
 
     const userEvents = user.Events.map(event => ({
       eventName: event.event_name,
-      eventDate: event.event_date
+      eventDate: event.event_date,
     }));
 
-    if (userEvents.length === 0) {
-      return res.status(404).json({
-        message: 'User found, but no associated events.',
-        user: {
-          userFirst: user.first_name,
-          userLast: user.last_name,
-          userEmail: user.email,
-          userClass: user.user_class,
-          events: [],
-        },
-      });
-    }
-
-    // Return the user details and associated events
+    // Return the user details with an empty array for events if none are found
     res.json({
       userFirst: user.first_name,
       userLast: user.last_name,
       userEmail: user.email,
       userClass: user.user_class,
-      events: userEvents,
+      events: userEvents,  // If no events, this will be an empty array
+      userId: user.user_id,
     });
   } catch (error) {
     console.error('Error fetching participant details:', error);
@@ -124,6 +118,7 @@ router.get('/events', async (req, res) => {
 // Route to update user role
 router.put("/updateusers", async (req, res) => {
   const { userIds, position } = req.body;
+  formattedPosition = position.toLowerCase();
   
   if (!Array.isArray(userIds) || userIds.length === 0) {
     return res.status(400).json({ error: "No users selected." });
@@ -131,7 +126,7 @@ router.put("/updateusers", async (req, res) => {
 
   try {
     await User.update(
-      { position: position }, 
+      { position: formattedPosition }, 
       { where: { user_id: userIds } }
     );
     res.json({ message: "Users updated successfully" });
