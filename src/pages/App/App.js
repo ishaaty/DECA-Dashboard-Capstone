@@ -25,7 +25,7 @@ import TodoListPage from '../Competitions/TodoListPage/TodoListPage';
 
 export default function App() {
 
-  const userType = "participant";
+  const userType = "admin";
   const userFirst = "Isha";
   const userLast = "Tyagi";
   const userEmail = "ishtya25@bergen.org";

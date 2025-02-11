@@ -3,7 +3,7 @@ import './EditEventBtn.css';
 
 const EditEventBtn = (props) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [newEvent, setNewEvent] = useState({ title: '', descrip: '', location: '', date: '', time: '', requirements: [] });
+  var [newEvent, editEvent] = useState({ title: props.title, descrip: '', location: '', date: '', time: '' });
 
   const handleEvent = () => {
     if (!newEvent.title) {
@@ -12,7 +12,7 @@ const EditEventBtn = (props) => {
     }
     console.log('New Event:', newEvent);
     setIsPopupOpen(false);
-    setNewEvent({ title: '', descrip: '', location: '', date: '', time: '', requirements: [] });
+    editEvent({ title: '', descrip: '', location: '', date: '', time: '' });
   };
 
   return (
@@ -28,10 +28,10 @@ const EditEventBtn = (props) => {
             <h2>Edit {props.title}</h2>
             <label>
               Title:
-              <input
+              <textarea
                 type="text"
                 value={props.title}
-                onChange={(e) => setNewEvent({ ...newEvent, title: e.target.value })}
+                onChange={(e) => editEvent({ ...newEvent, title: e.target.value })}
               />
             </label>
             <label>
@@ -39,7 +39,7 @@ const EditEventBtn = (props) => {
               <input
                 type="text"
                 value={props.descrip}
-                onChange={(e) => setNewEvent({ ...newEvent, descrip: e.target.value })}
+                onChange={(e) => editEvent({ ...newEvent, descrip: e.target.value })}
               />
             </label>
             <label>
@@ -47,7 +47,7 @@ const EditEventBtn = (props) => {
               <input
                 type="text"
                 value={props.location}
-                onChange={(e) => setNewEvent({ ...newEvent, location: e.target.value })}
+                onChange={(e) => editEvent({ ...newEvent, location: e.target.value })}
               />
             </label>
             <label>
@@ -55,7 +55,7 @@ const EditEventBtn = (props) => {
               <input
                 type="date"
                 value={props.date}
-                onChange={(e) => setNewEvent({ ...newEvent, date: e.target.value })}
+                onChange={(e) => editEvent({ ...newEvent, date: e.target.value })}
               />
             </label>
             <label>
@@ -63,7 +63,7 @@ const EditEventBtn = (props) => {
               <input
                 type="time"
                 value={props.time}
-                onChange={(e) => setNewEvent({ ...newEvent, time: e.target.value })}
+                onChange={(e) => editEvent({ ...newEvent, time: e.target.value })}
               />
             </label>
             <label>
@@ -72,7 +72,7 @@ const EditEventBtn = (props) => {
               <input
                 type="text"
                 value={props.requirements}
-                onChange={(e) => setNewEvent({ ...newEvent, requirements: e.target.value })}
+                onChange={(e) => editEvent({ ...newEvent, requirements: e.target.value })}
               />
             </label>
 

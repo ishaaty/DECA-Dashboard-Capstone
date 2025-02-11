@@ -10,7 +10,7 @@ export default function EventCard(props){
             <div className="event-card">
                 <h1>{props.title}</h1>
                 <div className="align-center">
-                    <EditEventBtn title={props.title} descrip={props.descrip} date={props.date} />
+                    <EditEventBtn title={props.title} descrip={props.descrip} location={props.location} date={props.date} time={props.time} />
                     <a href="viewrequesters">
                         <button className="view-requesters-btn">
                             View Requesters
