@@ -16,8 +16,8 @@ router.get('/display', async (req, res) => {
 });
 
 // Add a new event to the database
-router.post('/addEvent', async (req, res) => {
-    const { event_name, event_descrip, event_location, event_date, event_time } = req.body;
+router.post('/add', async (req, res) => {
+    const { competition_id, event_name, event_descrip, event_location, event_date, event_time } = req.body;
 
     if (!event_name) {
         return res.status(400).json({ error: 'Event name is required.' });
@@ -25,6 +25,7 @@ router.post('/addEvent', async (req, res) => {
 
     try {
         const newEvent = await Events.create({
+            competition_id,
             event_name, 
             event_descrip, 
             event_location, 
@@ -39,7 +40,7 @@ router.post('/addEvent', async (req, res) => {
 });
 
 // Delete a resource by ID
-router.delete('/deleteEvent/:id', async (req, res) => {
+router.delete('/delete/:id', async (req, res) => {
   const { id } = req.params; // Get the resource ID from the URL parameter
 
   try {

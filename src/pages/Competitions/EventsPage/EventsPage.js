@@ -11,18 +11,18 @@ export default function EventsPage(props) {
 
     const [events, setEvents] = useState([]);
 
-    // Fetch resources from axios
     useEffect(() => {
         const fetchEvents = async () => {
         try {
             const response = await axios.get('http://localhost:8081/events/display');
-            setEvents(response.data);
+            setEvents(response.data); // Update the events list
         } catch (error) {
             console.error('Error fetching events:', error);
         }
         };
         fetchEvents();
-    }, []);
+    }, []); // Fetch events once when the component mounts
+
 
     if (props.userRole === "admin"){
         return (
@@ -46,7 +46,7 @@ export default function EventsPage(props) {
                         <a href="roommates">
                             <button id="submit-btn" style={{fontSize: "18px"}}>View Roommates</button>
                         </a>
-                        <CreateEventBtn />
+                        <CreateEventBtn events={events} />
                     </div>
 
                     <div>

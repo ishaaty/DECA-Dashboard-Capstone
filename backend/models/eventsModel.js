@@ -10,7 +10,8 @@ module.exports = (sequelize) => {
     },
     competition_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      // FOR NOW
+      allowNull: true,
     },
     event_name: {
       type: DataTypes.STRING(45),

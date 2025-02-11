@@ -1,18 +1,61 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './CreateEventBtn.css';
 
-const CreateEventBtn = () => {
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [newEvent, setNewEvent] = useState({ title: '', descrip: '', location: '', date: '', time: '', requirements: [] });
+import axios from '../../../../services/axiosConfig';
 
-  const handleEvent = () => {
+const CreateEventBtn = ({ events }) => {
+
+  const [eventList, setEventList] = useState([]);
+  const [newEvent, setNewEvent] = useState({ competition_id: 1, title: '', descrip: '', location: '', date: '', time: '' });
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  // Fetch events from backend
+  const fetchEvents = async () => {
+    try {
+      const response = await axios.get('http://localhost:8081/events/display');
+      setEventList(response.data); // Update the event list
+    } catch (error) {
+      console.error('Error fetching events:', error);
+    }
+  };
+
+  // Fetch events once when component mounts
+  useEffect(() => {
+    fetchEvents();
+  }, []); // Empty dependency array ensures this runs only once
+
+
+  const handleAddEvent = async () => {
+    // Ensure a title is provided before adding
     if (!newEvent.title) {
       alert('Please provide a title.');
       return;
     }
-    console.log('New Event:', newEvent);
-    setIsPopupOpen(false);
-    setNewEvent({ title: '', descrip: '', location: '', date: '', time: '', requirements: [] });
+    try {
+      // Prepare event data to send to backend
+      const eventData = {
+        competition_id: newEvent.competition_id, // Fix typo here
+        event_name: newEvent.title,
+        event_descrip: newEvent.descrip,
+        event_location: newEvent.location,
+        event_date: newEvent.date,
+        event_time: newEvent.time
+      };
+
+      // Send the event data to the backend
+      const response = await axios.post('http://localhost:8081/events/add', eventData);
+
+      fetchEvents();
+
+      // Close the popup and reset form
+      setIsPopupOpen(false);
+      setNewEvent({ competition_id: 1, title: '', descrip: '', location: '', date: '', time: '' });
+
+
+    } catch (error) {
+      console.error('Error adding event:', error);
+      alert('Failed to add event.');
+    }
   };
 
   return (
@@ -77,7 +120,7 @@ const CreateEventBtn = () => {
             </label>
 
             <div className="popup-buttons">
-              <button onClick={handleEvent}>Create Event</button>
+              <button onClick={handleAddEvent}>Create Event</button>
               <button onClick={() => setIsPopupOpen(false)}>Cancel</button>
             </div>
           </div>

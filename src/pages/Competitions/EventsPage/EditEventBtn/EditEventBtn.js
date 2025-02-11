@@ -28,7 +28,7 @@ const EditEventBtn = (props) => {
             <h2>Edit {props.title}</h2>
             <label>
               Title:
-              <textarea
+              <input
                 type="text"
                 value={props.title}
                 onChange={(e) => editEvent({ ...newEvent, title: e.target.value })}
@@ -66,15 +66,8 @@ const EditEventBtn = (props) => {
                 onChange={(e) => editEvent({ ...newEvent, time: e.target.value })}
               />
             </label>
-            <label>
-              Requirements:
-              {/* FIGURE THIS ONE OUT */}
-              <input
-                type="text"
-                value={props.requirements}
-                onChange={(e) => editEvent({ ...newEvent, requirements: e.target.value })}
-              />
-            </label>
+            
+            {/* REQUIREMENTS TBD */}
 
             <div className="popup-buttons">
               <button onClick={handleEvent}>Save Event</button>
