@@ -94,16 +94,14 @@ export default function UnapprovedParticipants({ userRole }) {
 
         <div className="roleselection">
           <label>Select Role: </label>
-          <select value={selectedRole} onChange={handleRoleChange}>
-            <option value="">--Select Role--</option>
+          <select class="roleselect" value={selectedRole} onChange={handleRoleChange}>
+            <option id="pickrole" value="">--Select Role--</option>
+            <option value="Admin">Admin</option>
             <option value="Participant">Participant</option>
             <option value="Board Member">Board Member</option>
             <option value={null}>No Role</option>
           </select>
-        </div>
-
-        <div className="approvepartcont">
-          <button onClick={updateUserRole}>Update Role</button>
+          <button id="updatebtn" onClick={updateUserRole}>Update Role</button>
         </div>
       </div>
     </>

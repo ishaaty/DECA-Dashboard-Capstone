@@ -12,10 +12,6 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    // acquired: {
-    //   type: DataTypes.BOOLEAN,
-    //   allowNull: true,
-    // },
     event_name: {
       type: DataTypes.STRING(45),
       allowNull: false,

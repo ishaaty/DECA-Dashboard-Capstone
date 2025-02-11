@@ -2,6 +2,7 @@
     color: #00529B;
     text-align: center;
     padding-left: 20vw;
+    margin-top: 5vh;
 }
 
 #advisors {
@@ -17,7 +18,8 @@
 }
 
 #advisors, #board, #member {
-    margin-left: 20px;
+    margin-left: 0;
+    margin-top: 5vh; 
 }
 
 .partcontainer {
@@ -37,13 +39,16 @@
     padding-left: 5px;
     padding-top: 2px;
     margin-bottom: 3vh;
-    border-radius: 4px;
+    border-radius: 10px;
     width: 20vw;
-    height: 15vh;
+    padding-bottom: 1vh;
+    /* height: 15vh; */
 }
 
 .partname {
-    margin: 0.5vw;
+    margin-top: 0.3vw;
+    margin-bottom: 0.5vw;
+    padding-left: 0.5vw;
 }
 
 .partname:hover {

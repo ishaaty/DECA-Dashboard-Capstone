@@ -4,13 +4,16 @@ import './FundraiserCard.css';
 import axios from '../../../services/axiosConfig';
 
 // Single Fundraiser Component
+
 const Fundraiser = ({ fund_name, fund_location, fund_date, fund_description, userRole, onDelete }) => {
+  console.log({ fund_name, fund_location, fund_date, fund_description, userRole }); // Add this to check data
+
   return (
     <div className="fundraiser-box">
-      <p className="fund-name">{fund_name}</p>
-      <p className="fund-description">{fund_description}</p>
-      <p className="fund-date">{fund_date}</p>
-      <p className="fund-location">{fund_location}</p>
+      <p className="fundraiser-title">{fund_name}</p>
+      <p className="fundraiser-text">{fund_location}</p>
+      <p className="fundraiser-text">{fund_date}</p>
+      <p className="fundraiser-text">{fund_description}</p>
       {userRole === 'admin' && (
         <button className="fundraiser-button" onClick={onDelete}>
           Delete
@@ -71,7 +74,7 @@ const Fundraisers = ({ fundraisers, userRole }) => {
     try {
       // send the id of the fundraiser to delete to the backend
       await axios.delete(`http://localhost:8081/fundraisers/delete/${id}`);
-      setFundraiserList(fundraiserList.filter((fundraiser) => fundraisers.fundraiser_id !== id)); // Update local state
+      setFundraiserList(fundraiserList.filter((fundraiser) => fundraiser.fundraiser_id !== id));
     } catch (error) {
       console.error('Error deleting fundraiser:', error);
       alert('Failed to delete fundraiser.');
@@ -86,7 +89,7 @@ const Fundraisers = ({ fundraisers, userRole }) => {
           <Fundraiser
             key={fundraisers.fundraiser_id}
             fund_name={fundraisers.fund_name}
-            fund_description={fundraisers.fundr_description}
+            fund_description={fundraisers.fund_description}
             fund_date={fundraisers.fund_date}
             fund_location={fundraisers.fund_location}
             userRole={userRole}
@@ -108,7 +111,7 @@ const Fundraisers = ({ fundraisers, userRole }) => {
                 <label>
                   Name:
                   <input
-                    type="fund_name"
+                    type="text"
                     value={newFundraiser.title}
                     onChange={(e) => setNewFundraiser({ ...newFundraiser, fund_name: e.target.value })}
                   />
@@ -116,7 +119,7 @@ const Fundraisers = ({ fundraisers, userRole }) => {
                 <label>
                   Description:
                   <input
-                    type="fund_description"
+                    type="text"
                     value={newFundraiser.fund_description}
                     onChange={(e) =>
                       setNewFundraiser({ ...newFundraiser, fund_description: e.target.value })
@@ -126,7 +129,7 @@ const Fundraisers = ({ fundraisers, userRole }) => {
                 <label>
                   Date:
                   <input
-                    type="fund_date"
+                    type="date"
                     value={newFundraiser.fund_date}
                     onChange={(e) =>
                       setNewFundraiser({ ...newFundraiser, fund_date: e.target.value })
@@ -136,7 +139,7 @@ const Fundraisers = ({ fundraisers, userRole }) => {
                 <label>
                   Location: 
                   <input
-                  type="fund_location"
+                  type="text"
                   value={newFundraiser.fund_location}
                   onChange={(e) =>
                   setNewFundraiser({ ...newFundraiser, fund_location: e.target.value})
