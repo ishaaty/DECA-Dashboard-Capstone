@@ -98,6 +98,15 @@ export default function Participants(props) {
         <h1 id="partheader">Participants</h1>
         <div className="partcontainer">
           <div>
+            {/* from Rebirth Textbook */}
+          {/* <input id="searchbar" onkeyup="search_book()" type="text" name="search" placeholder="Search by Subject:" /> */}
+
+            {/* from the video (3 minutes in)*/}
+            {/* <p>Search</p>
+            <form name="form1" method="post" action="searchresults.pfp">
+              <input name="search" type="text" size="40" maxlength="50" />
+              <input type="submit" name="Submit" value="Search" />
+            </form> */}
             <div>
               <h3 id="advisors">Advisors</h3>
               {renderAdmins()}
