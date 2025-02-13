@@ -57,7 +57,7 @@ export default function EventsPage(props) {
                         <a href="roommates">
                             <button id="submit-btn" style={{fontSize: "18px"}}>View Roommates</button>
                         </a>
-                        <CreateEventBtn events={events} />
+                        <CreateEventBtn events={events} setEvents={setEvents} />
                     </div>
 
                     <div>

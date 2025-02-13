@@ -3,7 +3,7 @@ import './CreateEventBtn.css';
 
 import axios from '../../../../services/axiosConfig';
 
-const CreateEventBtn = ({ events, comp }) => {
+const CreateEventBtn = ({ events, comp, setEvents }) => {
 
   let comp_id = 0;
 
@@ -15,7 +15,6 @@ const CreateEventBtn = ({ events, comp }) => {
     comp_id = 3;
   }
 
-  const [eventList, setEventList] = useState([]);
   const [newEvent, setNewEvent] = useState({ competition_id: comp_id, title: '', descrip: '', location: '', date: '', time: '' });
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
@@ -23,7 +22,9 @@ const CreateEventBtn = ({ events, comp }) => {
   const fetchEvents = async () => {
     try {
       const response = await axios.get('http://localhost:8081/events/display');
-      setEventList(response.data); // Update the event list
+      
+      // Update the state with the new event
+      setEvents(response.data); 
     } catch (error) {
       console.error('Error fetching events:', error);
     }
