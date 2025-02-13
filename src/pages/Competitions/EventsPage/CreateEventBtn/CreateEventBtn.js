@@ -3,10 +3,20 @@ import './CreateEventBtn.css';
 
 import axios from '../../../../services/axiosConfig';
 
-const CreateEventBtn = ({ events }) => {
+const CreateEventBtn = ({ events, comp }) => {
+
+  let comp_id = 0;
+
+  if (comp == "Regionals"){
+    comp_id = 1;
+  } else if (comp == "States"){
+    comp_id = 2;
+  } else {
+    comp_id = 3;
+  }
 
   const [eventList, setEventList] = useState([]);
-  const [newEvent, setNewEvent] = useState({ competition_id: 1, title: '', descrip: '', location: '', date: '', time: '' });
+  const [newEvent, setNewEvent] = useState({ competition_id: comp_id, title: '', descrip: '', location: '', date: '', time: '' });
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   // Fetch events from backend

@@ -22,6 +22,17 @@ export default function EventsPage(props) {
         };
         fetchEvents();
     }, []); // Fetch events once when the component mounts
+    
+    const handleDeleteEvent = async (id) => {
+        try {
+          // send the id of the resource to delete to the backend
+          await axios.delete(`http://localhost:8081/events/delete/${id}`);
+          setEvents(events.filter((event) => event.event_id !== id)); // Update local state
+        } catch (error) {
+          console.error('Error deleting event:', error);
+          alert('Failed to delete event.');
+        }
+    };
 
 
     if (props.userRole === "admin"){
@@ -62,7 +73,7 @@ export default function EventsPage(props) {
                                     date={event.date}
                                     time={event.time}
                                     userRole={props.userRole}
-                                    // onDelete={() => handleDeleteEvent(event.event_id)}
+                                    onDelete={() => handleDeleteEvent(event.event_id)}
                                 />
                             ))}
 
@@ -110,7 +121,7 @@ export default function EventsPage(props) {
                                     date={event.date}
                                     time={event.time}
                                     userRole={props.userRole}
-                                    // onDelete={() => handleDeleteEvent(event.event_id)}
+                                    onDelete={() => handleDeleteEvent(event.event_id)}
                                 />
                             ))}
                         </div>
@@ -128,7 +139,7 @@ export default function EventsPage(props) {
                                     date={event.date}
                                     time={event.time}
                                     userRole={props.userRole}
-                                    // onDelete={() => handleDeleteEvent(event.event_id)}
+                                    onDelete={() => handleDeleteEvent(event.event_id)}
                                 />
                             ))}
 

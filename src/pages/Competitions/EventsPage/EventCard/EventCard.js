@@ -16,7 +16,7 @@ export default function EventCard(props){
                             View Requesters
                         </button>
                     </a>
-                    <button className="view-requesters-btn">
+                    <button className="view-requesters-btn" onClick={props.onDelete}>
                         Delete
                     </button>
                 </div>
