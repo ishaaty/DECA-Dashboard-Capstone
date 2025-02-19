@@ -8,7 +8,7 @@ module.exports = (sequelize) => {
       allowNull: false,
       autoIncrement: true,
     },
-    competition_id: {
+    comp_id: {
       type: DataTypes.INTEGER,
       // FOR NOW
       allowNull: true,

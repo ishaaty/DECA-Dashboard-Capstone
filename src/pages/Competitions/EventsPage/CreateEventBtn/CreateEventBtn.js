@@ -3,26 +3,17 @@ import './CreateEventBtn.css';
 
 import axios from '../../../../services/axiosConfig';
 
-const CreateEventBtn = ({ events, comp, setEvents }) => {
+const CreateEventBtn = ({ events, setEvents, comp_id }) => {
 
-  let comp_id = 0;
-
-  if (comp == "Regionals"){
-    comp_id = 1;
-  } else if (comp == "States"){
-    comp_id = 2;
-  } else {
-    comp_id = 3;
-  }
-
-  const [newEvent, setNewEvent] = useState({ competition_id: comp_id, title: '', descrip: '', location: '', date: '', time: '' });
+  const [newEvent, setNewEvent] = useState({ comp_id: comp_id, title: '', descrip: '', location: '', date: '', time: '' });
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  console.log("Received comp_id:", comp_id); // Debugging line
 
   // Fetch events from backend
   const fetchEvents = async () => {
     try {
-      const response = await axios.get('http://localhost:8081/events/display');
-      
+      const response = await axios.get(`http://localhost:8081/events/display/${comp_id}`);
+
       // Update the state with the new event
       setEvents(response.data); 
     } catch (error) {
@@ -35,7 +26,6 @@ const CreateEventBtn = ({ events, comp, setEvents }) => {
     fetchEvents();
   }, []); // Empty dependency array ensures this runs only once
 
-
   const handleAddEvent = async () => {
     // Ensure a title is provided before adding
     if (!newEvent.title) {
@@ -45,7 +35,7 @@ const CreateEventBtn = ({ events, comp, setEvents }) => {
     try {
       // Prepare event data to send to backend
       const eventData = {
-        competition_id: newEvent.competition_id, // Fix typo here
+        comp_id: newEvent.comp_id, // Fix typo here
         event_name: newEvent.title,
         event_descrip: newEvent.descrip,
         event_location: newEvent.location,
@@ -60,7 +50,7 @@ const CreateEventBtn = ({ events, comp, setEvents }) => {
 
       // Close the popup and reset form
       setIsPopupOpen(false);
-      setNewEvent({ competition_id: 1, title: '', descrip: '', location: '', date: '', time: '' });
+      setNewEvent({ comp_id: comp_id, title: '', descrip: '', location: '', date: '', time: '' });
 
 
     } catch (error) {

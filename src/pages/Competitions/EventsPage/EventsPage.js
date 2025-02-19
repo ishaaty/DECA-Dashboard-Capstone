@@ -5,23 +5,45 @@ import CreateEventBtn from './CreateEventBtn/CreateEventBtn';
 import EventCard from './EventCard/EventCard';
 
 import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 
 export default function EventsPage(props) {
+
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const comp_id = searchParams.get('comp_id'); // Get comp_id from URL
+    let title = "";
+
+    if (comp_id == 1){
+        title = "Regionals";
+    } else if (comp_id == 2){
+        title = "States";
+    } else {
+        title = "Nationals"
+    }
+
+    console.log(comp_id);
 
     const [events, setEvents] = useState([]);
 
     useEffect(() => {
         const fetchEvents = async () => {
-        try {
-            const response = await axios.get('http://localhost:8081/events/display');
-            setEvents(response.data); // Update the events list
-        } catch (error) {
-            console.error('Error fetching events:', error);
-        }
+            if (!comp_id) {
+                console.error('comp_id is undefined');
+                return;
+            }
+            try {
+                const response = await axios.get(`http://localhost:8081/events/display/${comp_id}`);
+                setEvents(response.data);
+            } catch (error) {
+                console.error('Error fetching events:', error);
+            }
         };
+        
         fetchEvents();
-    }, []); // Fetch events once when the component mounts
+    }, [comp_id]); 
+    
     
     const handleDeleteEvent = async (id) => {
         try {
@@ -50,14 +72,14 @@ export default function EventsPage(props) {
                 </div>
                     
                
-                    <h1 style={{color: "#00529B"}}>Regionals</h1>
+                    <h1 style={{color: "#00529B"}}>{title}</h1>
                     
 
                     <div className="btns-h-align">
                         <a href="roommates">
                             <button id="submit-btn" style={{fontSize: "18px"}}>View Roommates</button>
                         </a>
-                        <CreateEventBtn events={events} setEvents={setEvents} />
+                        <CreateEventBtn events={events} setEvents={setEvents} comp_id={comp_id} />
                     </div>
 
                     <div>
@@ -99,7 +121,7 @@ export default function EventsPage(props) {
                 </a>
                 </div>
 
-                    <h1 style={{ color: "#00529B" }}>Regionals</h1>
+                    <h1 style={{ color: "#00529B" }}>{title}</h1>
 
 
                     <a href="roommates">
