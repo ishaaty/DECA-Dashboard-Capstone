@@ -94,6 +94,11 @@ export default function EventsPage(props) {
                                     location={event.location}
                                     date={event.date}
                                     time={event.time}
+                                    req_1={event.req_1}
+                                    req_2={event.req_2}
+                                    req_3={event.req_3}
+                                    req_4={event.req_4}
+                                    req_5={event.req_5}
                                     userRole={props.userRole}
                                     onDelete={() => handleDeleteEvent(event.event_id)}
                                 />
@@ -142,6 +147,11 @@ export default function EventsPage(props) {
                                     location={event.location}
                                     date={event.date}
                                     time={event.time}
+                                    req_1={event.req_1}
+                                    req_2={event.req_2}
+                                    req_3={event.req_3}
+                                    req_4={event.req_4}
+                                    req_5={event.req_5}
                                     userRole={props.userRole}
                                     onDelete={() => handleDeleteEvent(event.event_id)}
                                 />
@@ -160,6 +170,11 @@ export default function EventsPage(props) {
                                     location={event.location}
                                     date={event.date}
                                     time={event.time}
+                                    req_1={event.req_1}
+                                    req_2={event.req_2}
+                                    req_3={event.req_3}
+                                    req_4={event.req_4}
+                                    req_5={event.req_5}
                                     userRole={props.userRole}
                                     onDelete={() => handleDeleteEvent(event.event_id)}
                                 />

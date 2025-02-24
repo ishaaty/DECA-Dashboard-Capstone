@@ -25,7 +25,7 @@ router.get('/display/:comp_id', async (req, res) => {
 
 // Add a new event to the database
 router.post('/add', async (req, res) => {
-    const { comp_id, event_name, event_descrip, event_location, event_date, event_time } = req.body;
+    const { comp_id, event_name, event_descrip, event_location, event_date, event_time, req_1, req_2, req_3, req_4, req_5 } = req.body;
 
     if (!event_name) {
         return res.status(400).json({ error: 'Event name is required.' });
@@ -38,7 +38,12 @@ router.post('/add', async (req, res) => {
             event_descrip, 
             event_location, 
             event_date, 
-            event_time
+            event_time,
+            req_1,
+            req_2,
+            req_3,
+            req_4,
+            req_5
         });
         res.status(201).json(newEvent); // Return the newly created event
     } catch (error) {

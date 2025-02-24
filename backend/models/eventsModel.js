@@ -33,6 +33,26 @@ module.exports = (sequelize) => {
       type: DataTypes.TIME(),
       allowNull: true,
     },
+    req_1: {
+      type: DataTypes.STRING(45),
+      allowNull: true,
+    },
+    req_2: {
+      type: DataTypes.STRING(45),
+      allowNull: true,
+    },
+    req_3: {
+      type: DataTypes.STRING(45),
+      allowNull: true,
+    },
+    req_4: {
+      type: DataTypes.STRING(45),
+      allowNull: true,
+    },
+    req_5: {
+      type: DataTypes.STRING(45),
+      allowNull: true,
+    }
   }, {
     tableName: 'events',
     timestamps: false,

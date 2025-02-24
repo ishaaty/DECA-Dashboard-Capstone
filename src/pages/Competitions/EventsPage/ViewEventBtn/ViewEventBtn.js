@@ -3,17 +3,11 @@ import './ViewEventBtn.css';
 
 const ViewEventBtn = (props) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [newEvent, setNewEvent] = useState({ title: '', descrip: '', date: '', time: '', requirements: [] });
+  // const [newEvent, setNewEvent] = useState({ title: '', descrip: '', date: '', time: '', req_1: '', req_2: '', req_3: '', req_4: '', req_5: '' });
+  const reqs = [props.req_1, props.req_2, props.req_3, props.req_4, props.req_5];
 
-  // const handleEvent = () => {
-  //   if (!newEvent.title) {
-  //     alert('Please provide a title.');
-  //     return;
-  //   }
-  //   console.log('New Event:', newEvent);
-  //   setIsPopupOpen(false);
-  //   setNewEvent({ title: '', descrip: '', date: '', time: '', requirements: [] });
-  // };
+  // Filter out null, undefined, or empty values and join the rest with commas
+  const displayReqs = reqs.filter(req => req).join(", ");
 
   return (
     <div className="create-event-container">
@@ -36,8 +30,7 @@ const ViewEventBtn = (props) => {
               <strong>Time:</strong> {props.time}
             </label>
             <label>
-              <strong>Requirements:</strong> TBD
-              {/* FIGURE THIS ONE OUT */}
+              <strong>Requirements:</strong> {displayReqs}
             </label>
             <div className="popup-buttons">
               <button onClick={() => setIsPopupOpen(false)}>Exit</button>
