@@ -69,4 +69,42 @@ router.delete('/delete/:id', async (req, res) => {
   }
 });
 
+
+// Edit an existing event while keeping comp_id and event_id unchanged
+router.put('/edit/:event_id', async (req, res) => {
+  const { event_id } = req.params; // Get event ID from the URL parameter
+  const {
+      event_name, event_descrip, event_location, event_date, event_time,
+      req_1, req_2, req_3, req_4, req_5
+  } = req.body;
+
+  try {
+      const event = await Events.findByPk(event_id); // Find event by primary key
+
+      if (!event) {
+          return res.status(404).json({ error: 'Event not found' });
+      }
+
+      // Update only the fields that can be modified
+      await event.update({
+          event_name, 
+          event_descrip, 
+          event_location, 
+          event_date, 
+          event_time, 
+          req_1, 
+          req_2, 
+          req_3, 
+          req_4, 
+          req_5
+      });
+
+      res.status(200).json({ message: 'Event updated successfully', event });
+  } catch (error) {
+      console.error('Error updating event:', error);
+      res.status(500).json({ error: 'Failed to update event' });
+  }
+});
+
+
 module.exports = router

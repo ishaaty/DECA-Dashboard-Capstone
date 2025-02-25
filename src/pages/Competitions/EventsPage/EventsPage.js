@@ -19,7 +19,7 @@ export default function EventsPage(props) {
         title = "Regionals";
     } else if (comp_id == 2){
         title = "States";
-    } else {
+    } else if (comp_id == 3) {
         title = "Nationals"
     }
 
@@ -71,7 +71,7 @@ export default function EventsPage(props) {
                 </a>
                 </div>
                     
-               
+                
                     <h1 style={{color: "#00529B"}}>{title}</h1>
                     
 
@@ -88,6 +88,8 @@ export default function EventsPage(props) {
                             {events.map((event, index) => (
                                 <EventCard
                                     key={event.event_id}
+                                    event_id={event.event_id} // This ensures event_id is available in props
+                                    comp_id={comp_id}
                                     acquired={null}
                                     title={event.event_name}
                                     descrip={event.event_descrip}
@@ -100,6 +102,7 @@ export default function EventsPage(props) {
                                     req_4={event.req_4}
                                     req_5={event.req_5}
                                     userRole={props.userRole}
+                                    setEvents={setEvents}
                                     onDelete={() => handleDeleteEvent(event.event_id)}
                                 />
                             ))}
