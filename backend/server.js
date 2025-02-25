@@ -54,6 +54,9 @@ app.use('/participantdetails', participantRoutes);
 const fundraisersRoutes = require('./routes/fundraisersRoutes');
 app.use('/fundraisers', fundraisersRoutes);
 
+const announcementsRoutes = require('./routes/announcementsRoutes');
+app.use('/home', announcementsRoutes); 
+
 
 
 // Define test routes
