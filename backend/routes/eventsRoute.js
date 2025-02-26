@@ -25,7 +25,7 @@ router.get('/display/:comp_id', async (req, res) => {
 
 // Add a new event to the database
 router.post('/add', async (req, res) => {
-    const { comp_id, event_name, event_descrip, event_location, event_date, event_time, req_1, req_2, req_3, req_4, req_5 } = req.body;
+    const { comp_id, event_name, event_descrip, req_1, req_2, req_3, req_4, req_5 } = req.body;
 
     if (!event_name) {
         return res.status(400).json({ error: 'Event name is required.' });
@@ -35,10 +35,7 @@ router.post('/add', async (req, res) => {
         const newEvent = await Events.create({
             comp_id,
             event_name, 
-            event_descrip, 
-            event_location, 
-            event_date, 
-            event_time,
+            event_descrip,
             req_1,
             req_2,
             req_3,
@@ -68,5 +65,39 @@ router.delete('/delete/:id', async (req, res) => {
     res.status(500).json({ error: 'Failed to delete event' });
   }
 });
+
+
+// Edit an existing event while keeping comp_id and event_id unchanged
+router.put('/edit/:event_id', async (req, res) => {
+  const { event_id } = req.params; // Get event ID from the URL parameter
+  const {
+      event_name, event_descrip, req_1, req_2, req_3, req_4, req_5
+  } = req.body;
+
+  try {
+      const event = await Events.findByPk(event_id); // Find event by primary key
+
+      if (!event) {
+          return res.status(404).json({ error: 'Event not found' });
+      }
+
+      // Update only the fields that can be modified
+      await event.update({
+          event_name, 
+          event_descrip,
+          req_1, 
+          req_2, 
+          req_3, 
+          req_4, 
+          req_5
+      });
+
+      res.status(200).json({ message: 'Event updated successfully', event });
+  } catch (error) {
+      console.error('Error updating event:', error);
+      res.status(500).json({ error: 'Failed to update event' });
+  }
+});
+
 
 module.exports = router
