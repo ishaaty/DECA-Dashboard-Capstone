@@ -5,7 +5,7 @@ import axios from '../../../../services/axiosConfig';
 
 const CreateEventBtn = ({ events, setEvents, comp_id }) => {
 
-  const [newEvent, setNewEvent] = useState({ comp_id: comp_id, title: '', descrip: '', location: '', date: '', time: '', req_1: '', req_2: '', req_3: '', req_4: '', req_5: '' });
+  const [newEvent, setNewEvent] = useState({ comp_id: comp_id, title: '', descrip: '', req_1: '', req_2: '', req_3: '', req_4: '', req_5: '' });
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   console.log("Received comp_id:", comp_id); // Debugging line
 
@@ -60,13 +60,10 @@ const CreateEventBtn = ({ events, setEvents, comp_id }) => {
   
       // Prepare event data to send to backend
       const eventData = {
-        comp_id: newEvent.comp_id, // Fix typo here
+        comp_id: newEvent.comp_id,
         event_name: newEvent.title,
         event_descrip: newEvent.descrip,
-        event_location: newEvent.location,
-        event_date: newEvent.date,
-        event_time: newEvent.time,
-        req_1: newEvent.req_1,  // These should now have the updated values
+        req_1: newEvent.req_1,
         req_2: newEvent.req_2,
         req_3: newEvent.req_3,
         req_4: newEvent.req_4,
@@ -85,9 +82,6 @@ const CreateEventBtn = ({ events, setEvents, comp_id }) => {
         comp_id: comp_id,
         title: '',
         descrip: '',
-        location: '',
-        date: '',
-        time: '',
         req_1: '',
         req_2: '',
         req_3: '',
@@ -127,30 +121,6 @@ const CreateEventBtn = ({ events, setEvents, comp_id }) => {
                 type="text"
                 value={newEvent.descrip}
                 onChange={(e) => setNewEvent({ ...newEvent, descrip: e.target.value })}
-              />
-            </label>
-            <label>
-              Location:
-              <input
-                type="text"
-                value={newEvent.location}
-                onChange={(e) => setNewEvent({ ...newEvent, location: e.target.value })}
-              />
-            </label>
-            <label>
-              Date:
-              <input
-                type="date"
-                value={newEvent.date}
-                onChange={(e) => setNewEvent({ ...newEvent, date: e.target.value })}
-              />
-            </label>
-            <label>
-              Time:
-              <input
-                type="time"
-                value={newEvent.time}
-                onChange={(e) => setNewEvent({ ...newEvent, time: e.target.value })}
               />
             </label>
             <label>

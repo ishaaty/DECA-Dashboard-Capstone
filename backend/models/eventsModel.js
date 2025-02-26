@@ -21,18 +21,6 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING(45),
       allowNull: true,
     },
-    event_location: {
-      type: DataTypes.STRING(45),
-      allowNull: true,
-    },
-    event_date: {
-      type: DataTypes.DATE,
-      allowNull: true,
-    },
-    event_time: {
-      type: DataTypes.TIME(),
-      allowNull: true,
-    },
     req_1: {
       type: DataTypes.STRING(45),
       allowNull: true,

@@ -93,9 +93,6 @@ export default function EventsPage(props) {
                                     acquired={null}
                                     title={event.event_name}
                                     descrip={event.event_descrip}
-                                    location={event.location}
-                                    date={event.date}
-                                    time={event.time}
                                     req_1={event.req_1}
                                     req_2={event.req_2}
                                     req_3={event.req_3}
@@ -147,9 +144,6 @@ export default function EventsPage(props) {
                                     acquired={false}
                                     title={event.event_name}
                                     descrip={event.event_descrip}
-                                    location={event.location}
-                                    date={event.date}
-                                    time={event.time}
                                     req_1={event.req_1}
                                     req_2={event.req_2}
                                     req_3={event.req_3}
@@ -170,9 +164,6 @@ export default function EventsPage(props) {
                                     acquired={true}
                                     title={event.event_name}
                                     descrip={event.event_descrip}
-                                    location={event.location}
-                                    date={event.date}
-                                    time={event.time}
                                     req_1={event.req_1}
                                     req_2={event.req_2}
                                     req_3={event.req_3}

@@ -7,10 +7,7 @@ const EditEventBtn = (props) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [newEvent, editEvent] = useState({ 
     title: props.title || '', 
-    descrip: props.descrip || '', 
-    location: props.location || '', 
-    date: props.date || '', 
-    time: props.time || '',
+    descrip: props.descrip || '',
     req_1: props.req_1 || '',
     req_2: props.req_2 || '',
     req_3: props.req_3 || '',
@@ -39,9 +36,6 @@ const EditEventBtn = (props) => {
     const eventData = {
         event_name: newEvent.title,
         event_descrip: newEvent.descrip,
-        event_location: newEvent.location,
-        event_date: newEvent.date,
-        event_time: newEvent.time,
         req_1: newEvent.req_1,
         req_2: newEvent.req_2,
         req_3: newEvent.req_3,
@@ -64,7 +58,7 @@ const EditEventBtn = (props) => {
 
         // Close the popup and reset form
         setIsPopupOpen(false);
-        editEvent({ title: newEvent.title, descrip: newEvent.descrip, location: newEvent.location, date: newEvent.date, time: newEvent.time, req_1: newEvent.req_1, req_2: newEvent.req_2, req_3: newEvent.req_3, req_4: newEvent.req_4, req_5: newEvent.req_5 });
+        editEvent({ title: newEvent.title, descrip: newEvent.descrip, req_1: newEvent.req_1, req_2: newEvent.req_2, req_3: newEvent.req_3, req_4: newEvent.req_4, req_5: newEvent.req_5 });
     } catch (error) {
         console.error('Error updating event:', error);
         alert('Failed to update event. Please try again.');
@@ -97,30 +91,6 @@ const EditEventBtn = (props) => {
                 type="text"
                 value={newEvent.descrip}
                 onChange={(e) => editEvent({ ...newEvent, descrip: e.target.value })}
-              />
-            </label>
-            <label>
-              Location:
-              <input
-                type="text"
-                value={newEvent.location}
-                onChange={(e) => editEvent({ ...newEvent, location: e.target.value })}
-              />
-            </label>
-            <label>
-              Date:
-              <input
-                type="date"
-                value={newEvent.date}
-                onChange={(e) => editEvent({ ...newEvent, date: e.target.value })}
-              />
-            </label>
-            <label>
-              Time:
-              <input
-                type="time"
-                value={newEvent.time}
-                onChange={(e) => editEvent({ ...newEvent, time: e.target.value })}
               />
             </label>
             <label>
