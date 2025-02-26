@@ -43,7 +43,7 @@ const Announcements = ({ announcements = [], userRole }) => {
         ann_description: newAnnouncement.ann_description,
       };
   
-      const response = await axios.post('http://localhost:8081/announcements/add', announcementData);
+      const response = await axios.post('http://localhost:8081/home/add', announcementData);
   
       const newAnn = response.data;
       if (newAnn?.ann_id) {
@@ -61,7 +61,7 @@ const Announcements = ({ announcements = [], userRole }) => {
 
   const handleDeleteAnnouncement = async (id) => {
     try {
-      await axios.delete(`http://localhost:8081/announcements/delete/${id}`);
+      await axios.delete(`http://localhost:8081/home/delete/${id}`);
       setAnnouncementList((prevList) => prevList.filter((announcement) => announcement.ann_id !== id));
     } catch (error) {
       console.error('Error deleting announcement:', error);
