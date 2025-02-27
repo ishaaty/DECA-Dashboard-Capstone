@@ -4,20 +4,28 @@ const sequelize = require('../config/db');
 const Events = require('../models/eventsModel')(sequelize);
 
 
-// Display resources when the events page is opened
-router.get('/display', async (req, res) => {
-    try {
-        const events = await Events.findAll(); // retrieve the existing events
-        res.json(events);
-    } catch (error) {
-        console.error('Error fetching events:', error);
-        res.status(500).json({ error: 'Failed to fetch events' });
-    }
+// Display events based on comp_id
+router.get('/display/:comp_id', async (req, res) => {
+  try {
+      const comp_id = parseInt(req.params.comp_id, 10); // Convert to integer
+      if (isNaN(comp_id)) {
+          return res.status(400).json({ error: 'Invalid comp_id' });
+      }
+
+      const events = await Events.findAll({ where: { comp_id } });
+      res.json(events);
+
+  } catch (error) {
+      console.error('Error fetching events:', error);
+      res.status(500).json({ error: 'Failed to fetch events' });
+  }
 });
+
+
 
 // Add a new event to the database
 router.post('/add', async (req, res) => {
-    const { competition_id, event_name, event_descrip, event_location, event_date, event_time } = req.body;
+    const { comp_id, event_name, event_descrip, req_1, req_2, req_3, req_4, req_5 } = req.body;
 
     if (!event_name) {
         return res.status(400).json({ error: 'Event name is required.' });
@@ -25,12 +33,14 @@ router.post('/add', async (req, res) => {
 
     try {
         const newEvent = await Events.create({
-            competition_id,
+            comp_id,
             event_name, 
-            event_descrip, 
-            event_location, 
-            event_date, 
-            event_time
+            event_descrip,
+            req_1,
+            req_2,
+            req_3,
+            req_4,
+            req_5
         });
         res.status(201).json(newEvent); // Return the newly created event
     } catch (error) {
@@ -55,5 +65,39 @@ router.delete('/delete/:id', async (req, res) => {
     res.status(500).json({ error: 'Failed to delete event' });
   }
 });
+
+
+// Edit an existing event while keeping comp_id and event_id unchanged
+router.put('/edit/:event_id', async (req, res) => {
+  const { event_id } = req.params; // Get event ID from the URL parameter
+  const {
+      event_name, event_descrip, req_1, req_2, req_3, req_4, req_5
+  } = req.body;
+
+  try {
+      const event = await Events.findByPk(event_id); // Find event by primary key
+
+      if (!event) {
+          return res.status(404).json({ error: 'Event not found' });
+      }
+
+      // Update only the fields that can be modified
+      await event.update({
+          event_name, 
+          event_descrip,
+          req_1, 
+          req_2, 
+          req_3, 
+          req_4, 
+          req_5
+      });
+
+      res.status(200).json({ message: 'Event updated successfully', event });
+  } catch (error) {
+      console.error('Error updating event:', error);
+      res.status(500).json({ error: 'Failed to update event' });
+  }
+});
+
 
 module.exports = router

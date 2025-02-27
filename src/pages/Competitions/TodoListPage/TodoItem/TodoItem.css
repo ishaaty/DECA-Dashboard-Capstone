@@ -1,0 +1,13 @@
+#status {
+    padding: 5px;
+}
+
+#downloadBtn {
+    padding: 7px;
+    border: solid;
+    border-width: 1px;
+}
+
+#status, #downloadBtn {
+    border-radius: 10px;
+}

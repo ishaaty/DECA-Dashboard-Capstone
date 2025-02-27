@@ -12,9 +12,10 @@ export default function Competitions() {
 
             <div className="competition-grid">
 
-                <a href="events" ><CompTypeCard name="Regionals" color="#F5585E" /></a>
-                <a href="events" ><CompTypeCard name="States" color="#FFC511" /></a>
-                <a href="events" ><CompTypeCard name="Nationals" color="#00529B" /></a>
+            <a href={`events?comp_id=1`}><CompTypeCard name="Regionals" color="#F5585E" /></a>
+            <a href={`events?comp_id=2`}><CompTypeCard name="States" color="#FFC511" /></a>
+            <a href={`events?comp_id=3`}><CompTypeCard name="Nationals" color="#00529B" /></a>
+
                 
             </div>
         </div>
