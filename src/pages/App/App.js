@@ -29,23 +29,24 @@ import TodoListPage from '../Competitions/TodoListPage/TodoListPage';
 
 export default function App() {
   const { isAuthenticated, user, getAccessTokenSilently } = useAuth0();
-  const [userRole, setUserRole] = useState(null);  // This will hold the role from the backend
+  //const [userRole, setUserRole] = useState(null);  // This will hold the role from the backend
+  let userRole = "admin";
 
-  useEffect(() => {
-    const fetchRole = async () => {
-      if (isAuthenticated && user) {  // Ensure user is authenticated before calling
-        try {
-          const token = await getAccessTokenSilently();  // Get the token
-          const roleData = await fetchWithAuth(token, `http://localhost:8081/user/role?email=${user.email}`);  // Fetch the role
-          setUserRole(roleData.role);  // Set the user role from the backend
-        } catch (err) {
-          console.error('Error fetching role:', err);
-        }
-      }
-    };
+  // useEffect(() => {
+  //   const fetchRole = async () => {
+  //     if (isAuthenticated && user) {  // Ensure user is authenticated before calling
+  //       try {
+  //         const token = await getAccessTokenSilently();  // Get the token
+  //         const roleData = await fetchWithAuth(token, `http://localhost:8081/user/role?email=${user.email}`);  // Fetch the role
+  //         setUserRole(roleData.role);  // Set the user role from the backend
+  //       } catch (err) {
+  //         console.error('Error fetching role:', err);
+  //       }
+  //     }
+  //   };
 
-    fetchRole();
-  }, [isAuthenticated, user, getAccessTokenSilently]);  // Only run when isAuthenticated or user changes
+  //   fetchRole();
+  // }, [isAuthenticated, user, getAccessTokenSilently]);  // Only run when isAuthenticated or user changes
 
   return (
     <div>
