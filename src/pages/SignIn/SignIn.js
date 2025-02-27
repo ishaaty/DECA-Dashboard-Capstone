@@ -1,5 +1,4 @@
 import './SignIn.css';
-import Header from '../../components/Header/Header';
 import React from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 
@@ -13,7 +12,6 @@ export default function SignIn() {
     return (
         <>
             <div>
-                <Header />
                 <div className="mainPg">
                     <img id="signinlogo" src="decaLogo.png" alt="DECA Logo Not Working" />
                 </div>
