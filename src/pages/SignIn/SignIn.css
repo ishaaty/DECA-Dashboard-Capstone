@@ -31,16 +31,20 @@
 }
 
 /* Image styling */
-img {
-    height: 300px;
-    width: 300px;
+#signinlogo {
+    height: 40vh;
+    width: 35vw;
     display: block;
-    margin: 0 auto;
+    margin: auto auto;
+    padding-top: 15vh;
 }
 
 .mainPg {
-    height: 300px !important;
-    width: 300px !important;
+    /* height: 300px !important;
+    width: 300px !important; */
+    margin: auto auto;
+    height: 70vh;
+    display: block;
 }
 
 /* Button container */

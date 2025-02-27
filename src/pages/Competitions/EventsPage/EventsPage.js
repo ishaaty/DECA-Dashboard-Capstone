@@ -66,7 +66,7 @@ export default function EventsPage(props) {
                 <div id="main">
                 <a href="competitions">
                     <button id="ahh">
-                    <img src="blue.png" alt=""></img>
+                    <img id="eventimage" src="blue.png" alt=""></img>
                     </button>
                 </a>
                 </div>
@@ -121,7 +121,7 @@ export default function EventsPage(props) {
                 <div id="main">
                 <a href="competitions">
                     <button id="ahh">
-                    <img src="blue.png"alt=""></img>
+                    <img id="eventimage" src="blue.png"alt=""></img>
                     </button>
                 </a>
                 </div>

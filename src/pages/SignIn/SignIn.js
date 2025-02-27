@@ -14,8 +14,8 @@ export default function SignIn() {
         <>
             <div>
                 <Header />
-                <div className="mainPg" style={{ marginTop: "100px", marginBottom: "75px" }}>
-                    <img src="decaLogo.png" alt="DECA Logo Not Working" />
+                <div className="mainPg">
+                    <img id="signinlogo" src="decaLogo.png" alt="DECA Logo Not Working" />
                 </div>
 
                 <div className="button-container">
