@@ -53,12 +53,10 @@ app.use('/participantdetails', participantRoutes);
 const fundraisersRoutes = require('./routes/fundraisersRoutes');
 app.use('/fundraisers', fundraisersRoutes);
 
-<<<<<<< HEAD
 const announcementsRoutes = require('./routes/announcementsRoutes');
 app.use('/home', announcementsRoutes); 
-=======
+
 const todoListRoute = require('./routes/todoListRoutes')
->>>>>>> 23224914f79165cf61963d170bb98c4504915d66
 
 
 
