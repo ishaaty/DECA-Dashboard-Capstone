@@ -6,11 +6,38 @@ import AddCommentBtn from './AddCommentBtn/AddCommentBtn'
 import TodoItem from './TodoItem/TodoItem';
 
 import { UserRoleContext } from '../../../context/UserRoleContext';
-import { useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import axios from 'axios';
+
 
 export default function TodoListPage() {
 
+    const [todoItem, setTodoItem] = useState(null);
     const userRole = useContext(UserRoleContext);
+
+    // // hard-coded values --> will change
+    // let event_id = 0;
+    // let user_id = 0;
+
+    // useEffect(() => {
+    //     const fetchTodoItem = async () => {
+    //         if (!event_id || !user_id) {
+    //             console.error('event_id or user_id is undefined');
+    //             return;
+    //         }
+    //         try {
+    //             const response = await axios.get(`http://localhost:8081/display`, {
+    //                 params: { event_id, user_id } // Pass parameters
+    //             });
+    //             setTodoItem(response.data); // Update state with the fetched item
+    //         } catch (error) {
+    //             console.error('Error fetching todo list item:', error);
+    //         }
+    //     };
+
+    //     fetchTodoItem();
+    // }, [event_id, user_id]); // Runs when event_id or user_id changes
+
 
     if (userRole === "admin"){
         return (
@@ -18,24 +45,23 @@ export default function TodoListPage() {
                 <Header />
                 <Menu />
 
-    
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", marginTop: "50px", gap: "20px" }}>
     
                     <h1 className="header-text">Julia Thompson: Binder Event</h1>
                     
-
                     <button style={{ backgroundColor: "#E3E8F1", borderRadius: "20px", padding: "30px"}}>
                         <h1>To Do List</h1>
-
-                        <TodoItem />
-                        <TodoItem />
-
+                        <TodoItem userRole={userRole} name={"NJ Deca Form"} status={"incomplete"} />
+                        <TodoItem userRole={userRole} name={"Script"} status={"incomplete"} />
+                        <button className="saveStatuses">Save Statuses</button>
                     </button>
-
+                    <button style={{ backgroundColor: "#E3E8F1", borderRadius: "20px", padding: "30px"}}>
+                        <h1>Comment(s)</h1>
+                        <p className="comment">Mr. G: Add more detail to script</p>
+                    </button>
                     <AddCommentBtn />
     
                 </div>
-    
                     
             </>
         )
@@ -56,8 +82,8 @@ export default function TodoListPage() {
     
                     <button style={{ backgroundColor: "#E3E8F1", borderRadius: "20px", padding: "30px"}}>
                         <h1>To Do List</h1>
-                        <TodoItem />
-                        <TodoItem />
+                        <TodoItem userRole={userRole} name={"NJ Deca Form"} status={"incomplete"} />
+                        <TodoItem userRole={userRole} name={"Script"} status={"incomplete"} />
                     </button>
 
                     <button style={{ backgroundColor: "#E3E8F1", borderRadius: "20px", padding: "30px"}}>
