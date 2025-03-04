@@ -28,12 +28,18 @@ const UploadPDFBtn = (props) => {
             <h2>Upload Item</h2>
             <label>
               Requirement:
-              <input
-                type="text"
+              <select
                 value={props.requirement}
                 onChange={(e) => setNewPDF({ ...newPDF, requirement: e.target.value })}
-              />
+              >
+                <option value="" disabled>Select a requirement</option>
+                {/* use props.requirements for list instead */}
+                {["hey", "wsg", "wya"].map((req, index) => (
+                  <option key={index} value={req}>{req}</option>
+                ))}
+              </select>
             </label>
+
             <label>
               PDF:
               <input

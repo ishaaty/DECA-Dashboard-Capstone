@@ -6,6 +6,9 @@
     padding: 7px;
     border: solid;
     border-width: 1px;
+    cursor: pointer;
+    background-color: white;
+    color: black;
 }
 
 #status, #downloadBtn {

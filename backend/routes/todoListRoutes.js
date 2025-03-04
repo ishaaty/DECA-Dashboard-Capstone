@@ -3,54 +3,42 @@ const router = express.Router();
 const sequelize = require('../config/db');
 const TodoList = require('../models/user_event_xrefModel')(sequelize);
 
-// Display resources when the resource page is opened
+// Display todoList (and comment) based on event_id, user_id, and request_status
 router.get('/display', async (req, res) => {
-    try {
-        const todoList = await Resources.findAll(); // retrieve the existing resources
-        res.json(resources);
-    } catch (error) {
-        console.error('Error fetching resources:', error);
-        res.status(500).json({ error: 'Failed to fetch resources' });
-    }
-});
-
-// Add a new resource to the database
-router.post('/add', async (req, res) => {
-    const { resource_name, web_url, file_url } = req.body;
-
-    if (!resource_name || (!web_url && !file_url)) {
-        return res.status(400).json({ error: 'Resource name and at least one URL (web or file) are required.' });
-    }
-
-    try {
-        const newResource = await Resources.create({
-            resource_name,
-            web_url,
-            file_url,
-        });
-        res.status(201).json(newResource); // Return the newly created resource
-    } catch (error) {
-        console.error('Error adding resource:', error);
-        res.status(500).json({ error: 'Failed to add resource' });
-    }
-});
-
-// Delete a resource by ID
-router.delete('/delete/:id', async (req, res) => {
-  const { id } = req.params; // Get the resource ID from the URL parameter
-
   try {
-    const resource = await Resources.findByPk(id); // Find resource by primary key (ID)
-    if (!resource) {
-      return res.status(404).json({ error: 'Resource not found' });
-    }
+      const { event_id, user_id } = req.query; // Assuming parameters are passed as query params
 
-    await resource.destroy(); // Delete the resource
-    res.status(200).json({ message: 'Resource deleted successfully' });
+      if (!event_id || !user_id) {
+          return res.status(400).json({ error: 'event_id and user_id are required' });
+      }
+
+      const todoListItem = await TodoList.findOne({
+          where: {
+              event_id,
+              user_id,
+              request_status: 'approved' // Ensure the request is approved
+          }
+      });
+
+      if (!todoListItem) {
+          return res.status(404).json({ error: 'No matching todo list item found' });
+      }
+
+      res.json(todoListItem);
   } catch (error) {
-    console.error('Error deleting resource:', error);
-    res.status(500).json({ error: 'Failed to delete resource' });
+      console.error('Error fetching todoList item:', error);
+      res.status(500).json({ error: 'Failed to fetch todo list item' });
   }
 });
+
+
+// Save statuses of materials
+
+// Add/edit comment
+
+
+// User Functionality
+// Upload material for requirement
+
 
 module.exports = router
