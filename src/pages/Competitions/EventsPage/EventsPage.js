@@ -4,13 +4,15 @@ import Menu from '../../../components/Menu/Menu';
 import CreateEventBtn from './CreateEventBtn/CreateEventBtn';
 import EventCard from './EventCard/EventCard';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
+import { UserRoleContext } from '../../../context/UserRoleContext';
 import axios from 'axios';
 
-export default function EventsPage(props) {
+export default function EventsPage() {
 
     const location = useLocation();
+    const userRole = useContext(UserRoleContext);
     const searchParams = new URLSearchParams(location.search);
     const comp_id = searchParams.get('comp_id'); // Get comp_id from URL
     let title = "";
@@ -57,7 +59,7 @@ export default function EventsPage(props) {
     };
 
 
-    if (props.userRole === "admin"){
+    if (userRole === "admin"){
         return (
             <>
                 <Header />
@@ -98,7 +100,7 @@ export default function EventsPage(props) {
                                     req_3={event.req_3}
                                     req_4={event.req_4}
                                     req_5={event.req_5}
-                                    userRole={props.userRole}
+                                    userRole={userRole}
                                     setEvents={setEvents}
                                     onDelete={() => handleDeleteEvent(event.event_id)}
                                 />
@@ -149,7 +151,7 @@ export default function EventsPage(props) {
                                     req_3={event.req_3}
                                     req_4={event.req_4}
                                     req_5={event.req_5}
-                                    userRole={props.userRole}
+                                    userRole={userRole}
                                     onDelete={() => handleDeleteEvent(event.event_id)}
                                 />
                             ))}
@@ -169,7 +171,7 @@ export default function EventsPage(props) {
                                     req_3={event.req_3}
                                     req_4={event.req_4}
                                     req_5={event.req_5}
-                                    userRole={props.userRole}
+                                    userRole={userRole}
                                     onDelete={() => handleDeleteEvent(event.event_id)}
                                 />
                             ))}

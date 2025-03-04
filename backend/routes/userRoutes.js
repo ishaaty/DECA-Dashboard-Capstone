@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/userModel'); 
+const { User } = require('../models');
 
 // Route for creating a user
 router.post('/create', async (req, res) => {
@@ -52,5 +52,36 @@ router.get('/approval-status', async (req, res) => {
       res.status(500).json({ exists: false, approved: false, role: null });
   }
 });
+
+
+
+router.get('/role', async (req, res) => {
+    console.log("hit role route");
+    try {
+      const userEmail = req.query.email;
+      console.log("email: ", userEmail);
+  
+      if (!userEmail) {
+          console.error("No email provided in request");
+          return res.status(400).json({ error: "Email is required" });
+      }
+  
+      // Find the user by account_email
+      const user = await User.findOne({ where: { account_email: userEmail } });
+  
+      if (!user) {
+          console.warn(`User not found for email: ${userEmail}`);
+          return res.status(404).json({ error: "User not found" });
+      }
+  
+      return res.json({ role: user.position });
+  
+    } catch (error) {
+      console.error('Error checking approval status:', error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
+  
+
 
 module.exports = router;

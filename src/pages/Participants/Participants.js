@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { UserRoleContext } from '../../context/UserRoleContext';
+
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import './Participants.css';
 import Header from '../../components/Header/Header';
@@ -7,11 +9,13 @@ import AdminCard from './AdminCard/AdminCard';
 import ExportCard from './ExportCard/ExportCard';
 import axios from 'axios';
 
-export default function Participants(props) {
+export default function Participants() {
   const [participants, setParticipants] = useState([]);
   const [boardMembers, setBoardMembers] = useState([]);
   const [admins, setAdmins] = useState([]);
   const [error, setError] = useState(null);
+
+  const userRole = useContext(UserRoleContext);
 
   useEffect(() => {
     const fetchUsersByRole = async (role, setState) => {
@@ -35,7 +39,7 @@ export default function Participants(props) {
 
   // If the user is an admin, include an export card
   const renderAdminContent = () => {
-    if (props.userRole !== 'participant') {
+    if (userRole === 'admin' || userRole === 'board member') {
       return <ExportCard />;
     }
     return null;

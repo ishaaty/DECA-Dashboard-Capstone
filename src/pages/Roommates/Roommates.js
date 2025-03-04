@@ -2,9 +2,13 @@ import './Roommates.css';
 import Header from '../../components/Header/Header'
 import Menu from '../../components/Menu/Menu'
 
-export default function Roommates(props) {
+import { useContext } from 'react';
+import { UserRoleContext } from '../../context/UserRoleContext';
 
-    const userRole = "admin";
+export default function Roommates() {
+
+    const userRole = useContext(UserRoleContext);
+
     if (userRole === "admin"){    
         return (
             <>

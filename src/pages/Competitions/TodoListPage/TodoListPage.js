@@ -5,9 +5,14 @@ import UploadPDFBtn from './UploadPDFBtn/UploadPDFBtn'
 import AddCommentBtn from './AddCommentBtn/AddCommentBtn'
 import TodoItem from './TodoItem/TodoItem';
 
-export default function TodoListPage(props) {
+import { UserRoleContext } from '../../../context/UserRoleContext';
+import { useContext } from 'react';
 
-    if (props.userRole === "admin"){
+export default function TodoListPage() {
+
+    const userRole = useContext(UserRoleContext);
+
+    if (userRole === "admin"){
         return (
             <>
                 <Header />
