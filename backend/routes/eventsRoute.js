@@ -3,7 +3,6 @@ const router = express.Router();
 const sequelize = require('../config/db');
 const Events = require('../models/eventsModel')(sequelize);
 
-
 // Display events based on comp_id
 router.get('/display/:comp_id', async (req, res) => {
   try {

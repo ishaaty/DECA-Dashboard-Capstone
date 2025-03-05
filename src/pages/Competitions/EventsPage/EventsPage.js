@@ -10,6 +10,8 @@ import axios from 'axios';
 
 export default function EventsPage(props) {
 
+    const [events, setEvents] = useState([]);
+
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const comp_id = searchParams.get('comp_id'); // Get comp_id from URL
@@ -25,24 +27,25 @@ export default function EventsPage(props) {
 
     console.log(comp_id);
 
-    const [events, setEvents] = useState([]);
-
     useEffect(() => {
         const fetchEvents = async () => {
             if (!comp_id) {
-                console.error('comp_id is undefined');
+                console.error("comp_id is undefined");
                 return;
             }
             try {
+                console.log("Current comp_id:", comp_id);
                 const response = await axios.get(`http://localhost:8081/events/display/${comp_id}`);
+                console.log("Fetched events:", response.data);  // Debugging step
                 setEvents(response.data);
             } catch (error) {
-                console.error('Error fetching events:', error);
+                console.error("Error fetching events:", error);
             }
         };
-        
+    
         fetchEvents();
     }, [comp_id]); 
+    
     
     
     const handleDeleteEvent = async (id) => {
@@ -85,7 +88,7 @@ export default function EventsPage(props) {
                     <div>
                         <h1 style={{ color: "#F5585E", zIndex: "999" }}>All Events:</h1>
                         <div className="events-container">
-                            {events.map((event, index) => (
+                            {events?.map((event, index) => (
                                 <EventCard
                                     key={event.event_id}
                                     event_id={event.event_id} // This ensures event_id is available in props
@@ -138,7 +141,7 @@ export default function EventsPage(props) {
                         <h1 style={{ color: "#F5585E", alignItems: "center" }}>All Events:</h1>
                         <div className="events-container">
                             {/* <EventCard acquired={false} title={"Binder"} descrip={"This is a binders event"} date={"2025-01-31"} /> */}
-                            {events.map((event, index) => (
+                            {events?.map((event, index) => (
                                 <EventCard
                                     key={event.event_id}
                                     acquired={false}
@@ -158,7 +161,7 @@ export default function EventsPage(props) {
                     <div >
                         <h1 style={{ color: "#F5585E", alignItems: "center", marginTop: "30px" }}>My Events:</h1>
                         <div className="events-container">
-                            {events.map((event, index) => (
+                            {events?.map((event, index) => (
                                 <EventCard
                                     key={event.event_id}
                                     acquired={true}

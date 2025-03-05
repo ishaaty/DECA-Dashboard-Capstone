@@ -1,4 +1,4 @@
-#status {
+#statusDropdown {
     padding: 5px;
 }
 
@@ -11,6 +11,6 @@
     color: black;
 }
 
-#status, #downloadBtn {
+#statusDropdown, #downloadBtn {
     border-radius: 10px;
 }

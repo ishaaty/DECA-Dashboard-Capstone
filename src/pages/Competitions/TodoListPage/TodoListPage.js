@@ -10,88 +10,55 @@ import axios from 'axios';
 
 export default function TodoListPage(props) {
 
-    const [todoItem, setTodoItem] = useState(null);
-
-    // // hard-coded values --> will change
-    // let event_id = 0;
-    // let user_id = 0;
-
-    // useEffect(() => {
-    //     const fetchTodoItem = async () => {
-    //         if (!event_id || !user_id) {
-    //             console.error('event_id or user_id is undefined');
-    //             return;
-    //         }
-    //         try {
-    //             const response = await axios.get(`http://localhost:8081/display`, {
-    //                 params: { event_id, user_id } // Pass parameters
-    //             });
-    //             setTodoItem(response.data); // Update state with the fetched item
-    //         } catch (error) {
-    //             console.error('Error fetching todo list item:', error);
-    //         }
-    //     };
-
-    //     fetchTodoItem();
-    // }, [event_id, user_id]); // Runs when event_id or user_id changes
-
-
-    if (props.userRole === "admin"){
+    if (props.userRole === "admin") {
         return (
             <>
                 <Header />
                 <Menu />
-
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", marginTop: "50px", gap: "20px" }}>
-    
                     <h1 className="header-text">Julia Thompson: Binder Event</h1>
-                    
-                    <button style={{ backgroundColor: "#E3E8F1", borderRadius: "20px", padding: "30px"}}>
-                        <h1>To Do List</h1>
-                        <TodoItem userRole={props.userRole} name={"NJ Deca Form"} status={"incomplete"} />
-                        <TodoItem userRole={props.userRole} name={"Script"} status={"incomplete"} />
-                        <button className="saveStatuses">Save Statuses</button>
-                    </button>
-                    <button style={{ backgroundColor: "#E3E8F1", borderRadius: "20px", padding: "30px"}}>
+                    <div style={{ backgroundColor: "#E3E8F1", borderRadius: "20px", padding: "30px", display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%" }}>
+                        <h1 style={{ textAlign: "center" }}>To Do List</h1>
+                        <div style={{ flex: 1 }}>
+                        <TodoItem userRole={"admin"} itemName={"NJ DECA"} />
+                        <TodoItem userRole={"admin"} itemName={"Script"} />
+                        </div>
+                        <button className="saveStatuses" style={{ alignSelf: "center" }}>
+                            Save Statuses
+                        </button>
+                    </div>
+                    <div style={{ backgroundColor: "#E3E8F1", borderRadius: "20px", padding: "30px" }}>
                         <h1>Comment(s)</h1>
                         <p className="comment">Mr. G: Add more detail to script</p>
-                    </button>
+                    </div>
                     <AddCommentBtn />
-    
                 </div>
-                    
             </>
-        )
+        );
     } else {
         return (
             <>
                 <Header />
                 <Menu />
-    
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", marginTop: "50px", gap: "20px" }}>
-
                     <h1 className="header-text">Binder Event</h1>
                     <a href="events">
-                    <button style={{ backgroundColor: "#00529B", color:"white" }}>
-                        Back
-                    </button>
+                        <button style={{ backgroundColor: "#00529B", color: "white" }}>
+                            Back
+                        </button>
                     </a>
-    
-                    <button style={{ backgroundColor: "#E3E8F1", borderRadius: "20px", padding: "30px"}}>
+                    <div style={{ backgroundColor: "#E3E8F1", borderRadius: "20px", padding: "30px" }}>
                         <h1>To Do List</h1>
-                        <TodoItem userRole={props.userRole} name={"NJ Deca Form"} status={"incomplete"} />
-                        <TodoItem userRole={props.userRole} name={"Script"} status={"incomplete"} />
-                    </button>
-
-                    <button style={{ backgroundColor: "#E3E8F1", borderRadius: "20px", padding: "30px"}}>
+                        <TodoItem userRole={"participant"} itemName={"NJ DECA Form"} />
+                        <TodoItem userRole={"participant"} itemName={"Script"} />
+                    </div>
+                    <div style={{ backgroundColor: "#E3E8F1", borderRadius: "20px", padding: "30px" }}>
                         <h1>Comment(s)</h1>
                         <p className="comment">Mr. G: Add more detail to script</p>
-                    </button>
-
+                    </div>
                     <UploadPDFBtn />
-
-                </div>   
+                </div>
             </>
-        )
+        );
     }
 }
