@@ -1,10 +1,15 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
-import { useAuth0 } from '@auth0/auth0-react';
-import React from 'react';
+import React, { useContext } from 'react';
 
-import { UserRoleProvider } from '../../context/UserRoleContext';
+
+// Restricts page access
+import RoleBasedRoute from '../../context/RoleBasedRoute';
 import ProtectedRoute from '../../context/ProtectedRoute';
+
+// Gives pages access to user role
+import { UserRoleProvider, UserRoleContext } from '../../context/UserRoleContext';
+
 
 // pre sign-in & general pages
 import About from "../About/About"
@@ -28,15 +33,16 @@ import EventsPage from '../Competitions/EventsPage/EventsPage';
 import ViewRequesters from '../Competitions/ViewRequesters/ViewRequesters';
 import Roommates from '../Roommates/Roommates';
 import TodoListPage from '../Competitions/TodoListPage/TodoListPage';
+import Unauthorized from "../Unauthorized/Unauthorized"; 
+
+
 
 export default function App() {
-  const { isAuthenticated } = useAuth0();
-
   return (
     <div>
       <BrowserRouter>
         <Routes>
-          {/* Pages that do not change by userRole */}
+          {/* Public pages */}
           <Route index element={<SignIn />} />
           <Route path="/about" element={<About />} />
           <Route path="/user" element={<User />} />
@@ -44,18 +50,21 @@ export default function App() {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/callback" element={<Callback />} />
           <Route path="/pending-approval" element={<PendingApproval />} />
-          
-          {/* Pages that change by userRole */}
+
+          {/* Provides pages with user role and restricts access to participants/board/admins */}
           <Route 
             path="/*" 
             element={
-              <ProtectedRoute>
-                <UserRoleProvider>
-                  {isAuthenticated ? <ProtectedRoutes /> : <div>Loading...</div>}
-                </UserRoleProvider>
-              </ProtectedRoute>
+              <UserRoleProvider>
+                <ProtectedRoute>
+                  <RoleRestrictedRoutes />
+                </ProtectedRoute>
+              </UserRoleProvider>
             } 
           />
+
+          {/* Unauthorized route */}
+          <Route path="/unauthorized" element={<Unauthorized />} />
 
           {/* Default Route */}
           <Route path="*" element={<NoPage />} />
@@ -65,7 +74,16 @@ export default function App() {
   );
 }
 
-const ProtectedRoutes = () => {
+
+
+// Ensures only approved roles can access post-login pages
+const RoleRestrictedRoutes = () => {
+  const userRole = useContext(UserRoleContext);
+
+  if (!["participant", "board member", "admin"].includes(userRole)) {
+    return <Navigate to="/pending-approval" replace />;
+  }
+
   return (
     <Routes>
       <Route path="/home" element={<Home />} />
@@ -78,8 +96,17 @@ const ProtectedRoutes = () => {
       <Route path="/fundraiserapproval" element={<FundraiserApproval />} />
       <Route path="/participants" element={<Participants />} />
       <Route path="/participantdetails" element={<ParticipantDetails />} />
-      <Route path="/unapprovedparticipants" element={<UnapprovedParticipants />} />
       <Route path="/resources" element={<Resources />} />
+
+      {/* Restrict UnapprovedParticipants page to Admins only */}
+      <Route 
+        path="/unapprovedparticipants" 
+        element={
+          <RoleBasedRoute allowedRoles={['admin']}>
+            <UnapprovedParticipants />
+          </RoleBasedRoute>
+        } 
+      />
     </Routes>
   );
-}
+};
