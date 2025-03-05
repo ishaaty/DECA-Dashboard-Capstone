@@ -80,6 +80,12 @@ export default function App() {
 const RoleRestrictedRoutes = () => {
   const userRole = useContext(UserRoleContext);
 
+  // Prevent redirection until the role is fetched
+  if (userRole === null) {
+    console.log("Waiting for user role to be set...");
+    return <div>Loading...</div>;
+  }
+
   if (!["participant", "board member", "admin"].includes(userRole)) {
     return <Navigate to="/pending-approval" replace />;
   }
@@ -98,7 +104,6 @@ const RoleRestrictedRoutes = () => {
       <Route path="/participantdetails" element={<ParticipantDetails />} />
       <Route path="/resources" element={<Resources />} />
 
-      {/* Restrict UnapprovedParticipants page to Admins only */}
       <Route 
         path="/unapprovedparticipants" 
         element={

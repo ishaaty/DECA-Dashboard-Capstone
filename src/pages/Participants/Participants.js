@@ -39,7 +39,7 @@ export default function Participants() {
 
   // If the user is an admin, include an export card
   const renderAdminContent = () => {
-    if (userRole === 'admin' || userRole === 'board member') {
+    if (userRole === 'admin') {
       return <ExportCard />;
     }
     return null;
