@@ -3,12 +3,14 @@ import Header from '../../components/Header/Header';
 import Menu from '../../components/Menu/Menu';
 import ResourceCards from './ResourceCard/ResourceCard';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { UserRoleContext } from '../../context/UserRoleContext';
 import axios from 'axios';
 
-const ResourcesPage = (props) => {
-  // const userRole = 'admin'; // Set to 'admin' or any other role for testing
+const ResourcesPage = () => {
   const [resources, setResources] = useState([]);
+  const userRole = useContext(UserRoleContext);
+  console.log(userRole);
 
   // Fetch resources from axios
   useEffect(() => {
@@ -29,7 +31,7 @@ const ResourcesPage = (props) => {
       <Header />
       <Menu />
       <h1 className="comp">Resources</h1>
-      <ResourceCards resources={resources} setResources={setResources} userRole={props.userRole} />
+      <ResourceCards resources={resources} setResources={setResources} userRole={userRole} />
     </div>
   );
 };

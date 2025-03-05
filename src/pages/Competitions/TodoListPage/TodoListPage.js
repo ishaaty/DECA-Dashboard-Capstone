@@ -5,10 +5,12 @@ import UploadPDFBtn from './UploadPDFBtn/UploadPDFBtn'
 import AddCommentBtn from './AddCommentBtn/AddCommentBtn'
 import TodoItem from './TodoItem/TodoItem';
 
-import { useState, useEffect } from 'react';
+import { UserRoleContext } from '../../../context/UserRoleContext';
+import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 
-export default function TodoListPage(props) {
+
+export default function TodoListPage() {
 
     if (props.userRole === "admin") {
         return (

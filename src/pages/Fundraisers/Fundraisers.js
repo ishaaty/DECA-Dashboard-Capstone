@@ -3,12 +3,14 @@ import Header from '../../components/Header/Header';
 import Menu from '../../components/Menu/Menu';
 import Fundraisers from './FundraiserCard/FundraiserCard';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { UserRoleContext } from '../../context/UserRoleContext';
 import axios from 'axios';
 
-const FundraisersPage = (props) => {
+const FundraisersPage = () => {
   // const userRole = 'admin'; // Set to 'admin' or any other role for testing
   const [fundraisers, setFundraisers] = useState([]);
+  const userRole = useContext(UserRoleContext);
 
   // Fetch fundraiser from axios
   useEffect(() => {
@@ -29,7 +31,7 @@ const FundraisersPage = (props) => {
       <Header />
       <Menu />
       <h1 className='comp'>Fundraisers</h1>
-      <Fundraisers fundraisers={fundraisers} setFundraisers={setFundraisers} userRole={props.userRole} />
+      <Fundraisers fundraisers={fundraisers} setFundraisers={setFundraisers} userRole={userRole} />
     </div>
   );
 };

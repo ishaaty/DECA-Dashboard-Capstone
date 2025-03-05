@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom'; // Import useLocation
+import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import './ParticipantDetails.css';
 import Header from '../../components/Header/Header';
 import Menu from '../../components/Menu/Menu';
 
-export default function ParticipantDetails({ userRole }) {
-  const location = useLocation(); // Get the current location (URL)
-  const params = new URLSearchParams(location.search); // Parse the query string
-  const userFirst = params.get('userFirst'); // Get userFirst from query parameters
-  const userLast = params.get('userLast'); // Get userLast from query parameters
+import { useContext } from 'react';
+import { UserRoleContext } from '../../context/UserRoleContext';
+
+export default function ParticipantDetails() {
+  let userRole = useContext(UserRoleContext);
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const userFirst = params.get('userFirst');
+  const userLast = params.get('userLast');
 
   const [participant, setParticipant] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -70,7 +74,7 @@ export default function ParticipantDetails({ userRole }) {
 
   const renderEvents = () => {
     if (!participant || !participant.events || participant.events.length === 0) {
-      return <p>No events</p>;  // Display "No events" if no events are found
+      return <p>No events</p>;
     }
 
     return participant.events.map((event, index) => (
@@ -94,10 +98,12 @@ export default function ParticipantDetails({ userRole }) {
           <h3 id="parteventhead">Events</h3>
           {renderEvents()}
         </div>
+
+        {/* Only show this section if userRole is "admin" */}
         {userRole === "admin" && (
           <div className="roleselection">
             <label>Select Role: </label>
-            <select class="roleselect" value={selectedRole} onChange={handleRoleChange}>
+            <select className="roleselect" value={selectedRole} onChange={handleRoleChange}>
               <option id="pickrole" value="">--Select Role--</option>
               <option value="Admin">Admin</option>
               <option value="Participant">Participant</option>
