@@ -1,0 +1,40 @@
+#pendingheader {
+    color: #00529B;
+    text-align: center;
+    margin-top: 5vh;
+}
+
+#pendingdesc {
+    color: #00529B;
+    text-align: center;
+    margin: auto auto;
+    margin-top: 4vh;
+    margin-bottom: 10vh;
+    width: 35vw;
+}
+
+#pendingentries {
+    margin-left: 25vw;
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+#pendingbtn {
+    display: grid;
+    margin: auto auto;
+    margin-top: 5vh;
+    background-color: #00529B;
+    color: white;
+    text-decoration: none;
+    padding: 6px 12px;
+    border: 1px solid white;
+    border-radius: 8px;
+    font-size: 16px;
+    text-align: center;
+}
+
+.pendinglabel {
+    color: #00529B;
+    margin-right: 1vw;
+    display: block;
+}
