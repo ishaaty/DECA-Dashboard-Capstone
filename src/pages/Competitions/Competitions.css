@@ -1,7 +1,9 @@
 .comp {
     color: #00529B;
-    margin-top: 75px;
+    margin: auto auto;
+    margin-top: 5vh;
     margin-bottom: 85px;
+    padding-left: 20vw;
     font-size: 35px;
 
     position: relative; /* Ensures it stacks properly */

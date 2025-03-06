@@ -16,4 +16,5 @@
     align-items: center; /* Center cards vertically */
     margin: 20px auto; /* Center the grid in the page */
     max-width: 800px; /* Optional: constrain grid width */
+    padding-left: 12vw;
 }
