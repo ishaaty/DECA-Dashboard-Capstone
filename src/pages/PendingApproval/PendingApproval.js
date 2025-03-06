@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './PendingApproval.css';
 import { useAuth0 } from '@auth0/auth0-react';
 import axios from 'axios';
+import Header from '../../components/Header/Header';
 
 function PendingApproval() {
   const { user } = useAuth0(); // Get authenticated user details
@@ -46,6 +47,7 @@ function PendingApproval() {
 
   return (
     <div>
+      <Header />
       <h1 id="pendingheader">Pending Approval</h1>
       <h3 id="pendingdesc">Thank you for your interest in BCA DECA! Please fill out this form so your account can be approved.</h3>
       <form onSubmit={handleSubmit}>

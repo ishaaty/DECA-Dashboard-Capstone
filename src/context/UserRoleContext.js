@@ -23,7 +23,6 @@ export const UserRoleProvider = ({ children }) => {
             },
           });
           setUserRole(response.data.role);
-          console.log('User role:', response.data.role);
         } catch (err) {
           console.error('Error fetching role:', err);
           setUserRole(null);
