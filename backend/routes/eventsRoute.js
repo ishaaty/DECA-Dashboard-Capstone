@@ -3,22 +3,50 @@ const router = express.Router();
 const sequelize = require('../config/db');
 const Events = require('../models/eventsModel')(sequelize);
 
-// Display events based on comp_id
+// Fetch an event by ID
 router.get('/display/:comp_id', async (req, res) => {
-  try {
-      const comp_id = parseInt(req.params.comp_id, 10); // Convert to integer
-      if (isNaN(comp_id)) {
-          return res.status(400).json({ error: 'Invalid comp_id' });
-      }
+    const { comp_id } = req.params;  // Get comp_id from URL parameter
 
-      const events = await Events.findAll({ where: { comp_id } });
-      res.json(events);
+    try {
+        // Fetch all events with the same comp_id
+        const events = await Events.findAll({
+            where: { comp_id: comp_id }  // Filter by comp_id
+        });
 
-  } catch (error) {
-      console.error('Error fetching events:', error);
-      res.status(500).json({ error: 'Failed to fetch events' });
-  }
+        if (events.length === 0) {
+            return res.status(404).json({ error: 'No events found for this competition' });  // Return 404 if no events found
+        }
+
+        // Send the events data in the response
+        res.status(200).json(events);
+    } catch (error) {
+        console.error('Error fetching events:', error);
+        res.status(500).json({ error: 'Failed to fetch events' });  // Return 500 for internal errors
+    }
 });
+
+
+// Fetch a single event by event_id
+router.get('/event/:event_id', async (req, res) => {
+    const { event_id } = req.params;  // Get event_id from URL parameter
+
+    try {
+        // Fetch the event with the given event_id
+        const event = await Events.findByPk(event_id);
+
+        if (!event) {
+            return res.status(404).json({ error: 'Event not found' });  // Return 404 if no event found
+        }
+
+        // Send the event data in the response
+        res.status(200).json(event);
+    } catch (error) {
+        console.error('Error fetching event:', error);
+        res.status(500).json({ error: 'Failed to fetch event' });  // Return 500 for internal errors
+    }
+});
+
+
 
 
 

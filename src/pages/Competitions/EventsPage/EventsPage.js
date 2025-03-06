@@ -38,8 +38,8 @@ export default function EventsPage() {
             try {
                 console.log("Current comp_id:", comp_id);
                 const response = await axios.get(`http://localhost:8081/events/display/${comp_id}`);
-                console.log("Fetched events:", response.data);  // Debugging step
-                setEvents(response.data);
+                console.log("Fetched events:", response.data);
+                setEvents(response.data); // Adjust based on your API response
             } catch (error) {
                 console.error("Error fetching events:", error);
             }

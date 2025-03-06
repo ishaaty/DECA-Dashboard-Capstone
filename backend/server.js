@@ -56,8 +56,8 @@ app.use('/fundraisers', fundraisersRoutes);
 const announcementsRoutes = require('./routes/announcementsRoutes');
 app.use('/home', announcementsRoutes); 
 
-const todoListRoute = require('./routes/todoListRoutes')
-app.use('/todolist', todoListRoute)
+const todolistRoutes = require('./routes/todoListRoutes')
+app.use('/todolist', todolistRoutes)
 
 
 
