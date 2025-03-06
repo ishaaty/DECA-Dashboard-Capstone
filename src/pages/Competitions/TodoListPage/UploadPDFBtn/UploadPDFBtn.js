@@ -34,7 +34,7 @@ const UploadPDFBtn = (props) => {
               >
                 <option value="" disabled>Select a requirement</option>
                 {/* use props.requirements for list instead */}
-                {["hey", "wsg", "wya"].map((req, index) => (
+                {(props.requirements).map((req, index) => (
                   <option key={index} value={req}>{req}</option>
                 ))}
               </select>

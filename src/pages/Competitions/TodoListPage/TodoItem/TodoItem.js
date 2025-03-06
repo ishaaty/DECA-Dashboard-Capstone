@@ -37,7 +37,10 @@ export default function TodoItem(props) {
             }}>
                 <h2 style={{ marginRight: "10px" }}>{props.itemName}:</h2>
                 <p style={{ fontSize: "18px", margin: 0 }}>❌ Incomplete</p>
-                <button id="downloadBtn">View</button>
+                <button id="downloadBtn" onClick={() => window.open(props.itemMaterial, '_blank')}>
+                    View
+                </button>
+
             </div>
         )
     }
