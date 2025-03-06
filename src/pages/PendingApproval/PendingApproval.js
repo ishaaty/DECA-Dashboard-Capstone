@@ -51,15 +51,15 @@ function PendingApproval() {
       <form onSubmit={handleSubmit}>
         <div id ="pendingentries">
         <div>
-          <label class="pendinglabel">First Name:</label>
+          <label class="pendinglabel">First Name: *</label>
           <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
         </div>
         <div>
-          <label class="pendinglabel">Cell Phone:</label>
+          <label class="pendinglabel">Cell Phone: </label>
           <input type="tel" value={cellPhone} onChange={(e) => setCellPhone(e.target.value)} />
         </div>
         <div>
-          <label class="pendinglabel">Last Name:</label>
+          <label class="pendinglabel">Last Name: *</label>
           <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} required />
         </div>
         <div>
@@ -67,7 +67,7 @@ function PendingApproval() {
           <input type="tel" value={homePhone} onChange={(e) => setHomePhone(e.target.value)} />
         </div>
         <div>
-          <label class="pendinglabel">User Class:</label>
+          <label class="pendinglabel">Class Year: *</label>
           <input type="text" value={userClass} onChange={(e) => setUserClass(e.target.value)} required />
         </div>
         <div>
@@ -75,7 +75,7 @@ function PendingApproval() {
           <input type="text" value={gender} onChange={(e) => setGender(e.target.value)} />
         </div>
         <div>
-          <label class="pendinglabel">School Email:</label>
+          <label class="pendinglabel">School Email: *</label>
           <input type="email" value={schoolEmail} onChange={(e) => setSchoolEmail(e.target.value)} required />
         </div>
         <div>
