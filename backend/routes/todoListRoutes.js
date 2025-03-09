@@ -65,4 +65,32 @@ router.post('/save-statuses/:event_id/:user_id', async (req, res) => {
 });
 
 
+// Route to save the comment
+router.post('/save-comment/:event_id/:user_id', async (req, res) => {
+    const { event_id, user_id } = req.params;
+    const { comment } = req.body;  // Get the comment from the request body
+  
+    try {
+      // Find the record in user_event_xref table
+      const userEvent = await UserEventXref.findOne({
+        where: { event_id, user_id }
+      });
+  
+      if (!userEvent) {
+        return res.status(404).json({ error: 'Record not found' });
+      }
+  
+      // Update the comment field
+      userEvent.comment = comment;
+      await userEvent.save();  // Save the updated record to the database
+  
+      res.status(200).json(userEvent);  // Send the updated record back in the response
+    } catch (error) {
+      console.error('Error saving comment:', error);
+      res.status(500).json({ error: 'Failed to save comment' });
+    }
+});
+  
+
+
 module.exports = router;

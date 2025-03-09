@@ -13,6 +13,7 @@ export default function TodoListPage(props) {
     const [todoData, setTodoData] = useState(null);
     const [eventData, setEventData] = useState(null);
     const [statuses, setStatuses] = useState({});
+    const [currentComment, setCurrentComment] = useState('');
 
     // Hardcoded event_id and user_id
     let event_id = 123;
@@ -46,6 +47,13 @@ export default function TodoListPage(props) {
         }
     }, [event_id, user_id]);
 
+    const handleCommentSave = (newComment) => {
+        setTodoData((prevTodoData) => ({
+            ...prevTodoData,
+            comment: newComment, // Update the comment in todoData
+        }));
+    };
+    
 
     const handleStatusChange = (index, status) => {
         setStatuses((prevStatuses) => ({
@@ -133,7 +141,13 @@ export default function TodoListPage(props) {
                         <p className="comment">{todoData?.comment || "No comment available"}</p>
                     </div>
     
-                    <AddCommentBtn />
+                    <AddCommentBtn
+                        event_id={event_id}
+                        user_id={user_id}
+                        currentComment={todoData?.comment || "No comment available"}
+                        onCommentSave={handleCommentSave} // Pass the handler to the child component
+                    />
+
                 </div>
             </>
         );

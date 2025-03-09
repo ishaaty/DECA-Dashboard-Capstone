@@ -42,18 +42,6 @@ export default function TodoItem(props) {
             <div style={{ display: "flex", alignItems: "center", gap: "10px", margin: "20px", justifyContent: "flex-end" }}>
                 <h2 style={{ marginRight: "10px" }}>{props.itemName}:</h2>
                 <p>{statusDict[props.itemStatus]?.emoji} {statusDict[props.itemStatus]?.text}</p>
-
-                {/* <select 
-                    value={props.itemStatus}  // Bind the value of dropdown to the current status
-                    onChange={handleStatusChange}  // Update status on change
-                    id="statusDropdown" 
-                    name="statusDropdown"
-                >
-                    <option value="incomplete">❌ Incomplete</option>
-                    <option value="under-review">🔃 Under Review</option>
-                    <option value="completed">✅ Completed</option>
-                    <option value="fixes-needed">⚠️ Fixes Needed</option>
-                </select> */}
                 <button id="downloadBtn" onClick={() => window.open(props.itemMaterial, '_blank')}>
                     View
                 </button>
