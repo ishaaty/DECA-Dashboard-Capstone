@@ -28,4 +28,41 @@ router.get('/user-event/:event_id/:user_id', async (req, res) => {
     }
 });
 
+
+
+// Route to update statuses dynamically based on provided numbers
+router.post('/save-statuses/:event_id/:user_id', async (req, res) => {
+    const { event_id, user_id } = req.params;
+    const statuses = req.body; // Example: {2: 'completed', 4: 'pending'}
+
+    try {
+        // Find the record to update
+        const userEvent = await UserEventXref.findOne({
+            where: { event_id, user_id }
+        });
+
+        if (!userEvent) {
+            return res.status(404).json({ error: 'Record not found' });
+        }
+
+        // Dynamically update only the relevant status_X fields
+        const updateFields = {};
+        for (const [num, status] of Object.entries(statuses)) {
+            const fieldName = `status_${num}`;
+            if (userEvent[fieldName] !== undefined) {  // Ensure field exists
+                updateFields[fieldName] = status;
+            }
+        }
+
+        // Perform the update in the database
+        await UserEventXref.update(updateFields, { where: { event_id, user_id } });
+
+        res.status(200).json({ message: 'Statuses updated successfully' });
+    } catch (error) {
+        console.error('Error updating statuses:', error);
+        res.status(500).json({ error: 'Failed to update statuses' });
+    }
+});
+
+
 module.exports = router;

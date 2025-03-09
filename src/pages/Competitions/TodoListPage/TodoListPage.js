@@ -12,9 +12,10 @@ import axios from 'axios';
 export default function TodoListPage(props) {
     const [todoData, setTodoData] = useState(null);
     const [eventData, setEventData] = useState(null);
+    const [statuses, setStatuses] = useState({});
 
     // Hardcoded event_id and user_id
-    let event_id = 63;
+    let event_id = 123;
     let user_id = 456;
 
     useEffect(() => {
@@ -45,8 +46,45 @@ export default function TodoListPage(props) {
         }
     }, [event_id, user_id]);
 
-    // Ensure data is available before attempting to map over it
-    if ("admin" === "admin") {
+
+    const handleStatusChange = (index, status) => {
+        setStatuses((prevStatuses) => ({
+            ...prevStatuses,
+            [index]: status,  // Update the status of the item at the given index
+        }));
+    };
+    
+
+    const saveStatuses = async (event_id, user_id, statuses) => {
+        console.log("eventId:", event_id, "userId:", user_id, "statuses:", statuses);
+    
+        if (!event_id || !user_id) {
+            console.error("Error: eventId or userId is missing!");
+            alert("Error: Missing event ID or user ID.");
+            return;
+        }
+    
+        try {
+            const response = await axios.post(`http://localhost:8081/todolist/save-statuses/${event_id}/${user_id}`, statuses);
+            alert("Statuses saved successfully!");
+            console.log("Response:", response.data);
+        } catch (error) {
+            console.error("Error saving statuses:", error);
+            alert("Failed to save statuses.");
+        }
+    };
+    
+
+    
+
+    const requirements = eventData
+    ? Object.keys(eventData)
+        .filter(key => key.startsWith('req_'))  // Filter keys starting with "req_"
+        .map(key => eventData[key])  // Extract corresponding values (the actual requirement names)
+        .filter(req => req !== null && req !== '')  // Exclude null or empty string values
+    : [];
+
+    if (props.userRole === "admin") {
         return (
             <>
                 <Header />
@@ -57,21 +95,22 @@ export default function TodoListPage(props) {
                         <h1 style={{ textAlign: "center" }}>To Do List</h1>
                         <div style={{ flex: 1 }}>
                             {todoData && eventData ? (
-                                // Ensure both todoData and eventData are available
                                 [1, 2, 3, 4, 5].map((index) => {
                                     const eventReq = eventData[`req_${index}`];
                                     const mat = todoData[`mat_${index}`];
-                                    const status = todoData[`status_${index}`];
-
+                                    const status = todoData[`status_${index}`] || "incomplete"; // Default to "incomplete" if no status exists
+    
                                     // Only render the requirement if it is not null
                                     if (eventReq !== null && eventReq !== "" && eventReq !== undefined) {
                                         return (
                                             <TodoItem
                                                 key={index}
+                                                index={index} // Pass index for identification
                                                 userRole={"admin"}
                                                 itemName={eventReq}
-                                                itemMaterial={mat || "No material available"}  // Fallback for null materials
-                                                itemStatus={status || "Status not available"}  // Fallback for null status
+                                                itemMaterial={mat || "No material available"}
+                                                itemStatus={status}
+                                                handleStatusChange={handleStatusChange} // Pass the handler
                                             />
                                         );
                                     }
@@ -81,50 +120,51 @@ export default function TodoListPage(props) {
                                 <p>Loading...</p>
                             )}
                         </div>
-                        <button className="saveStatuses" style={{ alignSelf: "center" }}>
+                        <button
+                            className="saveStatuses"
+                            style={{ alignSelf: "center" }}
+                            onClick={() => saveStatuses(event_id, user_id, statuses)}
+                        >
                             Save Statuses
                         </button>
                     </div>
                     <div style={{ backgroundColor: "#E3E8F1", borderRadius: "20px", padding: "30px" }}>
                         <h1>Comment(s)</h1>
-                        {/* Dynamically render the comment if it exists */}
                         <p className="comment">{todoData?.comment || "No comment available"}</p>
                     </div>
-
+    
                     <AddCommentBtn />
                 </div>
             </>
         );
+
     } else {
         return (
             <>
-                <Header />
-                <Menu />
-                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", marginTop: "50px", gap: "20px" }}>
-                    <h1 className="header-text">Binder Event</h1>
-                    <a href="events">
-                        <button style={{ backgroundColor: "#00529B", color: "white" }}>
-                            Back
-                        </button>
-                    </a>
-                    <div style={{ backgroundColor: "#E3E8F1", borderRadius: "20px", padding: "30px" }}>
-                        <h1>To Do List</h1>
+            <Header />
+            <Menu />
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", marginTop: "50px", gap: "20px" }}>
+                <h1 className="header-text">Julia Thompson: Binder Event</h1>
+                <div style={{ backgroundColor: "#E3E8F1", borderRadius: "20px", padding: "30px", display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%" }}>
+                    <h1 style={{ textAlign: "center" }}>To Do List</h1>
+                    <div style={{ flex: 1 }}>
                         {todoData && eventData ? (
-                            // Ensure both todoData and eventData are available
                             [1, 2, 3, 4, 5].map((index) => {
                                 const eventReq = eventData[`req_${index}`];
                                 const mat = todoData[`mat_${index}`];
-                                const status = todoData[`status_${index}`];
+                                const status = todoData[`status_${index}`] || "incomplete"; // Default to "incomplete" if no status exists
 
                                 // Only render the requirement if it is not null
                                 if (eventReq !== null && eventReq !== "" && eventReq !== undefined) {
                                     return (
                                         <TodoItem
                                             key={index}
+                                            index={index} // Pass index for identification
                                             userRole={"participant"}
                                             itemName={eventReq}
-                                            itemMaterial={mat || "No material available"}  // Fallback for null materials
-                                            itemStatus={status || "Status not available"}  // Fallback for null status
+                                            itemMaterial={mat || "No material available"}
+                                            itemStatus={status}
+                                            handleStatusChange={handleStatusChange} // Pass the handler
                                         />
                                     );
                                 }
@@ -134,13 +174,17 @@ export default function TodoListPage(props) {
                             <p>Loading...</p>
                         )}
                     </div>
-                    <div style={{ backgroundColor: "#E3E8F1", borderRadius: "20px", padding: "30px" }}>
-                        <h1>Comment(s)</h1>
-                        <p className="comment">{todoData?.comment || "No comment available"}</p>
-                    </div>
-                    <UploadPDFBtn />
                 </div>
-            </>
-        );
+                <div style={{ backgroundColor: "#E3E8F1", borderRadius: "20px", padding: "30px" }}>
+                    <h1>Comment(s)</h1>
+                    <p className="comment">{todoData?.comment || "No comment available"}</p>
+                </div>
+
+                <UploadPDFBtn requirements={requirements} />
+
+            </div>
+        </>
+    );
+
     }
 }
