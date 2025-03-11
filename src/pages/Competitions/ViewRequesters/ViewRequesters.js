@@ -24,7 +24,8 @@ export default function ViewRequesters() {
                 
                 <div className="fundapprovals">
                     <h1>Approved</h1>
-                    <a href="todolist"><ParticipantCard name="Ashley Johnson" email="ashjoh25@bergen.org" grade="2025" /></a>
+                    <ParticipantCard name="Ashley Johnson" email="ashjoh25@bergen.org" grade="2025" />
+                    <a href="todolist"><button>View TodoList</button></a>
                 </div>
             </div>
 

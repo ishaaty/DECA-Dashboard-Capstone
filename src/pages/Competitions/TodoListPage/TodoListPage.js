@@ -194,7 +194,7 @@ export default function TodoListPage(props) {
                     <p className="comment">{todoData?.comment || "No comment available"}</p>
                 </div>
 
-                <UploadPDFBtn requirements={requirements} />
+                <UploadPDFBtn requirements={requirements} eventId={event_id} userId={user_id} />
 
             </div>
         </>

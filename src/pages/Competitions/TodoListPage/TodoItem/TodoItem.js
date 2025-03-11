@@ -34,7 +34,9 @@ export default function TodoItem(props) {
                         <option value="fixes-needed">⚠️ Fixes Needed</option>
                     </select>
                 </div>
-                <button id="downloadBtn">View</button>
+                <button id="downloadBtn" onClick={() => window.open(props.itemMaterial, '_blank')}>
+                    View
+                </button>
             </div>
         );
     } else {

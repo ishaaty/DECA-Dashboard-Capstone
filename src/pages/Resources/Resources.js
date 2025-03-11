@@ -31,7 +31,7 @@ const ResourcesPage = () => {
       <Header />
       <Menu />
       <h1 className="comp">Resources</h1>
-      <ResourceCards resources={resources} setResources={setResources} userRole={userRole} />
+      <ResourceCards resources={resources} setResources={setResources} userRole={"admin"} />
     </div>
   );
 };

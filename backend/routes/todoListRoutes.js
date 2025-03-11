@@ -1,7 +1,67 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
+const { PutObjectCommand } = require('@aws-sdk/client-s3');
 const sequelize = require('../config/db');
 const UserEventXref = require('../models/user_event_xrefModel')(sequelize);
+const s3 = require('../config/s3Config');
+
+// Multer storage setup (Memory storage for S3 upload)
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
+// Route to upload a PDF for a specific event and user
+router.post('/upload-pdf/:event_id/:user_id', upload.single('pdf'), async (req, res) => {
+    const { event_id, user_id } = req.params;
+    const { requirement } = req.body;  // This will now capture the selected requirement (1, 2, etc.)
+    const file = req.file;
+
+    if (!file || !requirement) {
+        return res.status(400).json({ error: 'No file uploaded or requirement missing' });
+    }
+
+    try {
+        const fileKey = `pdfs/${Date.now()}_${file.originalname}`;
+
+        // Upload file to S3
+        const params = {
+            Bucket: process.env.AWS_BUCKET_NAME,
+            Key: fileKey,
+            Body: file.buffer,
+            // ACL: 'public-read'
+        };
+
+        await s3.send(new PutObjectCommand(params));
+
+        const file_url = `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${fileKey}`;
+
+        // Map the requirement number to the appropriate column (mat_1, mat_2, etc.)
+        const matField = `mat_${requirement}`;
+
+        // Ensure the field exists
+        if (!['mat_1', 'mat_2', 'mat_3', 'mat_4', 'mat_5'].includes(matField)) {
+            return res.status(400).json({ error: 'Invalid requirement number' });
+        }
+
+        // Update the database record for the user-event
+        const userEvent = await UserEventXref.findOne({ where: { event_id, user_id } });
+
+        if (!userEvent) {
+            return res.status(404).json({ error: 'Record not found' });
+        }
+
+        // Dynamically assign the file_url to the corresponding mat field
+        userEvent[matField] = file_url; // Save the URL to the correct field (mat_1, mat_2, etc.)
+        await userEvent.save();
+
+        res.status(200).json({ message: 'PDF uploaded successfully', file_url });
+    } catch (error) {
+        console.error('Error uploading PDF:', error);
+        res.status(500).json({ error: 'Failed to upload PDF' });
+    }
+});
+
+
 
 // Route to get a single row based on event_id and user_id
 router.get('/user-event/:event_id/:user_id', async (req, res) => {

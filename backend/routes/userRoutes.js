@@ -69,7 +69,7 @@ router.get('/role', async (req, res) => {
       console.error('Error checking approval status:', error);
       res.status(500).json({ error: "Internal server error" });
     }
-  });
+});
   
 
 
