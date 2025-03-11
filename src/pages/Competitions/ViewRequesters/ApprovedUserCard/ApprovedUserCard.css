@@ -1,0 +1,20 @@
+.card-container {
+    background-color: #E3E8F1;
+    padding: 20px;
+    padding-top: 3px;
+    border-radius: 5px;
+    margin-top: 25px;
+}
+
+.card-title {
+    color: #00529B;
+}
+
+.view-lst-btn {
+    background-color: #00529B;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}

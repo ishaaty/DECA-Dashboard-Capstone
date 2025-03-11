@@ -8,6 +8,7 @@ import TodoItem from './TodoItem/TodoItem';
 import { UserRoleContext } from '../../../context/UserRoleContext';
 import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
+import { useLocation } from "react-router-dom";
 
 export default function TodoListPage(props) {
     const [todoData, setTodoData] = useState(null);
@@ -15,9 +16,12 @@ export default function TodoListPage(props) {
     const [statuses, setStatuses] = useState({});
     const [currentComment, setCurrentComment] = useState('');
 
-    // Hardcoded event_id and user_id
-    let event_id = 123;
-    let user_id = 456;
+    const location = useLocation();
+    const { user_id, event_id } = location.state || {};
+    // console.log("user_id")
+    // console.log(user_id)
+    // console.log("event_id")
+    // console.log(event_id)
 
     useEffect(() => {
         const fetchTodoData = async () => {

@@ -150,6 +150,54 @@ router.post('/save-comment/:event_id/:user_id', async (req, res) => {
       res.status(500).json({ error: 'Failed to save comment' });
     }
 });
+
+
+
+router.get('/user-event/:event_id', async (req, res) => {
+    const { event_id } = req.params;
+    
+    try {
+        const users = await UserEventXref.findAll({
+            where: { event_id }
+        });
+
+        if (!users || users.length === 0) {
+            return res.status(404).json({ error: 'No users found for this event' });
+        }
+
+        res.status(200).json(users);
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        res.status(500).json({ error: 'Failed to fetch users' });
+    }
+});
+
+
+// Route to update the request_status for a user (approve or deny)
+router.post('/update-request-status/:user_id', async (req, res) => {
+    const { user_id } = req.params;
+    const { request_status } = req.body;
+
+    try {
+        // Find the record for the user
+        const userEvent = await UserEventXref.findOne({
+            where: { user_id }
+        });
+
+        if (!userEvent) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // Update the request_status field
+        userEvent.request_status = request_status;
+        await userEvent.save();
+
+        res.status(200).json({ message: 'Status updated successfully' });
+    } catch (error) {
+        console.error('Error updating request status:', error);
+        res.status(500).json({ error: 'Failed to update status' });
+    }
+});
   
 
 
