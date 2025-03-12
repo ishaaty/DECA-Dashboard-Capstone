@@ -56,13 +56,8 @@ app.use('/fundraisers', fundraisersRoutes);
 const todolistRoutes = require('./routes/todoListRoutes')
 app.use('/todolist', todolistRoutes);
 
-<<<<<<< HEAD
-const todolistRoutes = require('./routes/todoListRoutes')
-app.use('/todolist', todolistRoutes)
-=======
 const announcementsRoutes = require('./routes/announcementsRoutes');
 app.use('/announcements', announcementsRoutes);
->>>>>>> d7c9502 (finalyl done w announcements)
 
 
 

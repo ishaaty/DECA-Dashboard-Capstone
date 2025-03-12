@@ -10,12 +10,12 @@ import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 
 export default function TodoListPage(props) {
+    const { userRole } = useContext(UserRoleContext);
     const [todoData, setTodoData] = useState(null);
     const [eventData, setEventData] = useState(null);
     const [statuses, setStatuses] = useState({});
     const [currentComment, setCurrentComment] = useState('');
 
-<<<<<<< HEAD
     // Hardcoded event_id and user_id
     let event_id = 123;
     let user_id = 456;
@@ -92,10 +92,6 @@ export default function TodoListPage(props) {
         .map(key => eventData[key])  // Extract corresponding values (the actual requirement names)
         .filter(req => req !== null && req !== '')  // Exclude null or empty string values
     : [];
-=======
-export default function TodoListPage() {
-    let userRole = useContext(UserRoleContext);
->>>>>>> d7c9502 (finalyl done w announcements)
 
 
     if (userRole === "admin") {
