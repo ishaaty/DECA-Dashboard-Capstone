@@ -53,11 +53,11 @@ app.use('/participantdetails', participantRoutes);
 const fundraisersRoutes = require('./routes/fundraisersRoutes');
 app.use('/fundraisers', fundraisersRoutes);
 
-const announcementsRoutes = require('./routes/announcementsRoutes');
-app.use('/home', announcementsRoutes); 
-
 const todolistRoutes = require('./routes/todoListRoutes')
-app.use('/todolist', todolistRoutes)
+app.use('/todolist', todolistRoutes);
+
+const announcementsRoutes = require('./routes/announcementsRoutes');
+app.use('/announcements', announcementsRoutes);
 
 
 

@@ -41,34 +41,39 @@ const Resources = ({ resources, userRole }) => {
 
 
   const handleAddResource = async () => {
-    
     if (!newResource.text || (!newResource.link && !newResource.pdf)) {
-      alert('Please provide a name and either a link or a PDF file.');
-      return;
+        alert('Please provide a name and either a link or a PDF file.');
+        return;
     }
 
     if (newResource.link && newResource.pdf) {
-      alert('Please provide either a link or a PDF file, not both.');
-      return;
+        alert('Please provide either a link or a PDF file, not both.');
+        return;
     }
-  
+
     try {
-      const resourceData = {
-        resource_name: newResource.text,
-        web_url: newResource.link,
-        file_url: newResource.pdf,
-      };
-  
-      // send the information on the resource to add to the backend
-      const response = await axios.post('http://localhost:8081/resources/add', resourceData);
-      setResourceList([...resourceList, response.data]);
-      setIsPopupOpen(false);
-      setNewResource({ text: '', link: '', pdf: '' });
+        const formData = new FormData();
+        formData.append('resource_name', newResource.text);
+        if (newResource.link) {
+            formData.append('web_url', newResource.link);
+        }
+        if (newResource.pdf) {
+            formData.append('pdf', newResource.pdf);
+        }
+
+        const response = await axios.post('http://localhost:8081/resources/add', formData, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+        });
+
+        setResourceList([...resourceList, response.data]);
+        setIsPopupOpen(false);
+        setNewResource({ text: '', link: '', pdf: null });
     } catch (error) {
-      console.error('Error adding resource:', error);
-      alert('Failed to add resource.');
+        console.error('Error adding resource:', error);
+        alert('Failed to add resource.');
     }
   };
+
   
 
   const handleDeleteResource = async (id) => {
@@ -134,7 +139,7 @@ const Resources = ({ resources, userRole }) => {
                     onChange={(e) =>
                       setNewResource({
                         ...newResource,
-                        pdf: URL.createObjectURL(e.target.files[0]),
+                        pdf: e.target.files[0], // Store actual file, not a blob URL
                         link: '',
                       })
                     }

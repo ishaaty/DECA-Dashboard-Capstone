@@ -14,6 +14,51 @@ router.get('/display', async (req, res) => {
     }
 });
 
+// Display announcements based on ann_id
+router.get('/display/:ann_id', async (req, res) => {
+  try {
+      const ann_id = parseInt(req.params.ann_id, 10); // Convert to integer
+      if (isNaN(ann_id)) {
+          return res.status(400).json({ error: 'Invalid ann_id' });
+      }
+
+      const announcements = await Announcements.findAll({ where: { ann_id } });
+      res.json(announcements);
+
+  } catch (error) {
+      console.error('Error fetching announcements:', error);
+      res.status(500).json({ error: 'Failed to fetch announcements' });
+  }
+});
+
+// Edit an existing announcement while keeping ann_id unchanged
+router.put('/edit/:ann_id', async (req, res) => {
+  const { ann_id } = req.params; // Get announcement ID from the URL parameter
+  const {
+      ann_name, ann_description
+  } = req.body;
+
+  try {
+      const announcement = await Announcements.findByPk(ann_id); // Find announcement by primary key
+
+      if (!announcement) {
+          return res.status(404).json({ error: 'Announcement not found' });
+      }
+
+      // Update only the fields that can be modified
+      await announcement.update({
+          ann_name, 
+          ann_description,
+
+      });
+
+      res.status(200).json({ message: 'Announcement updated successfully', announcement });
+  } catch (error) {
+      console.error('Error updating announcement:', error);
+      res.status(500).json({ error: 'Failed to update announcement' });
+  }
+});
+
 // Add a new announcement to the database
 router.post('/add', async (req, res) => {
     const { ann_name, ann_description } = req.body;

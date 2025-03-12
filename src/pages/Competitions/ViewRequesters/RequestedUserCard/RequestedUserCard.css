@@ -1,0 +1,28 @@
+.card-container {
+    background-color: #E3E8F1;
+    padding: 20px;
+    padding-top: 3px;
+    border-radius: 5px;
+    margin-top: 25px;
+}
+
+.card-title {
+    color: #00529B;
+}
+
+.approve-button {
+    background-color: #00984D;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.deny-button {
+    background-color: #F5585E;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
