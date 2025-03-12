@@ -6,7 +6,7 @@ const EditAnnouncementBtn = (props) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [newAnnouncement, setNewAnnouncement] = useState({
     title: props.title || '',
-    descrip: props.descrip || '',
+    description: props.description || '',
   });
 
   // Function to fetch updated announcements
@@ -23,14 +23,14 @@ const EditAnnouncementBtn = (props) => {
   const handleAnnouncement = async () => {
     console.log('Current state of newAnnouncement:', newAnnouncement); // Log state before making request
 
-    if (!newAnnouncement.title || !newAnnouncement.descrip) {
+    if (!newAnnouncement.title || !newAnnouncement.description) {
       alert('Please provide both title and description.');
       return;
     }
 
     const announcementData = {
       ann_name: newAnnouncement.title,
-      ann_description: newAnnouncement.descrip, // Ensure 'ann_description' is used
+      ann_description: newAnnouncement.description, // Ensure 'ann_description' is used
     };
 
     try {
@@ -49,7 +49,7 @@ const EditAnnouncementBtn = (props) => {
       setIsPopupOpen(false);
       setNewAnnouncement({
         title: response.data.ann_name,
-        descrip: response.data.ann_description, // Ensure description is correctly updated
+        description: response.data.ann_description, // Ensure description is correctly updated
       });
     } catch (error) {
       console.error('Error updating announcement:', error);
@@ -59,6 +59,10 @@ const EditAnnouncementBtn = (props) => {
 
   // Open the popup with the current state when clicking the "Edit" button
   const handleOpenPopup = () => {
+    setNewAnnouncement({
+      title: props.title,
+      description: props.description,
+    });
     setIsPopupOpen(true);
   };
 
@@ -77,7 +81,7 @@ const EditAnnouncementBtn = (props) => {
               Title:
               <input
                 type="text"
-                value={props.title}
+                value={newAnnouncement.title}
                 onChange={(e) =>
                   setNewAnnouncement({ ...newAnnouncement, title: e.target.value })
                 }
@@ -87,9 +91,9 @@ const EditAnnouncementBtn = (props) => {
               Description:
               <input
                 type="text"
-                value={props.description}
+                value={newAnnouncement.description}
                 onChange={(e) =>
-                  setNewAnnouncement({ ...newAnnouncement, descrip: e.target.value })
+                  setNewAnnouncement({ ...newAnnouncement, description: e.target.value })
                 }
               />
             </label>
