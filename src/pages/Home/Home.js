@@ -65,7 +65,6 @@ export default function Home() {
           {(userRole === 'admin' || userRole === 'board member') && (
             <div>
               <AddGCalEvent />
-              <CreateAnnounceBtn setAnnouncements={setAnnouncements} />
             </div>
           )}
         </div>
@@ -73,6 +72,7 @@ export default function Home() {
         <div className="sidebar-container">
           <div className="announcements-box">
             <h3>Announcements</h3>
+            
             {announcements.length > 0 ? (
               announcements.map((announcement) => (
                 <AnnounceCard
@@ -84,10 +84,13 @@ export default function Home() {
                   setAnnouncements={setAnnouncements}
                   onDelete={() => handleDeleteAnnouncement(announcement.ann_id)} // Call handleDeleteAnnouncement
                 />
+                
               ))
             ) : (
               <p>No announcements yet.</p>
+              
             )}
+            <CreateAnnounceBtn setAnnouncements={setAnnouncements} />
           </div>
         </div>
       </div>
