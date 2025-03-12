@@ -4,7 +4,9 @@ const multer = require('multer');
 const { PutObjectCommand } = require('@aws-sdk/client-s3');
 const sequelize = require('../config/db');
 const UserEventXref = require('../models/user_event_xrefModel')(sequelize);
+const Events = require('../models/eventsModel')(sequelize);
 const s3 = require('../config/s3Config');
+const { Op } = require('sequelize');
 
 // Multer storage setup (Memory storage for S3 upload)
 const storage = multer.memoryStorage();

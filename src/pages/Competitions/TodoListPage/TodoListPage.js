@@ -9,19 +9,21 @@ import { UserRoleContext } from '../../../context/UserRoleContext';
 import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useLocation } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
+
 
 export default function TodoListPage(props) {
     const [todoData, setTodoData] = useState(null);
     const [eventData, setEventData] = useState(null);
     const [statuses, setStatuses] = useState({});
     const [currentComment, setCurrentComment] = useState('');
+    const userRole = useContext(UserRoleContext);
+    
+    const [searchParams] = useSearchParams();
+    const user_id = searchParams.get("user_id");
+    const event_id = searchParams.get("event_id");
 
-    const location = useLocation();
-    const { user_id, event_id } = location.state || {};
-    // console.log("user_id")
-    // console.log(user_id)
-    // console.log("event_id")
-    // console.log(event_id)
+    console.log("user_id:", user_id, "event_id:", event_id);
 
     useEffect(() => {
         const fetchTodoData = async () => {
@@ -96,7 +98,7 @@ export default function TodoListPage(props) {
         .filter(req => req !== null && req !== '')  // Exclude null or empty string values
     : [];
 
-    if (props.userRole === "admin") {
+    if (userRole === "admin") {
         return (
             <>
                 <Header />

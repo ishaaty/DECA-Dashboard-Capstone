@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const sequelize = require('../config/db');
 const Events = require('../models/eventsModel')(sequelize);
+const UserEventXref = require('../models/user_event_xrefModel')(sequelize);
+const { Op } = require('sequelize');
 
 // Fetch an event by ID
 router.get('/display/:comp_id', async (req, res) => {
@@ -45,9 +47,6 @@ router.get('/event/:event_id', async (req, res) => {
         res.status(500).json({ error: 'Failed to fetch event' });  // Return 500 for internal errors
     }
 });
-
-
-
 
 
 // Add a new event to the database
@@ -124,6 +123,44 @@ router.put('/edit/:event_id', async (req, res) => {
       console.error('Error updating event:', error);
       res.status(500).json({ error: 'Failed to update event' });
   }
+});
+
+
+
+// Fetch "My Events" for a user in a specific competition
+router.get('/myevents', async (req, res) => {
+    const { user_id, comp_id } = req.query;  // Get user_id and comp_id from request query params
+
+    if (!user_id || !comp_id) {
+        return res.status(400).json({ error: "Missing user_id or comp_id" });
+    }
+
+    try {
+        // Find all event_ids where the user is approved
+        const approvedEvents = await UserEventXref.findAll({
+            where: {
+                user_id: user_id,
+                request_status: 'approved'
+            },
+            attributes: ['event_id']  // Only fetch event_id
+        });
+
+        // Extract event IDs from the results
+        const eventIds = approvedEvents.map(e => e.event_id);
+
+        // Find events that match those event IDs and belong to the competition
+        const myEvents = await Events.findAll({
+            where: {
+                event_id: { [Op.in]: eventIds },
+                comp_id: comp_id  // Match the given competition
+            }
+        });
+
+        res.status(200).json(myEvents);
+    } catch (error) {
+        console.error('Error fetching my events:', error);
+        res.status(500).json({ error: 'Failed to fetch my events' });
+    }
 });
 
 

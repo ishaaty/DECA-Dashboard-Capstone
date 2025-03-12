@@ -26,9 +26,10 @@ export default function ApprovedUserCard({ user_id, event_id }) {
     }, [user_id]);
 
     const handleViewTodoList = () => {
-        // Use navigate() instead of history.push
+        console.log("Navigating with:", { user_id, event_id }); // Log the values
         navigate('/todolist', { state: { user_id, event_id } });
     };
+    
 
     return (
         <div className="card-container">

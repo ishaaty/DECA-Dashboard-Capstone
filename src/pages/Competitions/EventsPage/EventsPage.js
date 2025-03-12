@@ -8,10 +8,15 @@ import { useState, useEffect, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import { UserRoleContext } from '../../../context/UserRoleContext';
 import axios from 'axios';
+import { PresignedPost } from 'aws-sdk/clients/s3';
 
 export default function EventsPage() {
 
+    // hard-coded user_id for now
+    let user_id = 456;
+
     const [events, setEvents] = useState([]);
+    const [myEvents, setMyEvents] = useState([]);
 
     const location = useLocation();
     const userRole = useContext(UserRoleContext);
@@ -30,25 +35,38 @@ export default function EventsPage() {
     console.log(comp_id);
 
     useEffect(() => {
-        const fetchEvents = async () => {
-            if (!comp_id) {
-                console.error("comp_id is undefined");
-                return;
-            }
+        const fetchAllEvents = async () => {
+            if (!comp_id) return;
             try {
-                console.log("Current comp_id:", comp_id);
                 const response = await axios.get(`http://localhost:8081/events/display/${comp_id}`);
-                console.log("Fetched events:", response.data);
-                setEvents(response.data); // Adjust based on your API response
+                setEvents(response.data);
             } catch (error) {
-                console.error("Error fetching events:", error);
+                console.error("Error fetching all events:", error);
             }
         };
     
-        fetchEvents();
-    }, [comp_id]); 
+        fetchAllEvents();
+    }, [comp_id]);
     
+
+    useEffect(() => {
+        const fetchMyEvents = async () => {
+            if (!comp_id || !user_id) return;
+            try {
+                const response = await axios.get(`http://localhost:8081/events/myevents`, {
+                    params: { user_id, comp_id }
+                });
+                setMyEvents(response.data);
+            } catch (error) {
+                console.error("Error fetching my events:", error);
+            }
+        };
     
+        fetchMyEvents();
+    }, [comp_id, user_id]);
+    
+
+
     
     const handleDeleteEvent = async (id) => {
         try {
@@ -95,7 +113,6 @@ export default function EventsPage() {
                                     key={event.event_id}
                                     event_id={event.event_id} // This ensures event_id is available in props
                                     comp_id={comp_id}
-                                    acquired={null}
                                     title={event.event_name}
                                     descrip={event.event_descrip}
                                     req_1={event.req_1}
@@ -134,19 +151,19 @@ export default function EventsPage() {
                     <h1 style={{ color: "#00529B" }}>{title}</h1>
 
 
-                    <a href="roommates">
+                    {/* <a href="roommates">
                         <button style={{ backgroundColor: "#00529B", color:"white", fontSize: "18px" }}>
                             View Roommates
                         </button>
-                    </a>
+                    </a> */}
+
                     <div>
                         <h1 style={{ color: "#F5585E", alignItems: "center" }}>All Events:</h1>
                         <div className="events-container">
-                            {/* <EventCard acquired={false} title={"Binder"} descrip={"This is a binders event"} date={"2025-01-31"} /> */}
                             {events?.map((event, index) => (
                                 <EventCard
                                     key={event.event_id}
-                                    acquired={false}
+                                    status={"pending"}
                                     title={event.event_name}
                                     descrip={event.event_descrip}
                                     req_1={event.req_1}
@@ -160,13 +177,17 @@ export default function EventsPage() {
                             ))}
                         </div>
                     </div>
+
+                    
                     <div >
                         <h1 style={{ color: "#F5585E", alignItems: "center", marginTop: "30px" }}>My Events:</h1>
                         <div className="events-container">
-                            {events?.map((event, index) => (
+                            {myEvents?.map((event, index) => (
                                 <EventCard
                                     key={event.event_id}
-                                    acquired={true}
+                                    status={"approved"}
+                                    event_id={event.event_id}
+                                    user_id={user_id}
                                     title={event.event_name}
                                     descrip={event.event_descrip}
                                     req_1={event.req_1}
