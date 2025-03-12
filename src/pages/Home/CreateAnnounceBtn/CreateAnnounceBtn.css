@@ -19,7 +19,8 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  height: 20vh;
+  height: auto;
+  min-height:150px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -33,6 +34,7 @@
   font-size: 30px;
   padding: 10px;
   margin: 0;
+  overflow: auto; 
 }
 
 .announcements-buttons {
@@ -70,6 +72,7 @@
   display: flex;
   justify-content: center;
   margin-top: 20px; /* Space between resources and button */
+  
 }
 
 .center-button {
