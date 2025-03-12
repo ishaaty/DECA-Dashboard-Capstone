@@ -69,5 +69,11 @@ module.exports = (sequelize) => {
     timestamps: false
   });
 
+  UserEventXref.associate = (models) => {
+    // Define the inverse association with Event and User
+    UserEventXref.belongsTo(models.User, { foreignKey: 'user_id' });
+    UserEventXref.belongsTo(models.Event, { foreignKey: 'event_id' });
+  };
+
   return UserEventXref;
 };

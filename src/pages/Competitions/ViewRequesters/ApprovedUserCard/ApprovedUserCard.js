@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom"; // Assuming you're using React Router
 import "./ApprovedUserCard.css";
+import { Link } from "react-router-dom";
 
 export default function ApprovedUserCard({ user_id, event_id }) {
     const [user, setUser] = useState(null);
@@ -37,9 +38,11 @@ export default function ApprovedUserCard({ user_id, event_id }) {
                 <strong>{user ? `${user.first_name} ${user.last_name}` : "Loading..."}</strong>
             </p>
             <p>{user ? `${user.email}` : "Loading..."}</p>
-            <button className="view-lst-btn" onClick={handleViewTodoList}>
-                View Todo List
-            </button>
+            <Link to={`/todolist?user_id=${user_id}&event_id=${event_id}`}>
+                <button style={{ backgroundColor: "#00529B" }} className="view-requesters-btn">
+                    View Todo List
+                </button>
+            </Link>
         </div>
     );
 }

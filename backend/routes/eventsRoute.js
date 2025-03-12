@@ -164,4 +164,47 @@ router.get('/myevents', async (req, res) => {
 });
 
 
+// In your route handler
+// Fetch "My Events" for a user in a specific competition
+router.get('/pending-events', async (req, res) => {
+    const { user_id, comp_id } = req.query;  // Get user_id and comp_id from request query params
+
+    if (!user_id || !comp_id) {
+        return res.status(400).json({ error: "Missing user_id or comp_id" });
+    }
+
+    try {
+        // Find all event_ids where the user is approved
+        const pendingEvents = await UserEventXref.findAll({
+            where: {
+                user_id: user_id,
+                request_status: 'pending'
+            },
+            attributes: ['event_id']  // Only fetch event_id
+        });
+
+        // Extract event IDs from the results
+        const eventIds = pendingEvents.map(e => e.event_id);
+
+        // Find events that match those event IDs and belong to the competition
+        const myEvents = await Events.findAll({
+            where: {
+                event_id: { [Op.in]: eventIds },
+                comp_id: comp_id  // Match the given competition
+            }
+        });
+
+        res.status(200).json(myEvents);
+    } catch (error) {
+        console.error('Error fetching pending events:', error);
+        res.status(500).json({ error: 'Failed to fetch pending events' });
+    }
+});
+
+
+
+
+
+
+
 module.exports = router
