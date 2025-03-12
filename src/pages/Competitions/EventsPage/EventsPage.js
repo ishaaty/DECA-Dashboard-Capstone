@@ -8,7 +8,6 @@ import { useState, useEffect, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import { UserRoleContext } from '../../../context/UserRoleContext';
 import axios from 'axios';
-import { PresignedPost } from 'aws-sdk/clients/s3';
 
 export default function EventsPage() {
 
@@ -17,6 +16,10 @@ export default function EventsPage() {
 
     const [events, setEvents] = useState([]);
     const [myEvents, setMyEvents] = useState([]);
+    const [pendingEvents, setPendingEvents] = useState([]);
+    const [defaultEvents, setDefaultEvents] = useState([]);
+
+
 
     const location = useLocation();
     const userRole = useContext(UserRoleContext);
@@ -35,37 +38,57 @@ export default function EventsPage() {
     console.log(comp_id);
 
     useEffect(() => {
-        const fetchAllEvents = async () => {
-            if (!comp_id) return;
-            try {
-                const response = await axios.get(`http://localhost:8081/events/display/${comp_id}`);
-                setEvents(response.data);
-            } catch (error) {
-                console.error("Error fetching all events:", error);
-            }
-        };
-    
-        fetchAllEvents();
-    }, [comp_id]);
-    
-
-    useEffect(() => {
-        const fetchMyEvents = async () => {
+        const fetchEventsData = async () => {
             if (!comp_id || !user_id) return;
+    
             try {
-                const response = await axios.get(`http://localhost:8081/events/myevents`, {
+                const allEventsResponse = await axios.get(`http://localhost:8081/events/display/${comp_id}`);
+                const allEvents = allEventsResponse.data;
+    
+                const approvedEventsResponse = await axios.get(`http://localhost:8081/events/myevents`, {
                     params: { user_id, comp_id }
                 });
-                setMyEvents(response.data);
+                const approvedEvents = approvedEventsResponse.data;
+    
+                const pendingEventsResponse = await axios.get(`http://localhost:8081/events/pending-events`, {
+                    params: { user_id, comp_id }
+                });
+                const pendingEvents = pendingEventsResponse.data;
+    
+                // Filter events based on their categories
+                const approvedEventIds = approvedEvents.map(event => event.event_id);
+                const pendingEventIds = pendingEvents.map(event => event.event_id);
+                const defaultEventIds = allEvents
+                    .filter(event => !approvedEventIds.includes(event.event_id) && !pendingEventIds.includes(event.event_id))
+                    .map(event => event.event_id);
+    
+                // Filter events
+                const approvedEventsList = allEvents.filter(event => approvedEventIds.includes(event.event_id));
+                const pendingEventsList = allEvents.filter(event => pendingEventIds.includes(event.event_id));
+                const defaultEventsList = allEvents.filter(event => defaultEventIds.includes(event.event_id));
+    
+                // Update state
+                setEvents(allEvents); // For displaying all events, if needed
+                setMyEvents(approvedEventsList); // Approved events
+                setPendingEvents(pendingEventsList); // Pending events
+                setDefaultEvents(defaultEventsList); // Default events
+    
+                console.log("Approved events:", approvedEventsList);
+                console.log("Pending events:", pendingEventsList);
+                console.log("Default events:", defaultEventsList);
             } catch (error) {
-                console.error("Error fetching my events:", error);
+                console.error("Error fetching events:", error);
             }
         };
     
-        fetchMyEvents();
+        fetchEventsData();
     }, [comp_id, user_id]);
     
-
+    
+    
+    
+    
+    
 
     
     const handleDeleteEvent = async (id) => {
@@ -158,12 +181,30 @@ export default function EventsPage() {
                     </a> */}
 
                     <div>
-                        <h1 style={{ color: "#F5585E", alignItems: "center" }}>All Events:</h1>
+                        <h1 style={{ color: "#F5585E", zIndex: "999" }}>All Events:</h1>
                         <div className="events-container">
-                            {events?.map((event, index) => (
+                            {pendingEvents?.map((event, index) => (
                                 <EventCard
                                     key={event.event_id}
                                     status={"pending"}
+                                    event_id={event.event_id}
+                                    title={event.event_name}
+                                    descrip={event.event_descrip}
+                                    req_1={event.req_1}
+                                    req_2={event.req_2}
+                                    req_3={event.req_3}
+                                    req_4={event.req_4}
+                                    req_5={event.req_5}
+                                    userRole={userRole}
+                                    onDelete={() => handleDeleteEvent(event.event_id)}
+                                />
+                            ))}
+
+                            {defaultEvents?.map((event, index) => (
+                                <EventCard
+                                    key={event.event_id}
+                                    status={"default"}
+                                    event_id={event.event_id}
                                     title={event.event_name}
                                     descrip={event.event_descrip}
                                     req_1={event.req_1}
@@ -177,6 +218,7 @@ export default function EventsPage() {
                             ))}
                         </div>
                     </div>
+
 
                     
                     <div >

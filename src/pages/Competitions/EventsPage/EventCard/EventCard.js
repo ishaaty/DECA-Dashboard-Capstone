@@ -10,6 +10,8 @@ export default function EventCard(props) {
 
     const userRole = useContext(UserRoleContext);
     const navigate = useNavigate();  // Initialize useNavigate
+    console.log("User role:", userRole);
+    console.log("Event status:", props.status);
 
     // admin view
     if (userRole === "admin") {
@@ -58,8 +60,8 @@ export default function EventCard(props) {
                             req_4={props.req_4} 
                             req_5={props.req_5} 
                         />
-                        <button className="view-requesters-btn">
-                            Request Event
+                        <button style={{ backgroundColor: "#F5585E" }}className="view-requesters-btn">
+                            Cancel Request
                         </button>
                     </div>
                 </div>
@@ -85,6 +87,28 @@ export default function EventCard(props) {
                                 View Todo List
                             </button>
                         </Link>
+
+                    </div>
+                </div>
+            )
+        } else if (props.status === "default"){
+            return (
+                <div className="event-card">
+                    <h1>{props.title}</h1>
+                    <div className="align-center">
+                        <ViewEventBtn 
+                            title={props.title} 
+                            descrip={props.descrip} 
+                            req_1={props.req_1} 
+                            req_2={props.req_2} 
+                            req_3={props.req_3} 
+                            req_4={props.req_4} 
+                            req_5={props.req_5} 
+                        />
+
+                        <button style={{ backgroundColor: "#00984D" }} className="view-requesters-btn">
+                            Request Event
+                        </button>
 
                     </div>
                 </div>

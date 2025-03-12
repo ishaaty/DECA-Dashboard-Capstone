@@ -10,7 +10,6 @@ module.exports = (sequelize) => {
     },
     comp_id: {
       type: DataTypes.INTEGER,
-      // FOR NOW
       allowNull: true,
     },
     event_name: {
@@ -45,6 +44,12 @@ module.exports = (sequelize) => {
     tableName: 'events',
     timestamps: false,
   });
+
+  Event.associate = (models) => {
+    // Define the association with UserEventXref
+    Event.belongsToMany(models.User, { through: models.UserEventXref, foreignKey: 'event_id' });
+    Event.hasMany(models.UserEventXref, { foreignKey: 'event_id' });  // To fetch request statuses
+  };
 
   return Event;
 };
