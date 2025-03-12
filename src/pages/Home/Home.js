@@ -90,7 +90,9 @@ export default function Home() {
               <p>No announcements yet.</p>
               
             )}
-            <CreateAnnounceBtn setAnnouncements={setAnnouncements} />
+            {userRole === "admin" && (
+              <CreateAnnounceBtn setAnnouncements={setAnnouncements} />
+            )}
           </div>
         </div>
       </div>
