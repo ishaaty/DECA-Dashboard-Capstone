@@ -68,7 +68,7 @@ export default function User() {
   return (
     <>
       <Header />
-      <Menu />
+      {/* <Menu /> */}
       <div className="user-info">
         <h1 id="profileheader">User Profile</h1>
         {successMessage && <p>{successMessage}</p>}
