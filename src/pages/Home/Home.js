@@ -65,8 +65,7 @@ export default function Home() {
           {/* {(userRole === 'admin' || userRole === 'board member') && (
             <div>
               {/* <AddGCalEvent /> */}
-            </div>
-          )} */}
+            {/* </div> */}
         </div>
 
         <div className="sidebar-container">
