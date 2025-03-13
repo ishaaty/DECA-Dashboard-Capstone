@@ -77,20 +77,29 @@ router.post('/add', async (req, res) => {
 
 // Delete a resource by ID
 router.delete('/delete/:id', async (req, res) => {
-  const { id } = req.params; // Get the resource ID from the URL parameter
-
-  try {
-    const event = await Events.findByPk(id); // Find resource by primary key (ID)
-    if (!event) {
-      return res.status(404).json({ error: 'Event not found' });
+    const { id } = req.params; // Get the resource ID from the URL parameter
+  
+    try {
+      const event = await Events.findByPk(id); // Find the event by primary key (ID)
+      if (!event) {
+        return res.status(404).json({ error: 'Event not found' });
+      }
+  
+      // Delete associated user_event_xref rows first
+      await UserEventXref.destroy({
+        where: { event_id: id }
+      });
+  
+      // Now delete the event itself
+      await event.destroy();
+  
+      res.status(200).json({ message: 'Event and associated records deleted successfully' });
+    } catch (error) {
+      console.error('Error deleting event:', error);
+      res.status(500).json({ error: 'Failed to delete event' });
     }
-    await event.destroy(); // Delete the event
-    res.status(200).json({ message: 'Event deleted successfully' });
-  } catch (error) {
-    console.error('Error deleting event:', error);
-    res.status(500).json({ error: 'Failed to delete event' });
-  }
 });
+  
 
 
 // Edit an existing event while keeping comp_id and event_id unchanged

@@ -71,7 +71,7 @@ router.get('/user-event/:event_id/:user_id', async (req, res) => {
 
     try {
         // Fetch the record from user_event_xref based on both event_id and user_id
-        const userEvent = await UserEventXref.findOne({
+        let userEvent = await UserEventXref.findOne({
             where: {
                 event_id: event_id,
                 user_id: user_id
@@ -79,16 +79,23 @@ router.get('/user-event/:event_id/:user_id', async (req, res) => {
         });
 
         if (!userEvent) {
-            return res.status(404).json({ error: 'Record not found' });  // Return 404 if not found
+            // If the record doesn't exist, create a new record
+            userEvent = await UserEventXref.create({
+                event_id: event_id,
+                user_id: user_id,
+                request_status: 'pending' // Default status when creating the record
+            });
+            return res.status(201).json({ message: 'Record created successfully', userEvent });
         }
 
         // Send the record in the response
         res.status(200).json(userEvent);
     } catch (error) {
-        console.error('Error fetching user-event record:', error);
-        res.status(500).json({ error: 'Failed to fetch record' });  // Return 500 for internal errors
+        console.error('Error fetching or creating user-event record:', error);
+        res.status(500).json({ error: 'Failed to fetch or create record' });  // Return 500 for internal errors
     }
 });
+
 
 
 
@@ -155,7 +162,7 @@ router.post('/save-comment/:event_id/:user_id', async (req, res) => {
 
 
 
-router.get('/user-event/:event_id', async (req, res) => {
+router.get('/get-user-event/:event_id', async (req, res) => {
     const { event_id } = req.params;
     
     try {
@@ -200,7 +207,129 @@ router.post('/update-request-status/:user_id', async (req, res) => {
         res.status(500).json({ error: 'Failed to update status' });
     }
 });
-  
+
+
+
+// Route to delete a user-event entry
+router.delete('/delete-user-event/:event_id/:user_id', async (req, res) => {
+    const { event_id, user_id } = req.params;
+
+    try {
+        // Find and delete the record in user_event_xref
+        const deletedRow = await UserEventXref.destroy({
+            where: {
+                event_id: event_id,
+                user_id: user_id
+            }
+        });
+
+        if (!deletedRow) {
+            return res.status(404).json({ error: 'Record not found' });
+        }
+
+        res.status(200).json({ message: 'Record deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting record:', error);
+        res.status(500).json({ error: 'Failed to delete record' });
+    }
+});
+
+// Route to request an event (create a new user-event entry with "pending" status)
+router.post('/request-event/:event_id/:user_id', async (req, res) => {
+    const { event_id, user_id } = req.params;
+    console.log("event_id again ", event_id);
+    console.log("user_id again ", user_id);
+
+    try {
+        console.log('Checking if record exists for event_id:', event_id, 'user_id:', user_id);
+
+        // Check if a record already exists for this user and event combination
+        const existingRecord = await UserEventXref.findOne({
+            where: {
+                event_id: event_id,
+                user_id: user_id
+            }
+        });
+
+        if (existingRecord) {
+            console.log('Record exists. Updating request_status to "pending".');
+            // Update the request_status to "pending"
+            await existingRecord.update({ request_status: 'pending' });
+
+            res.status(200).json({ message: 'Event request updated to pending', updatedRecord: existingRecord });
+        } else {
+            console.log('No existing record. Creating a new one.');
+            // Create a new user-event entry
+            const newUserEvent = await UserEventXref.create({
+                event_id: event_id,
+                user_id: user_id,
+                request_status: 'pending'
+            });
+
+            res.status(201).json({ message: 'Event request created successfully', newUserEvent });
+        }
+    } catch (error) {
+        console.error('Error processing event request:', error);
+        res.status(500).json({ error: 'Failed to process event request' });
+    }
+});
+
+// Route to approve an event (mark as approved)
+router.post('/approve-event/:event_id/:user_id', async (req, res) => {
+    const { event_id, user_id } = req.params;
+
+    try {
+        // Find the user-event record for this event_id and user_id
+        const userEvent = await UserEventXref.findOne({
+            where: {
+                event_id: event_id,
+                user_id: user_id
+            }
+        });
+
+        if (!userEvent) {
+            return res.status(404).json({ error: 'Record not found for the specified event and user' });
+        }
+
+        // Update the request_status to "approved"
+        userEvent.request_status = 'approved';
+        await userEvent.save();
+
+        res.status(200).json({ message: 'Event request approved', updatedRecord: userEvent });
+    } catch (error) {
+        console.error('Error approving event:', error);
+        res.status(500).json({ error: 'Failed to approve event' });
+    }
+});
+
+// Route to deny an event (mark as denied)
+router.post('/deny-event/:event_id/:user_id', async (req, res) => {
+    const { event_id, user_id } = req.params;
+
+    try {
+        // Find the user-event record for this event_id and user_id
+        const userEvent = await UserEventXref.findOne({
+            where: {
+                event_id: event_id,
+                user_id: user_id
+            }
+        });
+
+        if (!userEvent) {
+            return res.status(404).json({ error: 'Record not found for the specified event and user' });
+        }
+
+        // Update the request_status to "denied"
+        userEvent.request_status = 'denied';
+        await userEvent.save();
+
+        res.status(200).json({ message: 'Event request denied', updatedRecord: userEvent });
+    } catch (error) {
+        console.error('Error denying event:', error);
+        res.status(500).json({ error: 'Failed to deny event' });
+    }
+});
+
 
 
 module.exports = router;

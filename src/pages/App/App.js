@@ -95,7 +95,7 @@ const RoleRestrictedRoutes = () => {
       <Route path="/home" element={<Home />} />
       <Route path="/competitions" element={<Competitions />} />
       <Route path="/events" element={<EventsPage />} />
-      <Route path="/viewrequesters" element={<ViewRequesters />} />
+      <Route path="/viewrequesters/:event_id/:title" element={<ViewRequesters />} />
       <Route path="/roommates" element={<Roommates />} />
       <Route path="/todolist" element={<TodoListPage />} />
       <Route path="/fundraisers" element={<Fundraisers />} />

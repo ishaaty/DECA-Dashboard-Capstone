@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const { User } = require('../models');
+const { Op } = require('sequelize');
+
 
 // Route for creating or updating a user
 router.post('/create-update', async (req, res) => {
@@ -96,6 +98,37 @@ router.get('/role', async (req, res) => {
     }
 });
   
+router.get('/get-user-id', async (req, res) => {
+    try {
+        const { email } = req.query;
+
+        if (!email) {
+            return res.status(400).json({ message: 'Email is required' });
+        }
+
+        // Query to search for a user with either the email or account_email
+        const user = await User.findOne({
+            where: {
+                [Op.or]: [{ email }, { account_email: email }]  // Search for either email or account_email
+            },
+            attributes: ['user_id']  // Only fetch the user_id
+        });
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        res.status(200).json({ user_id: user.user_id });  // Return the user_id
+
+    } catch (error) {
+        console.error('Error fetching user_id:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+
+
+module.exports = router;
 
 
 module.exports = router;

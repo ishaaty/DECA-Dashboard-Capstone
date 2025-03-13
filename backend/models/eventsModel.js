@@ -48,7 +48,9 @@ module.exports = (sequelize) => {
   Event.associate = (models) => {
     // Define the association with UserEventXref
     Event.belongsToMany(models.User, { through: models.UserEventXref, foreignKey: 'event_id' });
-    Event.hasMany(models.UserEventXref, { foreignKey: 'event_id' });  // To fetch request statuses
+    Event.hasMany(models.UserEventXref, { foreignKey: 'event_id', onDelete: 'CASCADE'}); // This ensures that related user_event_xref rows are deleted when the event is deleted });  // To fetch request statuses
+    // In your Event model definition
+
   };
 
   return Event;

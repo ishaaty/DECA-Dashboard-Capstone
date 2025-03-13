@@ -13,15 +13,22 @@ import { useSearchParams } from "react-router-dom";
 
 
 export default function TodoListPage(props) {
+
     const [todoData, setTodoData] = useState(null);
     const [eventData, setEventData] = useState(null);
     const [statuses, setStatuses] = useState({});
     const [currentComment, setCurrentComment] = useState('');
     const userRole = useContext(UserRoleContext);
     
-    const [searchParams] = useSearchParams();
-    const user_id = searchParams.get("user_id");
-    const event_id = searchParams.get("event_id");
+    // const [searchParams] = useSearchParams();
+    // const user_id = searchParams.get("user_id");
+    // const event_id = searchParams.get("event_id");
+    // const user = searchParams.get("user");
+
+    const location = useLocation();
+    const { user_id, event_id, user, title } = location.state || {};  // Retrieve state from navigation
+
+    console.log("Received data:", user_id, event_id, user, title); 
 
     console.log("user_id:", user_id, "event_id:", event_id);
 
@@ -104,7 +111,7 @@ export default function TodoListPage(props) {
                 <Header />
                 <Menu />
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", marginTop: "50px", gap: "20px" }}>
-                    <h1 className="header-text">Julia Thompson: Binder Event</h1>
+                    <h1 className="header-text">{title}: {user.first_name} {user.last_name}</h1>
                     <div style={{ backgroundColor: "#E3E8F1", borderRadius: "20px", padding: "30px", display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%" }}>
                         <h1 style={{ textAlign: "center" }}>To Do List</h1>
                         <div style={{ flex: 1 }}>
@@ -164,7 +171,7 @@ export default function TodoListPage(props) {
             <Header />
             <Menu />
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", marginTop: "50px", gap: "20px" }}>
-                <h1 className="header-text">Julia Thompson: Binder Event</h1>
+                <h1 className="header-text">{title}</h1>
                 <div style={{ backgroundColor: "#E3E8F1", borderRadius: "20px", padding: "30px", display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%" }}>
                     <h1 style={{ textAlign: "center" }}>To Do List</h1>
                     <div style={{ flex: 1 }}>
