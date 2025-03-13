@@ -62,10 +62,11 @@ export default function Home() {
             title="Calendar"
           ></iframe>
 
-          {/* {(userRole === 'admin' || userRole === 'board member') && (
+          {(userRole === 'admin' || userRole === 'board member') && (
             <div>
               {/* <AddGCalEvent /> */}
-            {/* </div> */}
+            </div>
+          )}
         </div>
 
         <div className="sidebar-container">
