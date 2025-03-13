@@ -1,0 +1,12 @@
+.user-info {
+    padding-left: 18vw;
+    padding-top: 10vh;
+    font-size: 150%;
+    text-align: center;
+}
+
+#profileheader {
+    color: #00529B;
+    text-align: center;
+    font-size: 35px;
+}
