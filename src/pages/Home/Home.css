@@ -30,11 +30,11 @@
 .announcements-box,
 .events-box {
   background-color: #E3E8F1;
-  padding: 16px;
+  padding: 1vw;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin-left: 15vh;
-  width: 100%; /* Adjusted for responsiveness */
+  margin-left: 0vh;
+  width: 90%; /* Adjusted for responsiveness */
   max-width: 400px; /* Ensures the box isn't too wide */
 }
 
