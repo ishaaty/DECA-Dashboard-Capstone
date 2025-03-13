@@ -31,11 +31,11 @@ router.post('/create-update', async (req, res) => {
         if (user) {
             // Update existing user
             await user.update({ first_name, last_name, user_class, account_email, cell_phone, home_phone, gender, demographic, dob });
-            return res.status(200).json({ message: 'User updated successfully', user });
+            return res.status(200).json({ message: 'Information updated successfully', user });
         } else {
             // Create a new user
             user = await User.create({ first_name, last_name, user_class, account_email, email, cell_phone, home_phone, gender, demographic, dob });
-            return res.status(201).json({ message: 'User created successfully', user });
+            return res.status(201).json({ message: 'Approval request submitted', user });
         }
     } catch (error) {
         console.error('Error creating/updating user:', error);
@@ -126,9 +126,6 @@ router.get('/get-user-id', async (req, res) => {
     }
 });
 
-
-
-module.exports = router;
 
 
 module.exports = router;
