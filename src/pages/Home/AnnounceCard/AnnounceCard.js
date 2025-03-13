@@ -1,15 +1,21 @@
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";  // Import useContext
 import './AnnounceCard.css';
-import EditAnnounceBtn from '../EditAnnounceBtn/EditAnnounceBtn';
+import EditAnnounceBtn from '../EditAnnounceBtn/EditAnnounceBtn'
+import { UserRoleContext } from "../../../context/UserRoleContext";
 
 export default function AnnounceCard(props) {
 
+    const userRole = useContext(UserRoleContext);
+    console.log("User role:", userRole);
+    console.log("Event status:", props.status);
+
     // admin view
-    if (props.acquired == null) {
+    if (userRole === "admin") {
         return (
-            <div className = "announcement-card">
+            <div className="announcement-card">
                 <h3>{props.title}</h3>
                 <p>{props.description}</p>
-
                 <div className="align-center">
                 <EditAnnounceBtn 
                             ann_id={props.ann_id} 
@@ -23,10 +29,8 @@ export default function AnnounceCard(props) {
                 </div>
             </div>
         )
-    }
-
-    // general participant view 
-    if (props.acquired == false) {
+    // general participant view
+    } else if (userRole === "participant") {
         return (
             <div className = "announcement-card">
                 <h3>{props.title}</h3>
@@ -34,4 +38,6 @@ export default function AnnounceCard(props) {
             </div>
         )
     }
+
+    return null;
 }
