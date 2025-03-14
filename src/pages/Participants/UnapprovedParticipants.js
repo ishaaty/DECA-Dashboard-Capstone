@@ -17,6 +17,7 @@ export default function UnapprovedParticipants({ userRole }) {
           "http://localhost:8081/participantdetails/displayunapprovedusers"
         );
         setUsers(Array.isArray(response.data) ? response.data : []);
+        setError(null); // Clear any previous errors
       } catch (err) {
         console.error("Error fetching users:", err);
         setError("Failed to load users.");
@@ -78,8 +79,8 @@ export default function UnapprovedParticipants({ userRole }) {
 
       <h1 id="partheader">Unapproved Participants</h1>
       <div className="approvals">
-        {error ? <p>{error}</p> : null}
-        {users.length === 0 ? <p>Loading users...</p> : null}
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        {!error && users.length === 0 ? <p>No unapproved participants found.</p> : null}
 
         {users.map((user) => (
           <div className="userselection" key={user.user_id}>
@@ -92,17 +93,19 @@ export default function UnapprovedParticipants({ userRole }) {
           </div>
         ))}
 
-        <div className="roleselection">
-          <label>Select Role: </label>
-          <select class="roleselect" value={selectedRole} onChange={handleRoleChange}>
-            <option id="pickrole" value="">--Select Role--</option>
-            <option value="Admin">Admin</option>
-            <option value="Participant">Participant</option>
-            <option value="Board Member">Board Member</option>
-            <option value={null}>No Role</option>
-          </select>
-          <button id="updatebtn" onClick={updateUserRole}>Update Role</button>
-        </div>
+        {users.length > 0 && (
+          <div className="roleselection">
+            <label>Select Role: </label>
+            <select className="roleselect" value={selectedRole} onChange={handleRoleChange}>
+              <option id="pickrole" value="">--Select Role--</option>
+              <option value="Admin">Admin</option>
+              <option value="Participant">Participant</option>
+              <option value="Board Member">Board Member</option>
+              <option value={null}>No Role</option>
+            </select>
+            <button id="updatebtn" onClick={updateUserRole}>Update Role</button>
+          </div>
+        )}
       </div>
     </>
   );

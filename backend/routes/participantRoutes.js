@@ -23,11 +23,10 @@ router.get('/displayusers', async (req, res) => {
 
 // Route to fetch users with no role
 router.get('/displayunapprovedusers', async (req, res) => {
-  const { position } = req.query;
-
   try {
-    // Fetch users with the specified position
     console.log(User.getTableName());
+    
+    // Fetch users who have no position or an unapproved position
     const users = await User.findAll({
       where: {
         [Op.or]: [
@@ -36,18 +35,16 @@ router.get('/displayunapprovedusers', async (req, res) => {
           { position: "no role" }
         ]
       }
-    })
+    });
 
-    if (!users || users.length === 0) {
-      return res.status(404).json({ message: 'No users found without a position.' });
-    }
-
-    res.json(users);
+    // Instead of throwing an error, return an empty array if no users are found
+    res.json(users.length > 0 ? users : []);
   } catch (error) {
     console.error('Error fetching users:', error);
     res.status(500).json({ error: 'Failed to fetch users.' });
   }
 });
+
 
 
 
