@@ -1,16 +1,30 @@
+.todo-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 20px;
+    justify-content: flex-end;
+}
+
+.todo-item-content {
+    display: flex;
+    align-items: center;
+}
+
+.todo-item h2 {
+    margin-right: 10px;
+}
+
 #statusDropdown {
     padding: 5px;
+    border-radius: 10px;
 }
 
 #downloadBtn {
     padding: 7px;
-    border: solid;
-    border-width: 1px;
+    border: solid 1px;
     cursor: pointer;
     background-color: white;
     color: black;
-}
-
-#statusDropdown, #downloadBtn {
     border-radius: 10px;
 }
