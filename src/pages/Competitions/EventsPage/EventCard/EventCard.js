@@ -79,13 +79,11 @@ export default function EventCard(props) {
                         View Todo List
                     </button> */}
 
-                    <a href="viewrequesters"> {/* This is not necessary anymore */}
-                        <Link to={`/viewrequesters/${props.event_id}/${props.title}`}>
-                            <button className="view-requesters-btn">
-                                View Requesters
-                            </button>
-                        </Link>
-                    </a>
+                    <Link to={`/viewrequesters/${props.event_id}/${props.title}`}>
+                        <button className="view-requesters-btn">
+                            View Requesters
+                        </button>
+                    </Link>
 
                     <button className="view-requesters-btn" onClick={props.onDelete}>
                         Delete
@@ -111,7 +109,7 @@ export default function EventCard(props) {
                             req_4={props.req_4} 
                             req_5={props.req_5} 
                         />
-                        <button style={{ backgroundColor: "#F5585E" }} className="view-requesters-btn">
+                        <button style={{ backgroundColor: "#F5585E" }} className="view-requesters-btn" onClick={handleCancelRequest}>
                             Cancel Request
                         </button>
                     </div>

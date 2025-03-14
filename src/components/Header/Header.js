@@ -11,16 +11,12 @@ export default function Header() {
                 <img src="/decaImg.png" alt="Logo" className="header-logo" />
             </div>
             <nav className="header-nav">
-                <a href="home" className="header-link" style={{ color: "#F5585E" }}>Home</a>
-                <a href="about" className="header-link" style={{ color: "#FFC551" }}>About</a>
-                <a href="contact" className="header-link" style={{ color: "#00984D" }}>Contact</a>
-                <a href="user" className="header-link" style={{ color: "#00984D" }}>User</a>
+                <a href="home" className="header-link home-link">Home</a>
+                <a href="about" className="header-link about-link">About</a>
+                <a href="contact" className="header-link contact-link">Contact</a>
+                <a href="user" className="header-link user-link">User</a>
                 {/* Logout button */}
-                <span 
-                    className="header-link" 
-                    style={{ color: "#00984D", cursor: "pointer" }} 
-                    onClick={() => logout({ returnTo: window.location.origin })}
-                >
+                <span className="header-link logout-link" onClick={() => logout({ returnTo: window.location.origin })}>
                     Logout
                 </span>
             </nav>
