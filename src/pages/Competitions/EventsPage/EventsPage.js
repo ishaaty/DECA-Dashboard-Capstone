@@ -139,9 +139,6 @@ export default function EventsPage() {
                     <h1 style={{ color: "#00529B" }}>{title}</h1>
 
                     <div className="btns-h-align">
-                        {/* <a href="roommates">
-                            <button id="submit-btn" style={{ fontSize: "18px" }}>View Roommates</button>
-                        </a> */}
                         <CreateEventBtn events={events} setEvents={setEvents} comp_id={comp_id} />
                     </div>
 
