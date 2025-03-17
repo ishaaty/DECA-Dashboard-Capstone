@@ -72,6 +72,29 @@ export default function UnapprovedParticipants({ userRole }) {
     }
   };
 
+  const deleteRequest = async () => {
+    const selectedIds = Object.keys(selectedUsers).filter((id) => selectedUsers[id]);
+
+    if (selectedIds.length === 0) {
+      alert("Please select at least one user.");
+      return;
+    }
+
+    try {
+      await axios.delete("http://localhost:8081/participantdetails/deleteusers", {
+        data: { userIds: selectedIds },
+      });
+
+      // Remove deleted users from the UI
+      setUsers((prevUsers) => prevUsers.filter((user) => !selectedIds.includes(user.user_id.toString())));
+      setSelectedUsers({});
+      alert("Users deleted successfully!");
+    } catch (error) {
+      console.error("Error deleting users:", error);
+      alert("Failed to delete users.");
+    }
+  }
+
   return (
     <>
       <Header />
@@ -104,6 +127,7 @@ export default function UnapprovedParticipants({ userRole }) {
               <option value={null}>No Role</option>
             </select>
             <button id="updatebtn" onClick={updateUserRole}>Update Role</button>
+            <button id="deletebtn" onClick={deleteRequest}>Delete Request</button>
           </div>
         )}
       </div>
