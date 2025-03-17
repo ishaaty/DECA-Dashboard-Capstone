@@ -17,6 +17,7 @@ export default function EventsPage() {
     const [myEvents, setMyEvents] = useState([]);
     const [pendingEvents, setPendingEvents] = useState([]);
     const [defaultEvents, setDefaultEvents] = useState([]);
+    const [deniedEvents, setDeniedEvents] = useState([]);
     const location = useLocation();
     const userRole = useContext(UserRoleContext);
     const searchParams = new URLSearchParams(location.search);
@@ -60,46 +61,55 @@ export default function EventsPage() {
     useEffect(() => {
         const fetchEventsData = async () => {
             if (!comp_id || !user_id) return;  // Ensure user_id is available before fetching events
-
+            console.log("Getting events w comp_id ", comp_id, " and user_id ", user_id)
+    
             try {
                 const allEventsResponse = await axios.get(`http://localhost:8081/events/display/${comp_id}`);
                 const allEvents = allEventsResponse.data;
-
+    
                 const approvedEventsResponse = await axios.get(`http://localhost:8081/events/myevents`, {
                     params: { user_id, comp_id }
                 });
                 const approvedEvents = approvedEventsResponse.data;
-
+    
                 const pendingEventsResponse = await axios.get(`http://localhost:8081/events/pending-events`, {
                     params: { user_id, comp_id }
                 });
                 const pendingEvents = pendingEventsResponse.data;
-
+    
+                const deniedEventsResponse = await axios.get(`http://localhost:8081/events/denied-events`, {
+                    params: { user_id, comp_id }
+                });
+                const deniedEvents = deniedEventsResponse.data; // List of denied event IDs
+                console.log(deniedEvents);
+    
                 // Filter events based on their categories
                 const approvedEventIds = approvedEvents.map(event => event.event_id);
                 const pendingEventIds = pendingEvents.map(event => event.event_id);
-                const defaultEventIds = allEvents
-                    .filter(event => !approvedEventIds.includes(event.event_id) && !pendingEventIds.includes(event.event_id))
-                    .map(event => event.event_id);
-
-                // Filter events
-                const approvedEventsList = allEvents.filter(event => approvedEventIds.includes(event.event_id));
-                const pendingEventsList = allEvents.filter(event => pendingEventIds.includes(event.event_id));
-                const defaultEventsList = allEvents.filter(event => defaultEventIds.includes(event.event_id));
-
+                const deniedEventIds = deniedEvents.map(event => event.event_id);
+    
+                // Default events: Events that are not in approved, pending, or denied lists
+                const defaultEventsList = allEvents.filter(event =>
+                    !approvedEventIds.includes(event.event_id) &&
+                    !pendingEventIds.includes(event.event_id) &&
+                    !deniedEventIds.includes(event.event_id) // Exclude denied events
+                );
+    
                 // Update state
                 setEvents(allEvents); // For displaying all events, if needed
-                setMyEvents(approvedEventsList); // Approved events
-                setPendingEvents(pendingEventsList); // Pending events
-                setDefaultEvents(defaultEventsList); // Default events
-
+                setMyEvents(approvedEvents); // Approved events
+                setPendingEvents(pendingEvents); // Pending events
+                setDefaultEvents(defaultEventsList); // Default events (without denied ones)
+                setDeniedEvents(deniedEvents);
+    
             } catch (error) {
                 console.error("Error fetching events:", error);
             }
         };
-
+    
         fetchEventsData();
     }, [comp_id, user_id]);
+    
 
     const handleDeleteEvent = async (id) => {
         try {
@@ -129,9 +139,6 @@ export default function EventsPage() {
                     <h1 style={{ color: "#00529B" }}>{title}</h1>
 
                     <div className="btns-h-align">
-                        {/* <a href="roommates">
-                            <button id="submit-btn" style={{ fontSize: "18px" }}>View Roommates</button>
-                        </a> */}
                         <CreateEventBtn events={events} setEvents={setEvents} comp_id={comp_id} />
                     </div>
 

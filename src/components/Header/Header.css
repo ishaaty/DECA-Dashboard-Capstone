@@ -2,7 +2,6 @@ body {
     padding-top: 60px; /* Adjust to match the navbar height */
 }
 
-
 .header {
     display: flex;
     justify-content: space-between;
@@ -17,8 +16,6 @@ body {
     box-sizing: border-box; /* Ensures padding is included in the height/width */
 }
 
-
-
 /* Logo and title container styling */
 .header-logo-container {
     display: flex;
@@ -32,12 +29,6 @@ body {
     margin-right: 10px; /* Space between logo and title */
 }
 
-/* Title styling */
-.header-title {
-    margin: 0;
-    font-size: 1.5rem;
-}
-
 /* Navigation links styling */
 .header-nav {
     display: flex;
@@ -46,13 +37,22 @@ body {
 }
 
 .header-link {
-    color: white;
     text-decoration: none;
     font-size: 1rem;
     transition: color 0.3s;
     align-items: center;
 }
 
+/* Specific link colors */
+.home-link { color: #F5585E; }
+.about-link { color: #FFC551; }
+.contact-link, .user-link, .logout-link { color: #00984D; }
+
 .header-link:hover {
     color: #61dafb; /* Adds a hover effect */
+}
+
+/* Logout button specific styling */
+.logout-link {
+    cursor: pointer;
 }
