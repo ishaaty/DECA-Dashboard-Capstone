@@ -143,7 +143,6 @@ export default function TodoListPage(props) {
                         </div>
                         <button
                             className="saveStatuses"
-                            style={{ alignSelf: "center" }}
                             onClick={() => saveStatuses(event_id, user_id, statuses)}
                         >
                             Save Statuses
