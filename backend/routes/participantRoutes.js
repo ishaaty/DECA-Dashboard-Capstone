@@ -149,6 +149,4 @@ router.delete("/deleteusers", async (req, res) => {
 
 
 
-
-// Export the router
 module.exports = router;
