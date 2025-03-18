@@ -13,7 +13,6 @@ export default function Header() {
             <nav className="header-nav">
                 <a href="home" className="header-link home-link">Home</a>
                 <a href="about" className="header-link about-link">About</a>
-                <a href="contact" className="header-link contact-link">Contact</a>
                 <a href="user" className="header-link user-link">User</a>
                 {/* Logout button */}
                 <span className="header-link logout-link" onClick={() => logout({ returnTo: window.location.origin })}>
