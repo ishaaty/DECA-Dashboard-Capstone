@@ -10,4 +10,30 @@
     padding: 10px;
     color: white;
     border: solid;
+    align-self: "center"
+}
+
+.primary-div {
+    display: "flex";
+    flex-direction: "column";
+    align-items: "center";
+    justify-content: "center";
+    margin-top: "50px";
+    gap: "20px";
+}
+
+.todo-list-div {
+    background-color: "#E3E8F1";
+    border-radius: "20px";
+    padding: "30px";
+    display: "flex";
+    flex-direction: "column";
+    justify-content: "space-between";
+    height: "100%";
+}
+
+.comment-div {
+    background-color: "#E3E8F1";
+    border-radius: "20px";
+    padding: "30px";
 }
