@@ -46,7 +46,8 @@ body {
 /* Specific link colors */
 .home-link { color: #F5585E; }
 .about-link { color: #FFC551; }
-.contact-link, .user-link, .logout-link { color: #00984D; }
+.contact-link, .user-link { color: #00984D; }
+.logout-link {color: white;}
 
 .header-link:hover {
     color: #61dafb; /* Adds a hover effect */
