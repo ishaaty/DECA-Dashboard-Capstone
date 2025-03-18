@@ -72,12 +72,6 @@ export default function EventCard(props) {
                         req_4={props.req_4} 
                         req_5={props.req_5} 
                     />
-                    {/* <button
-                        style={{ backgroundColor: "#00529B" }}
-                        className="view-requesters-btn"
-                    >
-                        View Todo List
-                    </button> */}
 
                     <Link to={`/viewrequesters/${props.event_id}/${props.title}`}>
                         <button className="view-requesters-btn">
@@ -91,6 +85,123 @@ export default function EventCard(props) {
                 </div>
             </div>
         );
+
+    // board member view
+    } else if (userRole === "board member") {
+
+        if (props.status === "pending"){
+
+            return (
+                <div className="event-card">
+                    <h1>{props.title}</h1>
+                    <div className="align-center">
+                        <EditEventBtn 
+                            event_id={props.event_id} 
+                            comp_id={props.comp_id} 
+                            setEvents={props.setEvents} 
+                            title={props.title} 
+                            descrip={props.descrip} 
+                            req_1={props.req_1} 
+                            req_2={props.req_2} 
+                            req_3={props.req_3} 
+                            req_4={props.req_4} 
+                            req_5={props.req_5} 
+                        />
+
+                        <Link to={`/viewrequesters/${props.event_id}/${props.title}`}>
+                            <button className="view-requesters-btn">
+                                View Requesters
+                            </button>
+                        </Link>
+
+                        <button style={{ backgroundColor: "#F5585E" }} className="view-requesters-btn" onClick={handleCancelRequest}>
+                            Cancel Request
+                        </button>
+
+                        <button className="view-requesters-btn" onClick={props.onDelete}>
+                            Delete Event
+                        </button>
+
+                    </div>
+                </div>
+            );
+
+        } else if (props.status === "approved"){
+            return (
+                <div className="event-card">
+                    <h1>{props.title}</h1>
+                    <div className="align-center">
+                        <EditEventBtn 
+                            event_id={props.event_id} 
+                            comp_id={props.comp_id} 
+                            setEvents={props.setEvents} 
+                            title={props.title} 
+                            descrip={props.descrip} 
+                            req_1={props.req_1} 
+                            req_2={props.req_2} 
+                            req_3={props.req_3} 
+                            req_4={props.req_4} 
+                            req_5={props.req_5} 
+                        />
+
+                        <Link to={`/viewrequesters/${props.event_id}/${props.title}`}>
+                            <button className="view-requesters-btn">
+                                View Requesters
+                            </button>
+                        </Link>
+                        
+                        <button
+                            style={{ backgroundColor: "#00529B" }}
+                            className="view-requesters-btn"
+                            onClick={handleViewTodoList} // Use the button's onClick handler
+                        >
+                            View Todo List
+                        </button>
+
+                        <button className="view-requesters-btn" onClick={props.onDelete}>
+                            Delete Event
+                        </button>
+
+                    </div>
+                </div>
+            );
+        } else if (props.status === "default"){
+            return (
+                <div className="event-card">
+                    <h1>{props.title}</h1>
+                    <div className="align-center">
+                        <EditEventBtn 
+                            event_id={props.event_id} 
+                            comp_id={props.comp_id} 
+                            setEvents={props.setEvents} 
+                            title={props.title} 
+                            descrip={props.descrip} 
+                            req_1={props.req_1} 
+                            req_2={props.req_2} 
+                            req_3={props.req_3} 
+                            req_4={props.req_4} 
+                            req_5={props.req_5} 
+                        />
+
+                        <Link to={`/viewrequesters/${props.event_id}/${props.title}`}>
+                            <button className="view-requesters-btn">
+                                View Requesters
+                            </button>
+                        </Link>
+
+                        <button style={{ backgroundColor: "#00984D" }} className="view-requesters-btn" onClick={handleRequestEvent}>
+                            Request Event
+                        </button>
+
+                        <button className="view-requesters-btn" onClick={props.onDelete}>
+                            Delete Event
+                        </button>
+
+                    </div>
+                </div>
+            );
+        }
+
     // general participant view
     } else if (userRole === "participant") {
 

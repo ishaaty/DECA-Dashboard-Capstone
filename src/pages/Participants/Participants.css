@@ -60,3 +60,26 @@
     color: black;
     text-decoration: none;
 }
+
+.search-bar {
+    width: 20vw;
+    margin-left: 25vw;
+    margin-top: 3vh;
+    padding: 8px;
+    border: 2px solid #E3E8F1;
+    border-radius: 8px;
+    font-size: 1em;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    outline: none;
+}
+
+.search-bar:focus {
+    border-color: #00529B;
+}
+
+.search-bar::placeholder {
+    color: #8A8D91;
+    font-style: italic;
+}
+
+  
