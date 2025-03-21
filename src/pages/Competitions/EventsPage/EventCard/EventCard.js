@@ -74,13 +74,13 @@ export default function EventCard(props) {
                     />
 
                     <Link to={`/viewrequesters/${props.event_id}/${props.title}`}>
-                        <button className="view-requesters-btn">
+                        <button className="event-card-btn" id="view-requesters">
                             View Requesters
                         </button>
                     </Link>
 
-                    <button className="view-requesters-btn" onClick={props.onDelete}>
-                        Delete
+                    <button className="event-card-btn" id="delete-event" onClick={props.onDelete}>
+                        Delete Event
                     </button>
                 </div>
             </div>
@@ -109,16 +109,16 @@ export default function EventCard(props) {
                         />
 
                         <Link to={`/viewrequesters/${props.event_id}/${props.title}`}>
-                            <button className="view-requesters-btn">
+                            <button className="event-card-btn" id="view-requesters">
                                 View Requesters
                             </button>
                         </Link>
 
-                        <button style={{ backgroundColor: "#F5585E" }} className="view-requesters-btn" onClick={handleCancelRequest}>
+                        <button className="event-card-btn" id="cancel-request" onClick={handleCancelRequest}>
                             Cancel Request
                         </button>
 
-                        <button className="view-requesters-btn" onClick={props.onDelete}>
+                        <button className="event-card-btn" id="delete-event" onClick={props.onDelete}>
                             Delete Event
                         </button>
 
@@ -145,20 +145,19 @@ export default function EventCard(props) {
                         />
 
                         <Link to={`/viewrequesters/${props.event_id}/${props.title}`}>
-                            <button className="view-requesters-btn">
+                            <button className="event-card-btn" id="view-requesters">
                                 View Requesters
                             </button>
                         </Link>
                         
                         <button
-                            style={{ backgroundColor: "#00529B" }}
-                            className="view-requesters-btn"
+                            className="event-card-btn" id="view-todo-list"
                             onClick={handleViewTodoList} // Use the button's onClick handler
                         >
                             View Todo List
                         </button>
 
-                        <button className="view-requesters-btn" onClick={props.onDelete}>
+                        <button className="event-card-btn" id="delete-event" onClick={props.onDelete}>
                             Delete Event
                         </button>
 
@@ -184,16 +183,16 @@ export default function EventCard(props) {
                         />
 
                         <Link to={`/viewrequesters/${props.event_id}/${props.title}`}>
-                            <button className="view-requesters-btn">
+                            <button className="event-card-btn" id="view-requesters">
                                 View Requesters
                             </button>
                         </Link>
 
-                        <button style={{ backgroundColor: "#00984D" }} className="view-requesters-btn" onClick={handleRequestEvent}>
+                        <button className="event-card-btn" id="request-event" onClick={handleRequestEvent}>
                             Request Event
                         </button>
 
-                        <button className="view-requesters-btn" onClick={props.onDelete}>
+                        <button className="event-card-btn" id="delete-event" onClick={props.onDelete}>
                             Delete Event
                         </button>
 
@@ -220,7 +219,7 @@ export default function EventCard(props) {
                             req_4={props.req_4} 
                             req_5={props.req_5} 
                         />
-                        <button style={{ backgroundColor: "#F5585E" }} className="view-requesters-btn" onClick={handleCancelRequest}>
+                        <button className="event-card-btn" id="cancel-request" onClick={handleCancelRequest}>
                             Cancel Request
                         </button>
                     </div>
@@ -243,8 +242,7 @@ export default function EventCard(props) {
                         />
                         
                         <button
-                            style={{ backgroundColor: "#00529B" }}
-                            className="view-requesters-btn"
+                            className="event-card-btn" id="view-todo-list"
                             onClick={handleViewTodoList} // Use the button's onClick handler
                         >
                             View Todo List
@@ -266,7 +264,7 @@ export default function EventCard(props) {
                             req_4={props.req_4} 
                             req_5={props.req_5} 
                         />
-                        <button style={{ backgroundColor: "#00984D" }} className="view-requesters-btn" onClick={handleRequestEvent}>
+                        <button className="event-card-btn" id="request-event" onClick={handleRequestEvent}>
                             Request Event
                         </button>
                     </div>

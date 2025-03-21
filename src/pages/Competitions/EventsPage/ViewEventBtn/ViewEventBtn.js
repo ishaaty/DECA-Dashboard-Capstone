@@ -33,7 +33,7 @@ const ViewEventBtn = (props) => {
               <strong>Requirements:</strong> {displayReqs}
             </label>
             <div className="popup-buttons">
-              <button onClick={() => setIsPopupOpen(false)}>Exit</button>
+              <button onClick={() => setIsPopupOpen(false)}>Close</button>
             </div>
           </div>
         </div>
