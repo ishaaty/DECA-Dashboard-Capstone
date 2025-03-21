@@ -5,7 +5,8 @@
     align-items: flex-start;
 }
 
-.fundapprovals {
+.col {
+    padding-left: 25vw;
     flex: 1;
     max-width: 200px; /* Reduce max width if needed */
 }
@@ -15,4 +16,17 @@
     gap: 30px; /* Reduce this value to bring the columns closer */
     justify-content: center; /* Center them on the page */
     align-items: flex-start;
+}
+
+.event-approval-header {
+    color: #00529B;
+    margin: auto auto;
+    margin-top: 5vh;
+    margin-bottom: 85px;
+    padding-left: 20vw;
+    font-size: 35px;
+    position: relative; /* Ensures it stacks properly */
+    z-index: 10;
+    text-align: center;
+          
 }

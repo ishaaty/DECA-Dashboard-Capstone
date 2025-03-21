@@ -6,15 +6,6 @@
     margin-top: 10px;
 }
 
-button.view-requesters-btn {
-    background-color: #6786A3;
-    color: white;
-    border-radius: 5px;
-    padding: 8px 16px;
-    margin-top: 10px;
-    cursor: pointer;
-}
-
 .align-center {
     display: flex;
     flex-direction: column;

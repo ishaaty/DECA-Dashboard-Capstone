@@ -38,8 +38,7 @@ export default function ApprovedUserCard({ user_id, event_id, title }) {
             </p>
             <p>{user ? `${user.email}` : "Loading..."}</p>
             <button
-                style={{ backgroundColor: "#00529B" }}
-                className="view-requesters-btn"
+                className="approved-user-card-btn" id="view-todo-list"
                 onClick={handleViewTodoList} // Use the button's onClick handler
             >
                 View Todo List
