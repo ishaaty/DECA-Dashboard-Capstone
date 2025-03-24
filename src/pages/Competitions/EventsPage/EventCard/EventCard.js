@@ -7,6 +7,8 @@ import { UserRoleContext } from "../../../../context/UserRoleContext";
 import { Link } from "react-router-dom";
 import axios from 'axios'; 
 
+
+
 export default function EventCard(props) {
 
     const userRole = useContext(UserRoleContext);
@@ -53,6 +55,10 @@ export default function EventCard(props) {
         navigate('/todolist', { state: { user_id: props.user_id, event_id: props.event_id, user: props.user, title: props.title } });
     };
 
+    const handleViewRequesters = () => {
+        navigate('/viewrequesters', { state: { event_id: props.event_id, title: props.title } });
+    };
+
 
     // admin view
     if (userRole === "admin") {
@@ -73,11 +79,9 @@ export default function EventCard(props) {
                         req_5={props.req_5} 
                     />
 
-                    <Link to={`/viewrequesters/${props.event_id}/${props.title}`}>
-                        <button className="event-card-btn" id="view-requesters">
-                            View Requesters
-                        </button>
-                    </Link>
+                    <button className="event-card-btn" id="view-requesters" onClick={handleViewRequesters}>
+                        View Requesters
+                    </button>
 
                     <button className="event-card-btn" id="delete-event" onClick={props.onDelete}>
                         Delete Event
@@ -108,11 +112,9 @@ export default function EventCard(props) {
                             req_5={props.req_5} 
                         />
 
-                        <Link to={`/viewrequesters/${props.event_id}/${props.title}`}>
-                            <button className="event-card-btn" id="view-requesters">
-                                View Requesters
-                            </button>
-                        </Link>
+                        <button className="event-card-btn" id="view-requesters" onClick={handleViewRequesters}>
+                            View Requesters
+                        </button>
 
                         <button className="event-card-btn" id="cancel-request" onClick={handleCancelRequest}>
                             Cancel Request
@@ -144,11 +146,9 @@ export default function EventCard(props) {
                             req_5={props.req_5} 
                         />
 
-                        <Link to={`/viewrequesters/${props.event_id}/${props.title}`}>
-                            <button className="event-card-btn" id="view-requesters">
-                                View Requesters
-                            </button>
-                        </Link>
+                        <button className="event-card-btn" id="view-requesters" onClick={handleViewRequesters}>
+                            View Requesters
+                        </button>
                         
                         <button
                             className="event-card-btn" id="view-todo-list"
@@ -182,11 +182,9 @@ export default function EventCard(props) {
                             req_5={props.req_5} 
                         />
 
-                        <Link to={`/viewrequesters/${props.event_id}/${props.title}`}>
-                            <button className="event-card-btn" id="view-requesters">
-                                View Requesters
-                            </button>
-                        </Link>
+                        <button className="event-card-btn" id="view-requesters" onClick={handleViewRequesters}>
+                            View Requesters
+                        </button>
 
                         <button className="event-card-btn" id="request-event" onClick={handleRequestEvent}>
                             Request Event
