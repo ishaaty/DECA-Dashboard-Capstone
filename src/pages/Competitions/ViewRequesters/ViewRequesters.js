@@ -46,44 +46,44 @@ export default function ViewRequesters() {
         <>
             <Header />
             <Menu />
-            <h1 className="comp" style={{ marginBottom: "20px" }}>Event Approval</h1>
+            <h1 className="event-approval-header" style={{ marginBottom: "20px" }}>Event Approval</h1>
             <div style={{ display: "flex", gap: "0px" }}>
-            <div className="fundapprovals">
-                <h1>Requesters</h1>
-                {requesters.length > 0 ? (
-                    requesters.map((user, index) => (
-                        <RequestedUserCard 
-                            key={`requester_${user.user_id}_${event_id}_${index}`} 
-                            user_id={user.user_id} 
-                            event_id={event_id}
-                            user={user} 
-                            setRequesters={setRequesters} // Pass setRequesters as a prop
-                        />
+                <div className="col">
+                    <h1>Requesters</h1>
+                    {requesters.length > 0 ? (
+                        requesters.map((user, index) => (
+                            <RequestedUserCard 
+                                key={`requester_${user.user_id}_${event_id}_${index}`} 
+                                user_id={user.user_id} 
+                                event_id={event_id}
+                                user={user} 
+                                setRequesters={setRequesters} // Pass setRequesters as a prop
+                            />
 
-                    ))
-                ) : (
-                    <p>No requesters found</p>
-                )}
+                        ))
+                    ) : (
+                        <p>No requesters found</p>
+                    )}
+                </div>
+
+                <div className="col">
+                    <h1>Approved</h1>
+                    {approvedUsers.length > 0 ? (
+                        approvedUsers.map((user, index) => (
+                            <ApprovedUserCard 
+                                key={`approved_${user.user_id}_${event_id}_${index}`} 
+                                title={title}
+                                user_id={user.user_id} 
+                                event_id={event_id} 
+                                user={user}
+                            />
+                        ))
+                    ) : (
+                        <p>No approved users found</p>
+                    )}
+                </div>
+
             </div>
-
-            <div className="fundapprovals">
-                <h1>Approved</h1>
-                {approvedUsers.length > 0 ? (
-                    approvedUsers.map((user, index) => (
-                        <ApprovedUserCard 
-                            key={`approved_${user.user_id}_${event_id}_${index}`} 
-                            title={title}
-                            user_id={user.user_id} 
-                            event_id={event_id} 
-                            user={user}
-                        />
-                    ))
-                ) : (
-                    <p>No approved users found</p>
-                )}
-            </div>
-        </div>
-
 
         </>
     )

@@ -111,7 +111,7 @@ export default function TodoListPage(props) {
                 <Header />
                 <Menu />
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", marginTop: "50px", gap: "20px" }}>
-                    <h1 className="header-text">{title}: {user.first_name} {user.last_name}</h1>
+                    <h1>{title}: {user.first_name} {user.last_name}</h1>
                     <div style={{ backgroundColor: "#E3E8F1", borderRadius: "20px", padding: "30px", display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%" }}>
                         <h1 style={{ textAlign: "center" }}>To Do List</h1>
                         <div style={{ flex: 1 }}>
@@ -170,7 +170,7 @@ export default function TodoListPage(props) {
             <Header />
             <Menu />
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", marginTop: "50px", gap: "20px" }}>
-                <h1 className="header-text">{title}</h1>
+                <h1>{title}</h1>
                 <div style={{ backgroundColor: "#E3E8F1", borderRadius: "20px", padding: "30px", display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%" }}>
                     <h1 style={{ textAlign: "center" }}>To Do List</h1>
                     <div style={{ flex: 1 }}>

@@ -9,5 +9,14 @@
   margin-bottom: 16px;
 }
   
-
+.resources-header {
+  color: #00529B;
+  margin: auto auto;
+  margin-top: 5vh;
+  margin-bottom: 85px;
+  padding-left: 20vw;
+  font-size: 35px;
+  position: relative; /* Ensures it stacks properly */
+  z-index: 10;
+}
 

@@ -18,3 +18,16 @@
     border: none;
     cursor: pointer;
 }
+
+button.approved-user-card-btn {
+    color: white;
+    border-radius: 5px;
+    padding: 8px 16px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+
+#view-todo-list {
+    background-color: #00529B;
+}
