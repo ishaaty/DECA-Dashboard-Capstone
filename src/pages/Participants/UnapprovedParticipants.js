@@ -80,6 +80,14 @@ export default function UnapprovedParticipants({ userRole }) {
       return;
     }
 
+    const confirmDelete = window.confirm(
+      `Are you sure you want to delete ${selectedIds.length} selected user(s)? This action cannot be undone.`
+    );
+
+    if (!confirmDelete) {
+      return;
+    }
+
     try {
       await axios.delete("http://localhost:8081/participantdetails/deleteusers", {
         data: { userIds: selectedIds },
