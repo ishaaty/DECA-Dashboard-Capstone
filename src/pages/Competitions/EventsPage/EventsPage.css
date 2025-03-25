@@ -1,3 +1,19 @@
+#eventheader {
+    color: #00529B;
+    text-align: center;
+    padding-left: 18vw;
+    /* font-size: 35px; */
+    margin-top: 5vh;
+}
+
+#allevents {
+    text-align: center;
+    padding-left: 18vw;
+    /* color: blue;
+    color: "#F5585E";
+    z-index: "999"; */
+}
+
 .events-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* Always 3 cards per row */
@@ -5,6 +21,8 @@
     max-width: 80%;
     margin: 16px auto;
     margin-left: 1px;
+    text-align: center;
+    padding-left: 18vw;
 }
 
 .event-card {
@@ -17,6 +35,8 @@
     justify-content: center;
     align-items: center;
     gap: 20px;
+    /* text-align: center; */
+    padding-left: 18vw; 
 }
 
 .add-event-container {
