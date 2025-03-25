@@ -139,14 +139,14 @@ export default function EventsPage() {
                         </a>
                     </div>
 
-                    <h1 style={{ color: "#00529B" }}>{title}</h1>
+                    <h1 id="eventheader" style={{ color: "#00529B" }}>{title}</h1>
 
                     <div className="btns-h-align">
                         <CreateEventBtn events={events} setEvents={setEvents} comp_id={comp_id} />
                     </div>
 
                     <div>
-                        <h1 style={{ color: "#F5585E", zIndex: "999" }}>All Events:</h1>
+                        <h1 id="allevents">All Events:</h1>
                         <div className="events-container">
                             {events?.map((event, index) => (
                                 <EventCard

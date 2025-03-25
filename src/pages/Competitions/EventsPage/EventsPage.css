@@ -2,21 +2,19 @@
     color: #00529B;
     text-align: center;
     padding-left: 18vw;
-    /* font-size: 35px; */
+    font-size: 35px;
     margin-top: 5vh;
 }
 
 #allevents {
-    text-align: center;
     padding-left: 18vw;
-    /* color: blue;
-    color: "#F5585E";
-    z-index: "999"; */
+    color: #F5585E;
+    z-index: 999;
 }
 
 .events-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Always 3 cards per row */
+    grid-template-columns: repeat(4, 1fr); /* Always 4 cards per row */
     gap: 28px;
     max-width: 80%;
     margin: 16px auto;
