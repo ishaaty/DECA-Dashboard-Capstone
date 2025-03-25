@@ -6,12 +6,13 @@ import RequestedUserCard from './RequestedUserCard/RequestedUserCard';
 import ApprovedUserCard from './ApprovedUserCard/ApprovedUserCard'
 import { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';  // Import useParams here
+import { useLocation } from 'react-router-dom';
 
 
 export default function ViewRequesters() {
 
-    const { event_id, title } = useParams();  // Grabs event_id from the URL
-    console.log(event_id)
+    const location = useLocation();
+    const { event_id, title } = location.state || {};
 
     const [requesters, setRequesters] = useState([]);
     const [approvedUsers, setApprovedUsers] = useState([]);

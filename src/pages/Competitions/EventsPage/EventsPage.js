@@ -10,6 +10,7 @@ import { UserRoleContext } from '../../../context/UserRoleContext';
 import axios from 'axios';
 import { useAuth0 } from '@auth0/auth0-react';
 
+
 export default function EventsPage() {
     const { user, isAuthenticated } = useAuth0();
     const [user_id, setUserId] = useState(null);
@@ -21,7 +22,9 @@ export default function EventsPage() {
     const location = useLocation();
     const userRole = useContext(UserRoleContext);
     const searchParams = new URLSearchParams(location.search);
-    const comp_id = searchParams.get('comp_id');
+    
+    // Extract comp_id from state
+    const comp_id = location.state?.comp_id || null;
     let title = "";
 
     if (comp_id == 1) {
