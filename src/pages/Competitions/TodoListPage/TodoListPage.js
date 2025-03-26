@@ -111,7 +111,8 @@ export default function TodoListPage(props) {
                 <Header />
                 <Menu />
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", marginTop: "50px", gap: "20px" }}>
-                    <h1>{title}: {user.first_name} {user.last_name}</h1>
+                    <h1 id="todolistheader">{title}: {user.first_name} {user.last_name}</h1>
+                    <div className="todolistcont">
                     <div style={{ backgroundColor: "#E3E8F1", borderRadius: "20px", padding: "30px", display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%" }}>
                         <h1 style={{ textAlign: "center" }}>To Do List</h1>
                         <div style={{ flex: 1 }}>
@@ -148,6 +149,7 @@ export default function TodoListPage(props) {
                             Save Statuses
                         </button>
                     </div>
+                    <div>
                     <div style={{ backgroundColor: "#E3E8F1", borderRadius: "20px", padding: "30px" }}>
                         <h1>Comment(s)</h1>
                         <p className="comment">{todoData?.comment || "No comment available"}</p>
@@ -159,6 +161,8 @@ export default function TodoListPage(props) {
                         currentComment={todoData?.comment || "No comment available"}
                         onCommentSave={handleCommentSave} // Pass the handler to the child component
                     />
+                    </div>
+                    </div>
 
                 </div>
             </>
@@ -169,8 +173,9 @@ export default function TodoListPage(props) {
             <>
             <Header />
             <Menu />
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", marginTop: "50px", gap: "20px" }}>
-                <h1>{title}</h1>
+            <div id="todolistcont" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", marginTop: "50px", gap: "20px" }}>
+                <h1 id="todolistheader">{title}</h1>
+                <div className="todolistcont">
                 <div style={{ backgroundColor: "#E3E8F1", borderRadius: "20px", padding: "30px", display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%" }}>
                     <h1 style={{ textAlign: "center" }}>To Do List</h1>
                     <div style={{ flex: 1 }}>
@@ -201,13 +206,15 @@ export default function TodoListPage(props) {
                         )}
                     </div>
                 </div>
+                <div>
                 <div style={{ backgroundColor: "#E3E8F1", borderRadius: "20px", padding: "30px" }}>
                     <h1>Comment(s)</h1>
                     <p className="comment">{todoData?.comment || "No comment available"}</p>
                 </div>
 
                 <UploadPDFBtn requirements={requirements} eventId={event_id} userId={user_id} />
-
+                </div>
+                </div>
             </div>
         </>
     );

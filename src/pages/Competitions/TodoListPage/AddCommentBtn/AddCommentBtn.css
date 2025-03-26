@@ -17,4 +17,12 @@ button.edit-event-dets-btn {
     font-size: 18px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    display: grid;
+    justify-content: center;
+}
+
+.create-event-container {
+    display: grid;
+    justify-content: center;
+    padding-top: 2vh;
 }
