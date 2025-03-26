@@ -6,3 +6,7 @@ button.edit-event-dets-btn {
     margin-top: 10px;
     cursor: pointer;
 }
+
+.popup {
+    padding-left: 9vw;
+}

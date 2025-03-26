@@ -51,6 +51,7 @@ export default function ViewRequesters() {
             <div style={{ display: "flex", gap: "0px" }}>
                 <div className="col">
                     <h1>Requesters</h1>
+                    <div className="requesters">
                     {requesters.length > 0 ? (
                         requesters.map((user, index) => (
                             <RequestedUserCard 
@@ -65,10 +66,12 @@ export default function ViewRequesters() {
                     ) : (
                         <p>No requesters found</p>
                     )}
+                    </div>
                 </div>
 
                 <div className="col">
                     <h1>Approved</h1>
+                    <div className="approved-users">
                     {approvedUsers.length > 0 ? (
                         approvedUsers.map((user, index) => (
                             <ApprovedUserCard 
@@ -82,6 +85,7 @@ export default function ViewRequesters() {
                     ) : (
                         <p>No approved users found</p>
                     )}
+                    </div>
                 </div>
 
             </div>

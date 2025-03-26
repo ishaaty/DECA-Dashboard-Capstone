@@ -11,6 +11,14 @@
     max-width: 200px; /* Reduce max width if needed */
 }
 
+.approved-users, .requesters {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+    margin: 16px auto;
+    margin-left: 1px;
+}
+
 .fund-container {
     display: flex;
     gap: 30px; /* Reduce this value to bring the columns closer */

@@ -12,6 +12,7 @@
 
 .approve-button {
     background-color: #00984D;
+    color: white;
     padding: 5px;
     border-radius: 5px;
     border: none;
@@ -21,6 +22,7 @@
 
 .deny-button {
     background-color: #F5585E;
+    color: white;
     padding: 5px;
     border-radius: 5px;
     border: none;
