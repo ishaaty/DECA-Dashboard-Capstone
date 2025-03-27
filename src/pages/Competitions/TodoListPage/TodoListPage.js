@@ -105,7 +105,7 @@ export default function TodoListPage(props) {
         .filter(req => req !== null && req !== '')  // Exclude null or empty string values
     : [];
 
-    if (userRole === "admin") {
+    if (userRole === "admin" || userRole === "board member") {
         return (
             <>
                 <Header />
