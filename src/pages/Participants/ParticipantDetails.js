@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import './ParticipantDetails.css';
 import Header from '../../components/Header/Header';
 import Menu from '../../components/Menu/Menu';
 
-import { useContext } from 'react';
 import { UserRoleContext } from '../../context/UserRoleContext';
 
 export default function ParticipantDetails() {
