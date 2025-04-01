@@ -10,15 +10,22 @@ import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useLocation } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
+import { useAuth0 } from '@auth0/auth0-react';
 
 
 export default function TodoListPage(props) {
 
+    const { user: viewing_user, isAuthenticated } = useAuth0();
+    const [viewing_user_id, setViewingUserId] = useState(null);
     const [todoData, setTodoData] = useState(null);
     const [eventData, setEventData] = useState(null);
     const [statuses, setStatuses] = useState({});
     const [currentComment, setCurrentComment] = useState('');
+    const [isThisMyList, setIsThisMyList] = useState(false);
+
     const userRole = useContext(UserRoleContext);
+
+    // let isThisMyList = false;
     
     // const [searchParams] = useSearchParams();
     // const user_id = searchParams.get("user_id");
@@ -33,6 +40,8 @@ export default function TodoListPage(props) {
     console.log("user_id:", user_id, "event_id:", event_id);
 
     useEffect(() => {
+
+
         const fetchTodoData = async () => {
             try {
                 const response = await axios.get(`http://localhost:8081/todolist/user-event/${event_id}/${user_id}`);
@@ -53,12 +62,37 @@ export default function TodoListPage(props) {
             }
         };
 
+        const fetchViewingUserId = async () => {
+            if (viewing_user?.email) {  // Check if user and user.email are available
+                try {
+                    const response = await axios.get('http://localhost:8081/user/get-user-id', {
+                        params: { email: viewing_user.email }  // Pass the email as a query parameter
+                    });
+
+                    if (response.data?.user_id) {
+                        setViewingUserId(response.data.user_id);
+                        setIsThisMyList(response.data.user_id === user_id);
+                        console.log(isThisMyList);
+                    } else {
+                        console.error('Viewing User ID not found');
+                    }
+                } catch (error) {
+                    console.error('Error fetching viewing user ID:', error);
+                }
+            } else {
+                console.error('Viewing user email is not available');
+            }
+        };
+
+
         // Fetch both todo and event data if event_id and user_id are available
         if (event_id && user_id) {
             fetchTodoData();
             fetchEventData();
         }
-    }, [event_id, user_id]);
+
+    fetchViewingUserId();
+    }, [event_id, user_id, viewing_user_id]);
 
     const handleCommentSave = (newComment) => {
         setTodoData((prevTodoData) => ({
@@ -96,8 +130,6 @@ export default function TodoListPage(props) {
     };
     
 
-    
-
     const requirements = eventData
     ? Object.keys(eventData)
         .filter(key => key.startsWith('req_'))  // Filter keys starting with "req_"
@@ -105,13 +137,13 @@ export default function TodoListPage(props) {
         .filter(req => req !== null && req !== '')  // Exclude null or empty string values
     : [];
 
-    if (userRole === "admin") {
+    if (userRole === "admin" || !isThisMyList) {
         return (
             <>
                 <Header />
                 <Menu />
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", marginTop: "50px", gap: "20px" }}>
-                    <h1 id="todolistheader">{title}: {user.first_name} {user.last_name}</h1>
+                    <h1 id="todolistheader">{title}: {user?.first_name} {user?.last_name}</h1>
                     <div className="todolistcont">
                     <div style={{ backgroundColor: "#E3E8F1", borderRadius: "20px", padding: "30px", display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%" }}>
                         <h1 style={{ textAlign: "center" }}>To Do List</h1>
@@ -177,7 +209,7 @@ export default function TodoListPage(props) {
                 <h1 id="todolistheader">{title}</h1>
                 <div className="todolistcont">
                 <div style={{ backgroundColor: "#E3E8F1", borderRadius: "20px", padding: "30px", display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%" }}>
-                    <h1 style={{ textAlign: "center" }}>To Do List</h1>
+                    <h1 style={{ textAlign: "center" }}>Todo List</h1>
                     <div style={{ flex: 1 }}>
                         {todoData && eventData ? (
                             [1, 2, 3, 4, 5].map((index) => {
