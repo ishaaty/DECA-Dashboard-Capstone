@@ -21,6 +21,28 @@ export default function TodoItem(props) {
         window.open(props.itemMaterial, '_blank');
     };
 
+    const checkMaterialStatus = () => {
+        if (!props.itemMaterial || props.itemMaterial.trim() === "" || props.itemMaterial === "No material available") {
+            return "no material here";
+        }
+    };
+
+    const displayButton = () => {
+        if (checkMaterialStatus() === "no material here") {
+            return (
+                <button id="nodownloadBtn" value="disabled">
+                    View
+                </button>
+            )
+        } else {
+            return (
+                <button id="downloadBtn" onClick={handleViewClick}>
+                    View
+                </button>
+            )
+        }
+    }
+
     return (
         <div className="todo-item">
             <div className="todo-item-content">
@@ -41,9 +63,7 @@ export default function TodoItem(props) {
                     <p>{statusDict[props.itemStatus]?.emoji} {statusDict[props.itemStatus]?.text}</p>
                 )}
             </div>
-            <button id="downloadBtn" onClick={handleViewClick}>
-                View
-            </button>
+            {displayButton()}
         </div>
     );
 }

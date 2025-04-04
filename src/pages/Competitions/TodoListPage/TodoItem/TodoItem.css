@@ -24,7 +24,17 @@
     padding: 7px;
     border: solid 1px;
     cursor: pointer;
-    background-color: white;
-    color: black;
+    background-color: #00529B;
+    border-color: #00529B;
+    color: white;
+    border-radius: 10px;
+}
+
+#nodownloadBtn {
+    padding: 7px;
+    border: solid 1px;
+    background-color: grey;
+    border-color: grey;
+    color: white;
     border-radius: 10px;
 }
