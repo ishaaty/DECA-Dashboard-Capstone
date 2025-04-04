@@ -2,6 +2,15 @@ const express = require('express');
 const router = express.Router();
 const { User, Event } = require('../models');
 const {Op} = require('sequelize')
+const mysql = require('mysql');
+const ExcelJS = require('exceljs');
+
+const db = mysql.createConnection({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+});
 
 // Route to fetch users by position
 router.get('/displayusers', async (req, res) => {
@@ -147,6 +156,50 @@ router.delete("/deleteusers", async (req, res) => {
   }
 });
 
+router.get('/export', async (req, res) => {
+  try {
+    const sql = `
+      SELECT users.user_id, users.first_name, users.last_name, users.email, users.position, competitions.comp_name
+      FROM users
+      LEFT JOIN user_comp_xref ON users.user_id = user_comp_xref.\`user-id\`
+      LEFT JOIN competitions ON user_comp_xref.\`comp-id\` = competitions.competition_id
+      ORDER BY users.user_id;
+    `;
 
+    db.query(sql, async (err, results) => {
+      if (err) {
+        console.error('Error fetching user data:', err);
+        return res.status(500).json({ error: 'Database error' });
+      }
+
+      console.log('Fetched participant data:', results);
+
+      const workbook = new ExcelJS.Workbook();
+      const worksheet = workbook.addWorksheet('Participants Data');
+
+      worksheet.addRow(['User ID', 'First Name', 'Last Name', 'Email', 'Position', 'Competition']);
+
+      results.forEach(user => {
+        worksheet.addRow([
+          user.user_id,
+          user.first_name,
+          user.last_name,
+          user.email,
+          user.position,
+          user.comp_name || 'No Competition'
+        ]);
+      });
+
+      res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      res.setHeader('Content-Disposition', 'attachment; filename=participants.xlsx');
+
+      await workbook.xlsx.write(res);
+      res.end();
+    });
+  } catch (error) {
+    console.error('Export Error:', error);
+    res.status(500).json({ error: 'Failed to generate Excel file' });
+  }
+});
 
 module.exports = router;

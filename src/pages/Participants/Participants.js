@@ -8,6 +8,7 @@ import AdminCard from './AdminCard/AdminCard';
 import ExportCard from './ExportCard/ExportCard';
 import axios from 'axios';
 
+
 export default function Participants() {
   const [participants, setParticipants] = useState([]);
   const [boardMembers, setBoardMembers] = useState([]);
@@ -100,7 +101,7 @@ export default function Participants() {
               </div>
             </div>
           </div>
-          {userRole === 'admin' && <div id="exportcontainer"><ExportCard /></div>}
+          {userRole === 'admin' && <ExportCard />}
         </div>
       </div>
     </>
