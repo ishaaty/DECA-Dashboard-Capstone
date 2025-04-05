@@ -42,7 +42,18 @@ export default function Home() {
   const handleDeleteAnnouncement = async (ann_id) => {
     try {
       // Send request to backend to delete the announcement
-      await axios.delete(`https://deca-dashboard-backend-database.up.railway.app/announcements/delete/${ann_id}`);
+      try {
+        // Try using the production backend URL first
+        await axios.delete(
+          `${process.env.REACT_APP_API_BASE_URL}/announcements/delete/${ann_id}`
+        );
+      } catch (error) {
+        console.warn('Error deleting announcement from production backend, falling back to localhost...');
+        // If the production backend fails, fallback to localhost:8081
+        await axios.delete(
+          `http://localhost:8081/announcements/delete/${ann_id}`
+        );
+      }
 
       // Remove the deleted announcement from the state
       setAnnouncements(prevAnnouncements =>

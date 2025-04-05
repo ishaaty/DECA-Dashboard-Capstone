@@ -52,7 +52,22 @@ const Fundraisers = ({ fundraisers, userRole }) => {
   
       console.log('Sending payload:', FundraiserData); // Log the payload
   
-      const response = await axios.post('http://localhost:8081/fundraisers/add', FundraiserData);
+      let response;
+
+      try {
+        // Try using the production backend URL first
+        response = await axios.post(
+          `${process.env.REACT_APP_API_BASE_URL}/fundraisers/add`, 
+          FundraiserData
+        );
+      } catch (error) {
+        console.warn('Error adding fundraiser to production backend, falling back to localhost...');
+        // If the production backend fails, fallback to localhost:8081
+        response = await axios.post(
+          'http://localhost:8081/fundraisers/add', 
+          FundraiserData
+        );
+      }
   
       console.log('Fundraiser added:', response.data);
       setFundraiserList([...fundraiserList, response.data]);
@@ -73,7 +88,18 @@ const Fundraisers = ({ fundraisers, userRole }) => {
   const handleDeleteFundraiser = async (id) => {
     try {
       // send the id of the fundraiser to delete to the backend
-      await axios.delete(`http://localhost:8081/fundraisers/delete/${id}`);
+      try {
+        // Try using the production backend URL first
+        await axios.delete(
+          `${process.env.REACT_APP_API_BASE_URL}/fundraisers/delete/${id}`
+        );
+      } catch (error) {
+        console.warn('Error deleting fundraiser from production backend, falling back to localhost...');
+        // If the production backend fails, fallback to localhost:8081
+        await axios.delete(
+          `http://localhost:8081/fundraisers/delete/${id}`
+        );
+      }
       setFundraiserList(fundraiserList.filter((fundraiser) => fundraiser.fundraiser_id !== id));
     } catch (error) {
       console.error('Error deleting fundraiser:', error);

@@ -43,10 +43,23 @@ const EditAnnouncementBtn = (props) => {
 
     try {
       console.log('Attempting to edit announcement with ID:', props.ann_id);
-      const response = await axios.put(
-        `http://localhost:8081/announcements/edit/${props.ann_id}`,
-        announcementData
-      );
+      let response;
+
+      try {
+        // Try using the production backend URL first
+        response = await axios.put(
+          `${process.env.REACT_APP_API_BASE_URL}/announcements/edit/${props.ann_id}`,
+          announcementData
+        );
+      } catch (error) {
+        console.warn('Error editing announcement on production backend, falling back to localhost...');
+        
+        // If the production backend fails, fallback to localhost:8081
+        response = await axios.put(
+          `http://localhost:8081/announcements/edit/${props.ann_id}`,
+          announcementData
+        );
+      }
 
       console.log('Updated Announcement:', response.data); // Log the response to ensure both fields are updated
 
