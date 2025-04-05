@@ -14,14 +14,26 @@ export const UserRoleProvider = ({ children }) => {
       if (isAuthenticated && user) {
         try {
           const token = await getAccessTokenSilently();
-          
-          // Send a request to get the user role
-          const response = await axios.get('https://deca-dashboard-backend-database.up.railway.app/user/role', {
-            params: { email: user.email },
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
+
+          let response;
+
+          try {
+            response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/user/role`, {
+              params: { email: user.email },
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            });
+          } catch (err) {
+            console.warn("Hosted backend failed, trying localhost...");
+            response = await axios.get(`http://localhost:8081/user/role`, {
+              params: { email: user.email },
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            });
+          }
+
           setUserRole(response.data.role);
         } catch (err) {
           console.error('Error fetching role:', err);
