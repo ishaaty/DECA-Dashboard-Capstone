@@ -16,7 +16,7 @@ export const UserRoleProvider = ({ children }) => {
           const token = await getAccessTokenSilently();
           
           // Send a request to get the user role
-          const response = await axios.get('http://localhost:8081/user/role', {
+          const response = await axios.get('https://deca-dashboard-backend-database.up.railway.app/user/role', {
             params: { email: user.email },
             headers: {
               Authorization: `Bearer ${token}`,
