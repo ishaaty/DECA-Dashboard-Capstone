@@ -147,7 +147,15 @@ export default function TodoListPage(props) {
         }
     
         try {
-            const response = await axios.post(`http://localhost:8081/todolist/save-statuses/${event_id}/${user_id}`, statuses);
+            let response;
+            try {
+                // Try using the production backend URL first
+                response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/todolist/save-statuses/${event_id}/${user_id}`, statuses);
+            } catch (error) {
+                console.warn('Error posting to production backend, falling back to localhost...');
+                // If the production backend fails, fallback to localhost:8081
+                response = await axios.post(`http://localhost:8081/todolist/save-statuses/${event_id}/${user_id}`, statuses);
+            }
             alert("Statuses saved successfully!");
             console.log("Response:", response.data);
         } catch (error) {
