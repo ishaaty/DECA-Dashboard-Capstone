@@ -1,0 +1,11 @@
+{
+    "development": {
+      "url": "postgresql://postgres:VCjJoHwctkPYRvtdzNwNKvjTKhyumKQT@postgres.railway.internal:5432/railway",
+      "dialect": "postgres"
+    },
+    "production": {
+      "url": "postgresql://postgres:VCjJoHwctkPYRvtdzNwNKvjTKhyumKQT@postgres.railway.internal:5432/railway",
+      "dialect": "postgres"
+    }
+  }
+  
