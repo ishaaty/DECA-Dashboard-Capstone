@@ -32,7 +32,17 @@ export default function EventCard(props) {
             console.log("user_id ", props.user_id);
 
             // Use GET to fetch the user-event data from the route
-            const response = await axios.get(`http://localhost:8081/todolist/user-event/${props.event_id}/${props.user_id}`);
+            let response;
+            
+            try {
+            // Try using the production backend
+            response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/todolist/user-event/${props.event_id}/${props.user_id}`);
+            } catch (error) {
+            console.warn('Error fetching from production backend, falling back to localhost...');
+            // If the production URL fails, fallback to localhost
+            response = await axios.get(`http://localhost:8081/todolist/user-event/${props.event_id}/${props.user_id}`);
+            }
+
 
             // Log or handle the fetched data
             console.log('Fetched user event data:', response.data);

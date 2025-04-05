@@ -18,7 +18,16 @@ const EditEventBtn = (props) => {
 
   const fetchEvents = async () => {
     try {
-      const response = await axios.get(`http://localhost:8081/events/display/${props.comp_id}`);
+      let response;
+
+      try {
+        // Try using the production backend
+        response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/events/display/${props.comp_id}`);
+      } catch (error) {
+        console.warn('Error fetching from production backend, falling back to localhost...');
+        // If the production URL fails, fallback to localhost
+        response = await axios.get(`http://localhost:8081/events/display/${props.comp_id}`);
+      }
 
       // Update the state with the new event
       props.setEvents(response.data); 
