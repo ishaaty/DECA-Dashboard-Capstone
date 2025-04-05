@@ -17,14 +17,26 @@ export default function Callback() {
       
       const fetchUserRole = async () => {
         try {
-            const response = await axios.get(`https://deca-dashboard-backend-database.up.railway.app/user/role?email=${user.email}`);
-            const role = response.data.role;
+          let response;
+
+          try {
+            // Try using the production backend
+            response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/user/role?email=${user.email}`);
+          } catch (error) {
+            console.warn('Error fetching from production backend, falling back to localhost...');
+            
+            // If the production URL fails, fallback to localhost
+            response = await axios.get(`http://localhost:8081/user/role?email=${user.email}`);
+          }
+
+          const role = response.data.role;
     
-            if (role && ["participant", "admin", "board member"].includes(role)) {
-                navigate("/home");
-            } else {
-                navigate("/pending-approval");
-            }
+          if (role && ["participant", "admin", "board member"].includes(role)) {
+              navigate("/home");
+          } else {
+              navigate("/pending-approval");
+          }
+
         } catch (err) {
             console.error("Error fetching user role:", err);
     
