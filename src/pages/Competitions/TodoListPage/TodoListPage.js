@@ -44,7 +44,15 @@ export default function TodoListPage(props) {
 
         const fetchTodoData = async () => {
             try {
-                const response = await axios.get(`http://localhost:8081/todolist/user-event/${event_id}/${user_id}`);
+                let response;
+                try {
+                    // Try using the production backend
+                    response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/todolist/user-event/${event_id}/${user_id}`);
+                } catch (error) {
+                    console.warn('Error fetching from production backend, falling back to localhost...');
+                    // If the production URL fails, fallback to localhost
+                    response = await axios.get(`http://localhost:8081/todolist/user-event/${event_id}/${user_id}`);
+                }
                 setTodoData(response.data);
                 console.log('Todo List Data:', response.data);
             } catch (error) {
@@ -54,7 +62,15 @@ export default function TodoListPage(props) {
 
         const fetchEventData = async () => {
             try {
-                const response = await axios.get(`http://localhost:8081/events/event/${event_id}`);
+                let response;
+                try {
+                    // Try using the production backend
+                    response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/events/event/${event_id}`);
+                } catch (error) {
+                    console.warn('Error fetching from production backend, falling back to localhost...');
+                    // If the production URL fails, fallback to localhost
+                    response = await axios.get(`http://localhost:8081/events/event/${event_id}`);
+                }
                 setEventData(response.data);
                 console.log('Event Data:', response.data);
             } catch (error) {
@@ -65,9 +81,20 @@ export default function TodoListPage(props) {
         const fetchViewingUserId = async () => {
             if (viewing_user?.email) {  // Check if user and user.email are available
                 try {
-                    const response = await axios.get('http://localhost:8081/user/get-user-id', {
-                        params: { email: viewing_user.email }  // Pass the email as a query parameter
-                    });
+                    let response;
+
+                    try {
+                        // Try using the production backend
+                        response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/user/get-user-id`, {
+                            params: { email: viewing_user.email }  // Pass the email as a query parameter
+                        });
+                    } catch (error) {
+                        console.warn('Error fetching from production backend, falling back to localhost...');
+                        // If the production URL fails, fallback to localhost
+                        response = await axios.get('http://localhost:8081/user/get-user-id', {
+                            params: { email: viewing_user.email }  // Pass the email as a query parameter
+                        });
+                    }
 
                     if (response.data?.user_id) {
                         setViewingUserId(response.data.user_id);
