@@ -12,7 +12,15 @@ const EditAnnouncementBtn = (props) => {
   // Function to fetch updated announcements
   const fetchAnnouncements = async () => {
     try {
-      const response = await axios.get('http://localhost:8081/announcements/display');
+      let response;
+      try {
+        // Try using the localhost backend first
+        response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/announcements/display`);
+      } catch (error) {
+        console.warn('Error fetching from localhost, falling back to production backend...');
+        // If localhost fails, fallback to the production URL
+        response = await axios.get('http://localhost:8081/announcements/display');
+      }
       props.setAnnouncements(response.data); // Update the parent state with the fetched data
     } catch (error) {
       console.error('Error fetching announcements:', error);

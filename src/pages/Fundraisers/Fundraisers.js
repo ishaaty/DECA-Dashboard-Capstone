@@ -16,7 +16,15 @@ const FundraisersPage = () => {
   useEffect(() => {
     const fetchFundraisers = async () => {
       try {
-        const response = await axios.get('http://localhost:8081/fundraisers/display');
+        let response;
+        try {
+          // Try using the production backend
+          response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/fundraisers/display`);
+        } catch (error) {
+          console.warn('Error fetching from production backend, falling back to localhost...');
+          // If the production URL fails, fallback to localhost
+          response = await axios.get('http://localhost:8081/fundraisers/display');
+        }
         setFundraisers(response.data); // Correct way to update the state
       } catch (error) {
         console.error('Error fetching fundraisers:', error);

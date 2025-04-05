@@ -5,9 +5,19 @@ import React from 'react';
 export default function ExportCard() {
     const handleExport = async () => {
         try {
-          const response = await axios.get('http://localhost:8081/participantdetails/export', {
-            responseType: 'blob', // This ensures we get the file correctly
-          });
+          let response;
+          try {
+            // Try using the production backend URL first
+            response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/participantdetails/export`, {
+              responseType: 'blob', // Ensures we get the file correctly
+            });
+          } catch (error) {
+            console.warn('Error fetching from production backend, falling back to localhost...');
+            // If the production backend fails, fallback to localhost:8081
+            response = await axios.get('http://localhost:8081/participantdetails/export', {
+              responseType: 'blob',
+            });
+          }
     
           // Create a download link for the file
           const url = window.URL.createObjectURL(new Blob([response.data]));

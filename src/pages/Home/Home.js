@@ -18,7 +18,16 @@ export default function Home() {
   useEffect(() => {
     const fetchAnnouncements = async () => {
       try {
-        const response = await axios.get('https://deca-dashboard-backend-database.up.railway.app/announcements/display');
+        let response;
+        try {
+          // Try using the production backend
+          response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/announcements/display`);
+        } catch (error) {
+          console.warn('Error fetching from production backend, falling back to localhost...');
+          
+          // If the production URL fails, fallback to localhost
+          response = await axios.get('http://localhost:8081/announcements/display');
+        }
         console.log(response.data); // Log to check the response
         setAnnouncements(response.data); // Correct way to update the state
       } catch (error) {

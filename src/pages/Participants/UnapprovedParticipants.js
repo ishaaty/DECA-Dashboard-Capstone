@@ -13,9 +13,15 @@ export default function UnapprovedParticipants({ userRole }) {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:8081/participantdetails/displayunapprovedusers"
-        );
+        let response;
+        try {
+          // Try using the production backend URL first
+          response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/participantdetails/displayunapprovedusers`);
+        } catch (error) {
+          console.warn('Error fetching from production backend, falling back to localhost...');
+          // If the production backend fails, fallback to localhost:8081
+          response = await axios.get('http://localhost:8081/participantdetails/displayunapprovedusers');
+        }
         setUsers(Array.isArray(response.data) ? response.data : []);
         setError(null); // Clear any previous errors
       } catch (err) {
