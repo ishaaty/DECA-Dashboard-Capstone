@@ -18,7 +18,14 @@ export default function EventCard(props) {
 
     const handleCancelRequest = async () => {
         try {
-            await axios.delete(`http://localhost:8081/todolist/delete-user-event/${props.event_id}/${props.user_id}`);
+            try {
+                // Try using the production backend URL first
+                await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/todolist/delete-user-event/${props.event_id}/${props.user_id}`);
+            } catch (error) {
+                console.warn('Error deleting from production backend, falling back to localhost...');
+                // If the production backend fails, fallback to localhost:8081
+                await axios.delete(`http://localhost:8081/todolist/delete-user-event/${props.event_id}/${props.user_id}`);
+            }
             // Handle success (e.g., show a success message or update the UI)
             props.setEvents(prevEvents => prevEvents.filter(event => event.event_id !== props.event_id));
         } catch (error) {
@@ -33,16 +40,14 @@ export default function EventCard(props) {
 
             // Use GET to fetch the user-event data from the route
             let response;
-            
             try {
-            // Try using the production backend
-            response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/todolist/user-event/${props.event_id}/${props.user_id}`);
+                // Try using the production backend
+                response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/todolist/user-event/${props.event_id}/${props.user_id}`);
             } catch (error) {
-            console.warn('Error fetching from production backend, falling back to localhost...');
-            // If the production URL fails, fallback to localhost
-            response = await axios.get(`http://localhost:8081/todolist/user-event/${props.event_id}/${props.user_id}`);
+                console.warn('Error fetching from production backend, falling back to localhost...');
+                // If the production URL fails, fallback to localhost
+                response = await axios.get(`http://localhost:8081/todolist/user-event/${props.event_id}/${props.user_id}`);
             }
-
 
             // Log or handle the fetched data
             console.log('Fetched user event data:', response.data);

@@ -58,7 +58,15 @@ const EditEventBtn = (props) => {
         console.log("attempting to edit event with id: ");
         console.log(props.event_id);
 
-        const response = await axios.put(`http://localhost:8081/events/edit/${props.event_id}`, eventData);
+        let response;
+        try {
+          // Try using the production backend URL first
+          response = await axios.put(`${process.env.REACT_APP_API_BASE_URL}/events/edit/${props.event_id}`, eventData);
+        } catch (error) {
+          console.warn('Error posting to production backend, falling back to localhost...');
+          // If the production backend fails, fallback to localhost:8081
+          response = await axios.put(`http://localhost:8081/events/edit/${props.event_id}`, eventData);
+        }
 
         console.log('Updated Event:', response.data);
 
