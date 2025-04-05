@@ -17,7 +17,7 @@ export default function Callback() {
       
       const fetchUserRole = async () => {
         try {
-            const response = await axios.get(`http://localhost:8081/user/role?email=${user.email}`);
+            const response = await axios.get(`https://deca-dashboard-backend-database.up.railway.app/user/role?email=${user.email}`);
             const role = response.data.role;
     
             if (role && ["participant", "admin", "board member"].includes(role)) {

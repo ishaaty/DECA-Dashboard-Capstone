@@ -18,7 +18,7 @@ export default function Home() {
   useEffect(() => {
     const fetchAnnouncements = async () => {
       try {
-        const response = await axios.get('http://localhost:8081/announcements/display');
+        const response = await axios.get('https://deca-dashboard-backend-database.up.railway.app/announcements/display');
         console.log(response.data); // Log to check the response
         setAnnouncements(response.data); // Correct way to update the state
       } catch (error) {
@@ -33,7 +33,7 @@ export default function Home() {
   const handleDeleteAnnouncement = async (ann_id) => {
     try {
       // Send request to backend to delete the announcement
-      await axios.delete(`http://localhost:8081/announcements/delete/${ann_id}`);
+      await axios.delete(`https://deca-dashboard-backend-database.up.railway.app/announcements/delete/${ann_id}`);
 
       // Remove the deleted announcement from the state
       setAnnouncements(prevAnnouncements =>
