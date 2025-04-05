@@ -179,7 +179,13 @@ export default function EventsPage() {
     const handleDeleteEvent = async (id) => {
         try {
             // send the id of the resource to delete to the backend
-            await axios.delete(`http://localhost:8081/events/delete/${id}`);
+            try {
+                // Try using production URL first
+                await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/events/delete/${id}`);
+            } catch (err) {
+                console.warn('Error deleting event on production, falling back to localhost...');
+                await axios.delete(`http://localhost:8081/events/delete/${id}`);
+            }
             setEvents(events.filter((event) => event.event_id !== id)); // Update local state
         } catch (error) {
             console.error('Error deleting event:', error);
