@@ -58,10 +58,29 @@ export default function UnapprovedParticipants({ userRole }) {
     }
 
     try {
-      await axios.put("http://localhost:8081/participantdetails/updateusers", {
-        userIds: selectedIds,
-        position: selectedRole,
-      });
+      let response;
+
+      try {
+        // Try using the production backend URL first
+        response = await axios.put(
+          `${process.env.REACT_APP_API_BASE_URL}/participantdetails/updateusers`,
+          {
+            userIds: selectedIds,
+            position: selectedRole,
+          }
+        );
+      } catch (error) {
+        console.warn('Error updating user details on production backend, falling back to localhost...');
+        
+        // If the production backend fails, fallback to localhost:8081
+        response = await axios.put(
+          'http://localhost:8081/participantdetails/updateusers',
+          {
+            userIds: selectedIds,
+            position: selectedRole,
+          }
+        );
+      }
 
       // Update UI with new role
       setUsers((prevUsers) =>
@@ -95,9 +114,25 @@ export default function UnapprovedParticipants({ userRole }) {
     }
 
     try {
-      await axios.delete("http://localhost:8081/participantdetails/deleteusers", {
-        data: { userIds: selectedIds },
-      });
+
+      try {
+        // Try using the production backend URL first
+        await axios.delete(
+          `${process.env.REACT_APP_API_BASE_URL}/participantdetails/deleteusers`,
+          {
+            data: { userIds: selectedIds },
+          }
+        );
+      } catch (error) {
+        console.warn('Error deleting users on production backend, falling back to localhost...');
+        // If the production backend fails, fallback to localhost:8081
+        await axios.delete(
+          'http://localhost:8081/participantdetails/deleteusers',
+          {
+            data: { userIds: selectedIds },
+          }
+        );
+      }
 
       // Remove deleted users from the UI
       setUsers((prevUsers) => prevUsers.filter((user) => !selectedIds.includes(user.user_id.toString())));
