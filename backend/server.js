@@ -63,7 +63,7 @@ app.use('/announcements', announcementsRoutes);
 
 // Define test routes
 app.get('/', (req, res) => {
-  res.json("From backend");
+  res.json("Backend is coming thru :)");
 });
 
 app.get('/users', (req, res) => {
