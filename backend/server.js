@@ -10,7 +10,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Enable CORS for requests from the frontend (React app)
 app.use(cors({
-  origin: 'https://deca-dashboard-capstone-peach.vercel.app/',
+  origin: 'https://deca-dashboard-capstone-peach.vercel.app',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
