@@ -158,52 +158,47 @@ router.delete("/deleteusers", async (req, res) => {
 
 router.get('/export', async (req, res) => {
   try {
-    const sql = `
-      SELECT users.user_id, users.first_name, users.last_name, users.user_class, users.email, users.position, users.cell_phone, users.home_phone, users.gender, users.demographic, users.dob, users.account_email, users.years_experience, competitions.comp_name
-      FROM users
-      LEFT JOIN user_comp_xref ON users.user_id = user_comp_xref.\`user-id\`
-      LEFT JOIN competitions ON user_comp_xref.\`comp-id\` = competitions.competition_id
-      ORDER BY users.user_id;
-    `;
+    const users = await User.findAll({
+      include: {
+        model: Event,
+        through: { attributes: [] },
+      },
+      order: [['user_id', 'ASC']],
+    })
 
-    db.query(sql, async (err, results) => {
-      if (err) {
-        console.error('Error fetching user data:', err);
-        return res.status(500).json({ error: 'Database error' });
-      }
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet('Participants Data');
 
-      console.log('Fetched participant data:', results);
+    worksheet.addRow(['User ID', 'First Name', 'Last Name', 'Email', 'Position', 'User Class', 'Cell Phone', 'Home Phone', 'Gender', 'Demographic', 'DOB', 'Account Email', 'Years Experience', 'Competition']);
 
-      const workbook = new ExcelJS.Workbook();
-      const worksheet = workbook.addWorksheet('Participants Data');
+    users.forEach(user => {
+      const competitions = user.Events.length
+        ? user.Events.map(event => event.event_name).join(', ')
+        : 'No Competition';
 
-      worksheet.addRow(['User ID', 'First Name', 'Last Name', 'Email', 'Position', 'User Class', 'Cell Phone', 'Home Phone', 'Gender', 'Demographic', 'DOB', 'Account Email', 'Years Experience', 'Competition']);
-
-      results.forEach(user => {
-        worksheet.addRow([
-          user.user_id,
-          user.first_name,
-          user.last_name,
-          user.email,
-          user.position,
-          user.user_class,
-          user.cell_phone,
-          user.home_phone,
-          user.gender,
-          user.demographic,
-          user.dob,
-          user.account_email,
-          user.years_experience,
-          user.comp_name || 'No Competition'
-        ]);
-      });
+      worksheet.addRow([
+        user.user_id,
+        user.first_name,
+        user.last_name,
+        user.email,
+        user.position,
+        user.user_class,
+        user.cell_phone,
+        user.home_phone,
+        user.gender,
+        user.demographic,
+        user.dob,
+        user.account_email,
+        user.years_experience,
+        competitions
+      ]);
+    });
 
       res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
       res.setHeader('Content-Disposition', 'attachment; filename=participants.xlsx');
 
       await workbook.xlsx.write(res);
       res.end();
-    });
   } catch (error) {
     console.error('Export Error:', error);
     res.status(500).json({ error: 'Failed to generate Excel file' });
