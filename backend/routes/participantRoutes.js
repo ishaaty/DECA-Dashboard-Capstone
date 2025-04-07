@@ -159,7 +159,7 @@ router.delete("/deleteusers", async (req, res) => {
 router.get('/export', async (req, res) => {
   try {
     const sql = `
-      SELECT users.user_id, users.first_name, users.last_name, users.email, users.position, competitions.comp_name
+      SELECT users.user_id, users.first_name, users.last_name, users.user_class, users.email, users.position, users.cell_phone, users.home_phone, users.gender, users.demographic, users.dob, users.account_email, users.years_experience, competitions.comp_name
       FROM users
       LEFT JOIN user_comp_xref ON users.user_id = user_comp_xref.\`user-id\`
       LEFT JOIN competitions ON user_comp_xref.\`comp-id\` = competitions.competition_id
@@ -177,7 +177,7 @@ router.get('/export', async (req, res) => {
       const workbook = new ExcelJS.Workbook();
       const worksheet = workbook.addWorksheet('Participants Data');
 
-      worksheet.addRow(['User ID', 'First Name', 'Last Name', 'Email', 'Position', 'Competition']);
+      worksheet.addRow(['User ID', 'First Name', 'Last Name', 'Email', 'Position', 'User Class', 'Cell Phone', 'Home Phone', 'Gender', 'Demographic', 'DOB', 'Account Email', 'Years Experience', 'Competition']);
 
       results.forEach(user => {
         worksheet.addRow([
@@ -186,6 +186,14 @@ router.get('/export', async (req, res) => {
           user.last_name,
           user.email,
           user.position,
+          user.user_class,
+          user.cell_phone,
+          user.home_phone,
+          user.gender,
+          user.demographic,
+          user.dob,
+          user.account_email,
+          user.years_experience,
           user.comp_name || 'No Competition'
         ]);
       });
