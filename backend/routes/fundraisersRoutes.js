@@ -14,6 +14,24 @@ router.get('/display', async (req, res) => {
     }
 });
 
+
+// Display fundraisers based on fundraiser_id
+router.get('/display/:fundraiser_id', async (req, res) => {
+  try {
+      const fundraiser_id = parseInt(req.params.fundraiser_id, 10); // Convert to integer
+      if (isNaN(fundraiser_id)) {
+          return res.status(400).json({ error: 'Invalid fundraiser_id' });
+      }
+
+      const fundraisers = await Fundraisers.findAll({ where: { fundraiser_id } });
+      res.json(fundraisers);
+
+  } catch (error) {
+      console.error('Error fetching fundraisers:', error);
+      res.status(500).json({ error: 'Failed to fetch fundraisers' });
+  }
+});
+
 // Add a new fundraisers to the database
 router.post('/add', async (req, res) => {
     const { fund_location, fund_date, fund_description, fund_name } = req.body;
@@ -53,5 +71,36 @@ router.delete('/delete/:id', async (req, res) => {
     res.status(500).json({ error: 'Failed to delete fundraiser' });
   }
 });
+
+// Edit an existing fundraiser while keeping fundraiser_id unchanged
+router.put('/edit/:fundraiser_id', async (req, res) => {
+  const { fundraiser_id } = req.params; // Get fundraiser ID from the URL parameter
+  const {
+      fund_name, fund_description, fund_date, fund_location
+  } = req.body;
+
+  try {
+      const fundraiser = await Fundraisers.findByPk(fundraiser_id); // Find fundraiser by primary key
+
+      if (!fundraiser) {
+          return res.status(404).json({ error: 'Fundraiser not found' });
+      }
+
+      // Update only the fields that can be modified
+      await fundraiser.update({
+          fund_name,
+          fund_description,
+          fund_location,
+          fund_date,
+
+      });
+
+      res.status(200).json({ message: 'Fundraiser updated successfully', fundraiser });
+  } catch (error) {
+      console.error('Error updating fundraiser:', error);
+      res.status(500).json({ error: 'Failed to update fundraiser' });
+  }
+});
+
 
 module.exports = router

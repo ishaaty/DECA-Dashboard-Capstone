@@ -8,11 +8,14 @@
     grid-template-columns: auto auto auto;
     display: flex;
     justify-content: center;
-    padding-left: 20vw;
+}
+
+.nofunds {
+    text-align: center; 
+    padding-left: 20vw; 
 }
 
 .createfund {
-    background-color: #00529B;
     width: 50vw;
     height: 20vw;
     margin: auto auto;
