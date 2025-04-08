@@ -8,6 +8,7 @@ import AdminCard from './AdminCard/AdminCard';
 import ExportCard from './ExportCard/ExportCard';
 import axios from 'axios';
 
+
 export default function Participants() {
   const [participants, setParticipants] = useState([]);
   const [boardMembers, setBoardMembers] = useState([]);
@@ -20,9 +21,20 @@ export default function Participants() {
   useEffect(() => {
     const fetchUsersByRole = async (role, setState, errorKey) => {
       try {
-        const response = await axios.get('http://localhost:8081/participantdetails/displayusers', {
-          params: { position: role },
-        });
+        let response;
+        try {
+          // Try using the production backend URL first
+          response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/participantdetails/displayusers`, {
+            params: { position: role },
+          });
+        } catch (error) {
+          console.warn('Error fetching from production backend, falling back to localhost...');
+          
+          // If the production backend fails, fallback to localhost:8081
+          response = await axios.get('http://localhost:8081/participantdetails/displayusers', {
+            params: { position: role },
+          });
+        }
         console.log(`Response for ${role}:`, response.data);
         setState(Array.isArray(response.data) ? response.data : []);
         setErrors((prevErrors) => ({ ...prevErrors, [errorKey]: null }));
@@ -100,7 +112,7 @@ export default function Participants() {
               </div>
             </div>
           </div>
-          {userRole === 'admin' && <div id="exportcontainer"><ExportCard /></div>}
+          {userRole === 'admin' && <ExportCard />}
         </div>
       </div>
     </>

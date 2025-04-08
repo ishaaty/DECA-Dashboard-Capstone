@@ -10,9 +10,20 @@ export default function ApprovedUserCard({ user_id, event_id, title }) {
     useEffect(() => {
         const fetchUserInfo = async () => {
             try {
-                const response = await axios.get(`http://localhost:8081/user/user-info`, { 
-                    params: { user_id: user_id }
-                });
+                let response;
+                try {
+                    // Try using the production backend
+                    response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/user/user-info`, {
+                        params: { user_id: user_id }
+                    });
+                } catch (error) {
+                    console.warn('Error fetching from production backend, falling back to localhost...');
+                    
+                    // If the production URL fails, fallback to localhost
+                    response = await axios.get('http://localhost:8081/user/user-info', {
+                        params: { user_id: user_id }
+                    });
+                }
                 setUser(response.data);
                 console.log(response.data);
             } catch (error) {

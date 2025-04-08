@@ -2,6 +2,15 @@ const express = require('express');
 const router = express.Router();
 const { User, Event } = require('../models');
 const {Op} = require('sequelize')
+const mysql = require('mysql');
+const ExcelJS = require('exceljs');
+
+const db = mysql.createConnection({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+});
 
 // Route to fetch users by position
 router.get('/displayusers', async (req, res) => {
@@ -147,6 +156,53 @@ router.delete("/deleteusers", async (req, res) => {
   }
 });
 
+router.get('/export', async (req, res) => {
+  try {
+    const users = await User.findAll({
+      include: {
+        model: Event,
+        through: { attributes: [] },
+      },
+      order: [['user_id', 'ASC']],
+    })
 
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet('Participants Data');
+
+    worksheet.addRow(['User ID', 'First Name', 'Last Name', 'Email', 'Position', 'User Class', 'Cell Phone', 'Home Phone', 'Gender', 'Demographic', 'DOB', 'Account Email', 'Years Experience', 'Competition']);
+
+    users.forEach(user => {
+      const competitions = user.Events.length
+        ? user.Events.map(event => event.event_name).join(', ')
+        : 'No Competition';
+
+      worksheet.addRow([
+        user.user_id,
+        user.first_name,
+        user.last_name,
+        user.email,
+        user.position,
+        user.user_class,
+        user.cell_phone,
+        user.home_phone,
+        user.gender,
+        user.demographic,
+        user.dob,
+        user.account_email,
+        user.years_experience,
+        competitions
+      ]);
+    });
+
+      res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      res.setHeader('Content-Disposition', 'attachment; filename=participants.xlsx');
+
+      await workbook.xlsx.write(res);
+      res.end();
+  } catch (error) {
+    console.error('Export Error:', error);
+    res.status(500).json({ error: 'Failed to generate Excel file' });
+  }
+});
 
 module.exports = router;

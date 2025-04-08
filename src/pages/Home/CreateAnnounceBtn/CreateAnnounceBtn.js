@@ -18,10 +18,27 @@ const CreateAnnounceBtn = ({ setAnnouncements }) => {
 
     try {
       // Add new announcement to the backend
-      const response = await axios.post('http://localhost:8081/announcements/add', {
-        ann_name: newAnnouncement.title,
-        ann_description: newAnnouncement.descrip,
-      });
+      let response;
+
+      try {
+        // Try using the production backend URL first
+        response = await axios.post(
+          `${process.env.REACT_APP_API_BASE_URL}/announcements/add`, {
+            ann_name: newAnnouncement.title,
+            ann_description: newAnnouncement.descrip,
+          }
+        );
+      } catch (error) {
+        console.warn('Error adding announcement to production backend, falling back to localhost...');
+        
+        // If the production backend fails, fallback to localhost:8081
+        response = await axios.post(
+          `http://localhost:8081/announcements/add`, {
+            ann_name: newAnnouncement.title,
+            ann_description: newAnnouncement.descrip,
+          }
+        );
+      }
 
       
 

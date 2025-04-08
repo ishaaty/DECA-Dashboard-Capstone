@@ -19,27 +19,42 @@ export default function ViewRequesters() {
 
     useEffect(() => {
         if (event_id) {
-            fetch(`http://localhost:8081/todolist/get-user-event/${event_id}`)
-                .then(response => response.json())
-                .then(data => {
-                    console.log("Fetched data:", data);
-                    if (Array.isArray(data)) {
-                        const pending = data.filter(user => user.request_status === 'pending');
-                        const approved = data.filter(user => user.request_status === 'approved');
+          const fetchEventData = async () => {
+            let data;
+            try {
+              // Try fetching from production first
+              const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/todolist/get-user-event/${event_id}`);
+              data = await response.json();
+            } catch (err) {
+              console.warn('Error fetching from production, falling back to localhost...');
+              try {
+                // If production fails, try localhost
+                const response = await fetch(`http://localhost:8081/todolist/get-user-event/${event_id}`);
+                data = await response.json();
+              } catch (err) {
+                console.error("Error fetching from localhost:", err);
+              }
+            }
+      
+            // Process data if it's valid
+            if (Array.isArray(data)) {
+              const pending = data.filter(user => user.request_status === 'pending');
+              const approved = data.filter(user => user.request_status === 'approved');
         
-                        console.log("Pending users:", pending);
-                        console.log("Approved users:", approved);
+              console.log("Pending users:", pending);
+              console.log("Approved users:", approved);
         
-                        setRequesters(pending);
-                        setApprovedUsers(approved);
-                    } else {
-                        console.error("Data is not an array:", data);
-                    }
-                })
-                .catch(error => console.error("Error fetching users:", error));
+              setRequesters(pending);
+              setApprovedUsers(approved);
+            } else {
+              console.error("Data is not an array:", data);
+            }
+          };
+      
+          fetchEventData();
         }
     }, [event_id]);  // Dependency array includes event_id to refetch when event_id changes
-    
+      
     
     
 

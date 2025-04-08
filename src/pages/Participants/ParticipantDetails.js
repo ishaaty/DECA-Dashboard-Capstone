@@ -22,9 +22,20 @@ export default function ParticipantDetails() {
   useEffect(() => {
     const fetchParticipantDetails = async () => {
       try {
-        const response = await axios.get('http://localhost:8081/participantdetails/displaydetails', {
-          params: { userFirst, userLast },
-        });
+        let response;
+
+        try {
+          // Try using the production backend URL first
+          response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/participantdetails/displaydetails`, {
+            params: { userFirst, userLast },
+          });
+        } catch (error) {
+          console.warn('Error fetching from production backend, falling back to localhost...');
+          // If the production backend fails, fallback to localhost:8081
+          response = await axios.get('http://localhost:8081/participantdetails/displaydetails', {
+            params: { userFirst, userLast },
+          });
+        }
         setParticipant(response.data);
         setSelectedRole(response.data.position || '');
         setLoading(false);
@@ -59,10 +70,26 @@ export default function ParticipantDetails() {
     });
 
     try {
-      await axios.put('http://localhost:8081/participantdetails/updateusers', {
-        userIds: [participant.userId],
-        position: selectedRole,
-      });
+      try {
+        // Try using the production backend URL first
+        await axios.put(
+          `${process.env.REACT_APP_API_BASE_URL}/participantdetails/updateusers`,
+          {
+            userIds: [participant.userId],
+            position: selectedRole,
+          }
+        );
+      } catch (error) {
+        console.warn('Error updating user details on production backend, falling back to localhost...');
+        // If the production backend fails, fallback to localhost:8081
+        await axios.put(
+          'http://localhost:8081/participantdetails/updateusers',
+          {
+            userIds: [participant.userId],
+            position: selectedRole,
+          }
+        );
+      }
       setParticipant((prev) => ({ ...prev, position: selectedRole }));
       alert('User role updated successfully!');
     } catch (error) {

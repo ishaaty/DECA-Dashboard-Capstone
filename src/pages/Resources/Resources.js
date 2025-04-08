@@ -16,7 +16,15 @@ const ResourcesPage = () => {
   useEffect(() => {
     const fetchResources = async () => {
       try {
-        const response = await axios.get('http://localhost:8081/resources/display');
+        let response;
+        try {
+          // Try using the production backend URL first
+          response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/resources/display`);
+        } catch (error) {
+          console.warn('Error fetching from production backend, falling back to localhost...');
+          // If the production backend fails, fallback to localhost:8081
+          response = await axios.get('http://localhost:8081/resources/display');
+        }
         setResources(response.data);
       } catch (error) {
         console.error('Error fetching resources:', error);

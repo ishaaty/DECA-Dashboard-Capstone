@@ -61,9 +61,25 @@ const Resources = ({ resources, userRole }) => {
             formData.append('pdf', newResource.pdf);
         }
 
-        const response = await axios.post('http://localhost:8081/resources/add', formData, {
-            headers: { 'Content-Type': 'multipart/form-data' }
-        });
+        let response;
+
+        try {
+          // Try using the production backend URL first
+          response = await axios.post(
+            `${process.env.REACT_APP_API_BASE_URL}/resources/add`,
+            formData,
+            { headers: { 'Content-Type': 'multipart/form-data' } }
+          );
+        } catch (error) {
+          console.warn('Error adding resource on production backend, falling back to localhost...');
+          
+          // If the production backend fails, fallback to localhost:8081
+          response = await axios.post(
+            'http://localhost:8081/resources/add',
+            formData,
+            { headers: { 'Content-Type': 'multipart/form-data' } }
+          );
+        }
 
         setResourceList([...resourceList, response.data]);
         setIsPopupOpen(false);
@@ -79,7 +95,15 @@ const Resources = ({ resources, userRole }) => {
   const handleDeleteResource = async (id) => {
     try {
       // send the id of the resource to delete to the backend
-      await axios.delete(`http://localhost:8081/resources/delete/${id}`);
+
+      try {
+        // Try using the production backend URL first
+        await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/resources/delete/${id}`);
+      } catch (error) {
+        console.warn('Error deleting resource on production backend, falling back to localhost...');
+        // If the production backend fails, fallback to localhost:8081
+        await axios.delete(`http://localhost:8081/resources/delete/${id}`);
+      }
       setResourceList(resourceList.filter((resource) => resource.resource_id !== id)); // Update local state
     } catch (error) {
       console.error('Error deleting resource:', error);

@@ -12,7 +12,16 @@ const CreateEventBtn = ({ events, setEvents, comp_id }) => {
   // Fetch events from backend
   const fetchEvents = async () => {
     try {
-      const response = await axios.get(`http://localhost:8081/events/display/${comp_id}`);
+
+      let response;
+      try {
+        // Try using the production backend
+        response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/events/display/${comp_id}`);
+      } catch (error) {
+        console.warn('Error fetching from production backend, falling back to localhost...');
+        // If the production URL fails, fallback to localhost
+        response = await axios.get(`http://localhost:8081/events/display/${comp_id}`);
+      }
 
       // Update the state with the new event
       setEvents(response.data); 
@@ -71,7 +80,16 @@ const CreateEventBtn = ({ events, setEvents, comp_id }) => {
       };
   
       // Send the event data to the backend
-      const response = await axios.post('http://localhost:8081/events/add', eventData);
+      let response;
+      try {
+        // Try using the production backend URL first
+        response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/events/add`, eventData);
+      } catch (error) {
+        console.warn('Error posting to production backend, falling back to localhost...');
+        // If the production backend fails, fallback to localhost:8081
+        response = await axios.post('http://localhost:8081/events/add', eventData);
+      }
+
   
       // Fetch updated events
       fetchEvents();
