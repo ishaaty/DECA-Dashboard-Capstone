@@ -59,6 +59,9 @@ app.use('/todolist', todolistRoutes);
 const announcementsRoutes = require('./routes/announcementsRoutes');
 app.use('/announcements', announcementsRoutes);
 
+const pagesRoutes = require('./routes/displayPages');
+app.use('/pages', pagesRoutes);
+
 
 
 // Define test routes
