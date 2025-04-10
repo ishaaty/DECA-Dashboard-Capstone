@@ -26,18 +26,45 @@ function PendingApproval() {
     setMessage('');
 
     try {
-      const response = await axios.post('http://localhost:8081/user/create-update', {
-        first_name: firstName,
-        last_name: lastName,
-        user_class: userClass,
-        account_email: accountEmail, // Retrieved from Auth0
-        email: schoolEmail,
-        cell_phone: cellPhone || null,
-        home_phone: homePhone || null,
-        gender: gender || null,
-        demographic: demographic || null,
-        dob: dob || null,
-      });
+      let response;
+
+      try {
+        // Try using the production backend URL first
+        response = await axios.post(
+          `${process.env.REACT_APP_API_BASE_URL}/user/create-update`,
+          {
+            first_name: firstName,
+            last_name: lastName,
+            user_class: userClass,
+            account_email: accountEmail, // Retrieved from Auth0
+            email: schoolEmail,
+            cell_phone: cellPhone || null,
+            home_phone: homePhone || null,
+            gender: gender || null,
+            demographic: demographic || null,
+            dob: dob || null,
+          }
+        );
+      } catch (error) {
+        console.warn('Error creating or updating user on production backend, falling back to localhost...');
+        
+        // If the production backend fails, fallback to localhost:8081
+        response = await axios.post(
+          'http://localhost:8081/user/create-update',
+          {
+            first_name: firstName,
+            last_name: lastName,
+            user_class: userClass,
+            account_email: accountEmail, // Retrieved from Auth0
+            email: schoolEmail,
+            cell_phone: cellPhone || null,
+            home_phone: homePhone || null,
+            gender: gender || null,
+            demographic: demographic || null,
+            dob: dob || null,
+          }
+        );
+      }
 
       setMessage(response.data.message);
     } catch (error) {

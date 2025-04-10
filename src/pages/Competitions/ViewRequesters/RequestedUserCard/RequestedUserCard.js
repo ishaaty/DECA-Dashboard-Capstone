@@ -10,9 +10,19 @@ export default function RequestedUserCard(props) {
     useEffect(() => {
         const fetchUserInfo = async () => {
             try {
-                const response = await axios.get('http://localhost:8081/user/user-info', {
-                    params: { user_id: props.user_id }
-                });
+                let response;
+                try {
+                    // Try using the production backend
+                    response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/user/user-info`, {
+                        params: { user_id: props.user_id }
+                    });
+                } catch (error) {
+                    console.warn('Error fetching from production backend, falling back to localhost...');
+                    // If the production URL fails, fallback to localhost
+                    response = await axios.get('http://localhost:8081/user/user-info', {
+                        params: { user_id: props.user_id }
+                    });
+                }
                 setUser(response.data);
             } catch (err) {
                 console.error("Error fetching user info:", err);
@@ -31,7 +41,19 @@ export default function RequestedUserCard(props) {
             console.log("user_id ", props.user_id);
 
             // Make a request to approve the event
-            const response = await axios.post(`http://localhost:8081/todolist/approve-event/${props.event_id}/${props.user_id}`);
+            let response;
+            try {
+                // Try using the production backend URL first
+                response = await axios.post(
+                    `${process.env.REACT_APP_API_BASE_URL}/todolist/approve-event/${props.event_id}/${props.user_id}`
+                );
+            } catch (error) {
+                console.warn('Error approving event to production backend, falling back to localhost...');
+                // If the production backend fails, fallback to localhost:8081
+                response = await axios.post(
+                    `http://localhost:8081/todolist/approve-event/${props.event_id}/${props.user_id}`
+                );
+            }
 
             // Handle success (e.g., update the UI with the new status)
             console.log('Event request approved');
@@ -52,7 +74,19 @@ export default function RequestedUserCard(props) {
             console.log("user_id ", props.user_id);
 
             // Make a request to deny the event
-            const response = await axios.post(`http://localhost:8081/todolist/deny-event/${props.event_id}/${props.user_id}`);
+            let response;
+            try {
+                // Try using the production backend URL first
+                response = await axios.post(
+                    `${process.env.REACT_APP_API_BASE_URL}/todolist/deny-event/${props.event_id}/${props.user_id}`
+                );
+            } catch (error) {
+                console.warn('Error denying event to production backend, falling back to localhost...');
+                // If the production backend fails, fallback to localhost:8081
+                response = await axios.post(
+                    `http://localhost:8081/todolist/deny-event/${props.event_id}/${props.user_id}`
+                );
+            }
 
             // Handle success (e.g., update the UI with the new status)
             console.log('Event request denied');

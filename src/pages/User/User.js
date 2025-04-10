@@ -19,9 +19,19 @@ export default function User() {
   useEffect(() => {
     const fetchUsersByRole = async (role, setState) => {
       try {
-        const response = await axios.get('http://localhost:8081/participantdetails/displayusers', {
-          params: { position: role },
-        });
+        let response;
+        try {
+          // Try using the production backend URL first
+          response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/participantdetails/displayusers`, {
+            params: { position: role },
+          });
+        } catch (error) {
+          console.warn('Error fetching from production backend, falling back to localhost...');
+          // If the production backend fails, fallback to localhost:8081
+          response = await axios.get('http://localhost:8081/participantdetails/displayusers', {
+            params: { position: role },
+          });
+        }
         console.log(`Response for ${role}:`, response.data);
         setState(Array.isArray(response.data) ? response.data : []); // Ensure data is an array
       } catch (err) {
