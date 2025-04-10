@@ -16,6 +16,7 @@ export default function Home() {
   const [htmlContent, setHtmlContent] = useState(null);
 
   useEffect(() => {
+    // To fetch role based content
     const fetchHtmlContent = async () => { 
       try {
         const token = await getAccessTokenSilently({
@@ -123,14 +124,14 @@ export default function Home() {
                 <p>No announcements yet.</p>
 
               )}
-              {htmlContent ? (
+              {/* {htmlContent ? (
             <div dangerouslySetInnerHTML={{ __html: htmlContent.html }} />
           ) : (
-            <p>Loading...</p>
-          )}
-              {/* {userRole === "admin" && (
+            <p>Loading...</p> */}
+          {/* )} */}
+              {userRole === "admin" && (
                 <CreateAnnounceBtn setAnnouncements={setAnnouncements} />
-              )} */}
+              )}
             </div>
           </div>
         </div>
