@@ -3,6 +3,37 @@ const router = express.Router();
 const { User } = require('../models');
 const { Op } = require('sequelize');
 
+// router.put('/edit', async (req, res) => {
+//     const {
+//         event_name, event_descrip, req_1, req_2, req_3, req_4, req_5
+//     } = req.body;
+  
+//     try {
+//         const event = await Events.findByPk(event_id); // Find event by primary key
+  
+//         if (!event) {
+//             return res.status(404).json({ error: 'Event not found' });
+//         }
+  
+//         // Update only the fields that can be modified
+//         await event.update({
+//             event_name, 
+//             event_descrip,
+//             req_1, 
+//             req_2, 
+//             req_3, 
+//             req_4, 
+//             req_5
+//         });
+  
+//         res.status(200).json({ message: 'Event updated successfully', event });
+//     } catch (error) {
+//         console.error('Error updating event:', error);
+//         res.status(500).json({ error: 'Failed to update event' });
+//     }
+//   });
+
+
 
 // Route for creating or updating a user
 router.post('/create-update', async (req, res) => {
@@ -87,7 +118,7 @@ router.get('/role', async (req, res) => {
   
       if (!user) {
           console.warn(`User not found for email: ${userEmail}`);
-          return res.status(404).json({ error: "User not found" });
+          return res.json({ role: "no role" });
       }
   
       return res.json({ role: user.position });
@@ -97,7 +128,7 @@ router.get('/role', async (req, res) => {
       res.status(500).json({ error: "Internal server error" });
     }
 });
-  
+
 router.get('/get-user-id', async (req, res) => {
     try {
         const { email } = req.query;
@@ -125,7 +156,6 @@ router.get('/get-user-id', async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 });
-
 
 
 module.exports = router;
