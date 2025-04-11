@@ -18,15 +18,26 @@ const FundraisersPage = () => {
   // Fetch fundraisers from axios
   useEffect(() => {
     const fetchFundraisers = async () => {
+      let response;
+  
       try {
-        const response = await axios.get('http://localhost:8081/fundraisers/display');
+        // Try using the production backend
+        response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/fundraisers/display`);
+      } catch (error) {
+        console.warn("Error fetching from production backend, falling back to localhost...");
+  
+        // If production URL fails, fallback to localhost
+        response = await axios.get('http://localhost:8081/fundraisers/display');
+      }
+  
+      try {
         console.log(response.data); // Log to check the response
-        setFundraisers(response.data); // Correct way to update the state
+        setFundraisers(response.data); // Update state with fetched data
       } catch (error) {
         console.error('Error fetching fundraisers:', error);
       }
     };
-
+  
     fetchFundraisers();
   }, []);
 

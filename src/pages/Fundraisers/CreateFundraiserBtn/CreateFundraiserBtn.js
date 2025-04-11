@@ -20,12 +20,24 @@ const CreateFundraiserBtn = ({ setFundraisers }) => {
 
     try {
       // Add new fundraiser to the backend
-      const response = await axios.post('http://localhost:8081/fundraisers/add', {
-        fund_name: newFundraiser.fund_name,
-        fund_description: newFundraiser.fund_description,
-        fund_date: newFundraiser.fund_date, 
-        fund_location: newFundraiser.fund_location, 
-      });
+      let response;
+        try {
+          // Try using the production backend
+          response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/fundraisers/add`, {
+            fund_name: newFundraiser.fund_name,
+            fund_description: newFundraiser.fund_description,
+            fund_date: newFundraiser.fund_date, 
+            fund_location: newFundraiser.fund_location, 
+          });
+        } catch (error) {
+          console.warn('Error fetching from production backend, falling back to localhost...');
+          response = await axios.post('http://localhost:8081/fundraisers/add', {
+            fund_name: newFundraiser.fund_name,
+            fund_description: newFundraiser.fund_description,
+            fund_date: newFundraiser.fund_date, 
+            fund_location: newFundraiser.fund_location, 
+          });
+        }
 
       
 
