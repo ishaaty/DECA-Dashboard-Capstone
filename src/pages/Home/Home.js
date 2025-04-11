@@ -49,12 +49,13 @@ export default function Home() {
         console.log(response.data); // Log to check the response
         setAnnouncements(response.data); // Correct way to update the state
       }
+
+      fetchAnnouncements();
     };
   
     if (user && isAuthenticated) {
       fetchHtmlContent();
     }
-    fetchAnnouncement();
   }, [getAccessTokenSilently, user, isAuthenticated]);
 
   // Handle deleting an announcement
