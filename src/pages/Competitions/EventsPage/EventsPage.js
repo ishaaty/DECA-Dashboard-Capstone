@@ -40,9 +40,23 @@ export default function EventsPage() {
         const fetchUserId = async () => {
             if (user?.email) {  // Check if user and user.email are available
                 try {
-                    const response = await axios.get('http://localhost:8081/user/get-user-id', {
-                        params: { email: user.email }  // Pass the email as a query parameter
-                    });
+
+                    let response;
+
+                    try {
+                        // Try using the production backend
+                        response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/user/get-user-id`, {
+                            params: { email: user.email }
+                        });
+                    } catch (error) {
+                        console.warn('Error fetching from production backend, falling back to localhost...');
+                        
+                        // If the production URL fails, fallback to localhost
+                        response = await axios.get('http://localhost:8081/user/get-user-id', {
+                            params: { email: user.email }
+                        });
+                    }
+
                     if (response.data?.user_id) {
                         setUserId(response.data.user_id);  // Set the user_id dynamically
                         console.log(user_id)
@@ -67,24 +81,72 @@ export default function EventsPage() {
             console.log("Getting events w comp_id ", comp_id, " and user_id ", user_id)
     
             try {
-                const allEventsResponse = await axios.get(`http://localhost:8081/events/display/${comp_id}`);
+
+                let allEventsResponse;
+                try {
+                    // Try using the production backend
+                    allEventsResponse = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/events/display/${comp_id}`);
+                } catch (error) {
+                    console.warn('Error fetching from production backend, falling back to localhost...');
+                    // If the production URL fails, fallback to localhost
+                    allEventsResponse = await axios.get(`http://localhost:8081/events/display/${comp_id}`);
+                }
                 const allEvents = allEventsResponse.data;
     
-                const approvedEventsResponse = await axios.get(`http://localhost:8081/events/myevents`, {
-                    params: { user_id, comp_id }
-                });
+
+
+                let approvedEventsResponse;
+                try {
+                    // Try using the production backend
+                    approvedEventsResponse = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/events/myevents`, {
+                        params: { user_id, comp_id }
+                    });
+                } catch (error) {
+                    console.warn('Error fetching from production backend, falling back to localhost...');
+                    
+                    // If the production URL fails, fallback to localhost
+                    approvedEventsResponse = await axios.get(`http://localhost:8081/events/myevents`, {
+                        params: { user_id, comp_id }
+                    });
+                }
                 const approvedEvents = approvedEventsResponse.data;
     
-                const pendingEventsResponse = await axios.get(`http://localhost:8081/events/pending-events`, {
-                    params: { user_id, comp_id }
-                });
+
+
+                let pendingEventsResponse;
+                try {
+                    // Try using the production backend
+                    pendingEventsResponse = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/events/pending-events`, {
+                        params: { user_id, comp_id }
+                    });
+                } catch (error) {
+                    console.warn('Error fetching from production backend, falling back to localhost...');
+                    // If the production URL fails, fallback to localhost
+                    pendingEventsResponse = await axios.get(`http://localhost:8081/events/pending-events`, {
+                        params: { user_id, comp_id }
+                    });
+                }
                 const pendingEvents = pendingEventsResponse.data;
     
-                const deniedEventsResponse = await axios.get(`http://localhost:8081/events/denied-events`, {
-                    params: { user_id, comp_id }
-                });
+
+
+                let deniedEventsResponse;
+                try {
+                    // Try using the production backend
+                    deniedEventsResponse = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/events/denied-events`, {
+                        params: { user_id, comp_id }
+                    });
+                } catch (error) {
+                    console.warn('Error fetching from production backend, falling back to localhost...');
+                    
+                    // If the production URL fails, fallback to localhost
+                    deniedEventsResponse = await axios.get(`http://localhost:8081/events/denied-events`, {
+                        params: { user_id, comp_id }
+                    });
+                }
                 const deniedEvents = deniedEventsResponse.data; // List of denied event IDs
-                console.log(deniedEvents);
+
+
     
                 // Filter events based on their categories
                 const approvedEventIds = approvedEvents.map(event => event.event_id);
@@ -117,7 +179,13 @@ export default function EventsPage() {
     const handleDeleteEvent = async (id) => {
         try {
             // send the id of the resource to delete to the backend
-            await axios.delete(`http://localhost:8081/events/delete/${id}`);
+            try {
+                // Try using production URL first
+                await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/events/delete/${id}`);
+            } catch (err) {
+                console.warn('Error deleting event on production, falling back to localhost...');
+                await axios.delete(`http://localhost:8081/events/delete/${id}`);
+            }
             setEvents(events.filter((event) => event.event_id !== id)); // Update local state
         } catch (error) {
             console.error('Error deleting event:', error);

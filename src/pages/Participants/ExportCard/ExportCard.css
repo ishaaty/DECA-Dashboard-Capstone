@@ -3,10 +3,11 @@
     justify-content: center;
     background-color: #8EA1B3;
     width: 15vw;
-    height: 15vw;
+    height: 20vw;
     padding-top: 10px;
     border-radius: 10px;
     margin-top: 5vh;
+    align-items: center;
 }
 
 #exporthead {
@@ -28,6 +29,18 @@
 #jpeg {
     background-color: #FFC511;
     border: #FFC511;
+    width: 5vw;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    text-align: center;
+    padding-right: 5;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1vh;
+    width: 60%;
+    height: 5vh;
+
 }
 
 #png {
@@ -35,19 +48,19 @@
     border: #00984D;
 }
 
-#pdf,
-#jpeg,
-#png {
-    margin: 5px;
-    border-radius: 5px;
-    height: 45%;
-    width: 65%;
-    font-family: "Lexend Deca";
-    color: #00529B;
+#jpeg:hover {
+    background-color: #FFD633;
+    transform: scale(1.05);
+}
+
+/* Active Effect */
+#jpeg:active {
+    transform: scale(0.98);
+    background-color: #E6B800;
 }
 
 #viewunapproved {
-    color: white;
+    color: black;
 }
 
 #switchlabel {

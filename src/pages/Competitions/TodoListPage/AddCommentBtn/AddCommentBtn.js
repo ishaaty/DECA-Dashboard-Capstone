@@ -20,13 +20,31 @@ const AddCommentBtn = (props) => {
 
     try {
       // Send the comment to the backend via POST request
-      const response = await fetch(`http://localhost:8081/todolist/save-comment/${event_id}/${user_id}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ comment: newComment.comment }),
-      });
+      let response;
+      try {
+        // Try fetching from the production API first
+        response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/todolist/save-comment/${event_id}/${user_id}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ comment: newComment.comment }),
+        });
+        
+        // If the production API fails, fall back to localhost
+        if (!response.ok) {
+          console.warn('Production API failed, falling back to localhost...');
+          response = await fetch(`http://localhost:8081/todolist/save-comment/${event_id}/${user_id}`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ comment: newComment.comment }),
+          });
+        }
+      } catch (err) {
+        console.error("Error saving comment:", err);
+      }
 
       const result = await response.json();
 

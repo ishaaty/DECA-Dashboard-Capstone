@@ -19,11 +19,24 @@ const UploadPDFBtn = (props) => {
     formData.append('requirement', newPDF.requirement); // Ensure requirement is sent
 
     try {
-      const response = await axios.post(
-        `http://localhost:8081/todolist/upload-pdf/${props.eventId}/${props.userId}`, 
-        formData, 
-        { headers: { 'Content-Type': 'multipart/form-data' } }
-      );
+      let response;
+
+      try {
+        // Try using the production backend URL first
+        response = await axios.post(
+          `${process.env.REACT_APP_API_BASE_URL}/todolist/upload-pdf/${props.eventId}/${props.userId}`,
+          formData,
+          { headers: { 'Content-Type': 'multipart/form-data' } }
+        );
+      } catch (error) {
+        console.warn('Error uploading PDF to production backend, falling back to localhost...');
+        // If the production backend fails, fallback to localhost:8081
+        response = await axios.post(
+          `http://localhost:8081/todolist/upload-pdf/${props.eventId}/${props.userId}`,
+          formData,
+          { headers: { 'Content-Type': 'multipart/form-data' } }
+        );
+      }
 
       console.log('Upload successful:', response.data);
       alert('PDF uploaded successfully!');

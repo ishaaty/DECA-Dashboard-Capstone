@@ -7,10 +7,15 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Check if NODE_ENV is 'production' or 'development'
+const corsOrigin = process.env.NODE_ENV === 'production'
+  ? 'https://deca-dashboard-capstone-peach.vercel.app' // Vercel app URL for production
+  : 'http://localhost:3000'; // Localhost for development
+
 
 // Enable CORS for requests from the frontend (React app)
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: corsOrigin,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
@@ -66,7 +71,7 @@ app.use('/pages', pagesRoutes);
 
 // Define test routes
 app.get('/', (req, res) => {
-  res.json("From backend");
+  res.json("Backend is coming thru :)");
 });
 
 app.get('/users', (req, res) => {

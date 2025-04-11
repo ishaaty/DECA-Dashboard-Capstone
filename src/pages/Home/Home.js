@@ -34,45 +34,55 @@ export default function Home() {
       } catch (error) {
         console.error('Error fetching HTML content:', error);
       }
+
+      const fetchAnnouncements = async () => {
+        let response;
+        try {
+          // Try using the production backend
+          response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/announcements/display`);
+        } catch (error) {
+          console.warn('Error fetching from production backend, falling back to localhost...');
+          
+          // If the production URL fails, fallback to localhost
+          response = await axios.get('http://localhost:8081/announcements/display');
+        }
+        console.log(response.data); // Log to check the response
+        setAnnouncements(response.data); // Correct way to update the state
+      }
     };
   
     if (user && isAuthenticated) {
       fetchHtmlContent();
     }
+    fetchAnnouncement();
   }, [getAccessTokenSilently, user, isAuthenticated]);
-  
 
-    // Fetch announcement from axios
-    useEffect(() => {
-      const fetchAnnouncements = async () => {
-        try {
-          const response = await axios.get('http://localhost:8081/announcements/display');
-          setAnnouncements(response.data); // Correct way to update the state
-        } catch (error) {
-          console.error('Error fetching announcements:', error);
-        }
-      };
-
-      fetchAnnouncements();
-    }, []);
-
-
-
-    // Handle deleting an announcement
-    const handleDeleteAnnouncement = async (ann_id) => {
+  // Handle deleting an announcement
+  const handleDeleteAnnouncement = async (ann_id) => {
+    try {
+      // Send request to backend to delete the announcement
       try {
-        // Send request to backend to delete the announcement
-        await axios.delete(`http://localhost:8081/announcements/delete/${ann_id}`);
-
-        // Remove the deleted announcement from the state
-        setAnnouncements(prevAnnouncements =>
-          prevAnnouncements.filter(announcement => announcement.ann_id !== ann_id)
+        // Try using the production backend URL first
+        await axios.delete(
+          `${process.env.REACT_APP_API_BASE_URL}/announcements/delete/${ann_id}`
         );
       } catch (error) {
-        console.error('Error deleting announcement:', error);
-        alert('Failed to delete announcement.');
+        console.warn('Error deleting announcement from production backend, falling back to localhost...');
+        // If the production backend fails, fallback to localhost:8081
+        await axios.delete(
+          `http://localhost:8081/announcements/delete/${ann_id}`
+        );
       }
-    };
+
+      // Remove the deleted announcement from the state
+      setAnnouncements(prevAnnouncements =>
+        prevAnnouncements.filter(announcement => announcement.ann_id !== ann_id)
+      );
+    } catch (error) {
+      console.error('Error deleting announcement:', error);
+      alert('Failed to delete announcement.');
+    }
+  }
 
 
 
