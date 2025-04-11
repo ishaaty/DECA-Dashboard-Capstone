@@ -118,7 +118,7 @@ router.get('/role', async (req, res) => {
   
       if (!user) {
           console.warn(`User not found for email: ${userEmail}`);
-          return res.status(400).json({ role: "no role" });
+          return res.json({ role: "no role" });
       }
   
       return res.json({ role: user.position });
