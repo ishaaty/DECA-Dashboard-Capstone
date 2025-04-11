@@ -35,8 +35,7 @@ const { Op } = require('sequelize');
 
 
 
-// Route for creating or updating a user
-// router.post('/create-update', async (req, res) => {
+// router.post('/edit', async (req, res) => {
 //     try {
 //         const { 
 //             first_name, 

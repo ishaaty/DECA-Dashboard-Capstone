@@ -69,7 +69,7 @@ export default function User() {
 
 const handleSaveClick = async () => {
   try {
-    const response = await axios.post('http://localhost:8081/edit', userData);
+    const response = await axios.post('http://localhost:8081/user/edit', userData);
     console.log('Success:', response.data.message);
     setIsEditing(false); // Close the edit form
     setParticipants((prevParticipants) => 
