@@ -126,7 +126,7 @@ const Resources = ({ resources, userRole }) => {
           />
         ))}
       </div>
-      {userRole === 'admin' && (
+      {(userRole === 'admin' || userRole === "board member") && (
         <>
           <div className="center-button-container">
             <button className="center-button" onClick={() => setIsPopupOpen(true)}>
