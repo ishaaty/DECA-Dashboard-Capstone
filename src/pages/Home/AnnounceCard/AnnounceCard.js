@@ -11,7 +11,7 @@ export default function AnnounceCard(props) {
     console.log("Event status:", props.status);
 
     // admin view
-    if (userRole === "admin") {
+    if (userRole === "admin" || userRole === "board member") {
         return (
             <div className="announcement-card">
                 <h3>{props.title}</h3>
