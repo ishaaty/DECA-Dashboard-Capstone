@@ -1,7 +1,7 @@
 import './AdminCard.css';
 
 export default function AdminCard(props) {
-    if (props.role === "admin" || props.role === "board member") {
+    if (props.role === "admin") {
         return (
             <div class="accontainer">
             <h4 id="name">{`${props.firstName} ${props.lastName}`}</h4>
