@@ -112,7 +112,7 @@ export default function Participants() {
               </div>
             </div>
           </div>
-          {userRole === 'admin' && <ExportCard />}
+          {(userRole === 'admin' || userRole === 'board member') && <ExportCard />}
         </div>
       </div>
     </>

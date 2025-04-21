@@ -15,7 +15,7 @@ export default function Header() {
                 <a href="about" className="header-link about-link">About</a>
                 <a href="user" className="header-link user-link">User</a>
                 {/* Logout button */}
-                <span className="header-link logout-link" onClick={() => logout({ returnTo: window.location.origin })}>
+                <span className="header-link logout-link" onClick={() => logout( `https://deca-dashboard-capstone-peach.vercel.app` )}>
                     Logout
                 </span>
             </nav>
