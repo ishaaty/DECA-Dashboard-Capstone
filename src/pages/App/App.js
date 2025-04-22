@@ -107,7 +107,7 @@ const RoleRestrictedRoutes = () => {
       <Route 
         path="/unapprovedparticipants" 
         element={
-          <RoleBasedRoute allowedRoles={['admin']}>
+          <RoleBasedRoute allowedRoles={['admin', 'board member']} redirectTo="/unauthorized">
             <UnapprovedParticipants />
           </RoleBasedRoute>
         } 
