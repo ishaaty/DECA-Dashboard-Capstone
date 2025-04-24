@@ -126,7 +126,7 @@ export default function ParticipantDetails() {
         </div>
 
         {/* Only show this section if userRole is "admin" */}
-        {userRole === "admin" && (
+        {(userRole === "admin" || userRole === "board member") && (
           <div className="roleselection">
             <label>Select Role: </label>
             <select className="roleselect" value={selectedRole} onChange={handleRoleChange}>
