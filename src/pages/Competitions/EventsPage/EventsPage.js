@@ -238,6 +238,98 @@ export default function EventsPage() {
                 </div>
             </>
         );
+    } else if (userRole === "board member") {
+        
+        return (
+            <>
+                <Header />
+                <Menu />
+                <div style={{ color: "#00529B", alignItems: "center" }} className="add-event-container">
+                    <div id="main">
+                        <a href="competitions">
+                            <button id="ahh">
+                                <img id="eventimage" src="blue.png" alt=""></img>
+                            </button>
+                        </a>
+                    </div>
+
+                    <h1 style={{ color: "#00529B" }}>{title}</h1>
+
+                    <div className="btns-h-align">
+                        <CreateEventBtn events={events} setEvents={setEvents} comp_id={comp_id} />
+                    </div>
+
+                    <div>
+                        <h1 style={{ color: "#F5585E", zIndex: "999" }}>All Events:</h1>
+                        <div className="events-container">
+                            {pendingEvents?.map((event, index) => (
+                                <EventCard
+                                    key={event.event_id}
+                                    status={"pending"}
+                                    event_id={event.event_id}
+                                    user_id={user_id}
+                                    title={event.event_name}
+                                    descrip={event.event_descrip}
+                                    req_1={event.req_1}
+                                    req_2={event.req_2}
+                                    req_3={event.req_3}
+                                    req_4={event.req_4}
+                                    req_5={event.req_5}
+                                    userRole={userRole}
+                                    setEvents={setEvents}
+                                    onDelete={() => handleDeleteEvent(event.event_id)}
+                                />
+                            ))}
+
+                            {defaultEvents?.map((event, index) => (
+                                <EventCard
+                                    key={event.event_id}
+                                    status={"default"}
+                                    event_id={event.event_id}
+                                    user_id={user_id}
+                                    title={event.event_name}
+                                    descrip={event.event_descrip}
+                                    req_1={event.req_1}
+                                    req_2={event.req_2}
+                                    req_3={event.req_3}
+                                    req_4={event.req_4}
+                                    req_5={event.req_5}
+                                    userRole={userRole}
+                                    setEvents={setEvents}
+                                    onDelete={() => handleDeleteEvent(event.event_id)}
+                                />
+                            ))}
+                        </div>
+                    </div>
+
+                    <div >
+                        <h1 style={{ color: "#F5585E", alignItems: "center", marginTop: "30px" }}>My Events:</h1>
+                        <div className="events-container">
+                            {myEvents?.map((event, index) => (
+                                <EventCard
+                                    key={event.event_id}
+                                    status={"approved"}
+                                    event_id={event.event_id}
+                                    user_id={user_id}
+                                    title={event.event_name}
+                                    descrip={event.event_descrip}
+                                    req_1={event.req_1}
+                                    req_2={event.req_2}
+                                    req_3={event.req_3}
+                                    req_4={event.req_4}
+                                    req_5={event.req_5}
+                                    userRole={userRole}
+                                    setEvents={setEvents}
+                                    onDelete={() => handleDeleteEvent(event.event_id)}
+                                />
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </>
+        );
+
+
     } else {
         return (
             <>
