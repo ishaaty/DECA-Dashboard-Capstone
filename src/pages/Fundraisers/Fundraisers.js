@@ -86,9 +86,6 @@ const FundraisersPage = () => {
         {(userRole === "admin" || userRole === "board member") && (
           <div className = "createfund"><CreateFundraiserBtn setFundraisers={setFundraisers} /></div>
         )}
-        {userRole == "participant" && (
-          <div className = "createfund"><RequestFundraiserBtn setFundraiser={setFundraisers} /></div>
-        )}
 
     </>
   );
