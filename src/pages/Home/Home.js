@@ -113,6 +113,9 @@ export default function Home() {
             {userRole === "admin" && (
               <CreateAnnounceBtn setAnnouncements={setAnnouncements} />
             )}
+            {userRole ==="board member" && (
+              <CreateAnnounceBtn setAnnouncements={setAnnouncements} />
+            )}
           </div>
         </div>
       </div>

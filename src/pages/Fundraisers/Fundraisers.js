@@ -4,6 +4,7 @@ import Header from '../../components/Header/Header';
 import Menu from '../../components/Menu/Menu';
 
 import CreateFundraiserBtn from './CreateFundraiserBtn/CreateFundraiserBtn';
+import RequestFundraiserBtn from './RequestFundraiserBtn/RequestFundraiserBtn';
 import FundraiserCard from './FundraiserCard/FundraiserCard';
 import EditFundraiserBtn from './EditFundraiserBtn/EditFundraiserBtn'; 
 import { useAuth0 } from '@auth0/auth0-react';
@@ -84,6 +85,12 @@ const FundraisersPage = () => {
   
         {userRole === "admin" && (
           <div className = "createfund"><CreateFundraiserBtn setFundraisers={setFundraisers} /></div>
+        )}
+        {userRole == "board member" && ( 
+          <div className = "createfund"><CreateFundraiserBtn setFundraisers={setFundraisers} /></div>
+        )}
+        {userRole == "participant" && (
+          <div className = "createfund"><RequestFundraiserBtn setFundraiser={setFundraisers} /></div>
         )}
 
     </>
