@@ -14,10 +14,20 @@ const EditFundraiserBtn = (props) => {
 
   // Function to fetch updated fundraisers
   const fetchFundraisers = async () => {
+
     try {
-      const response = await axios.get('http://localhost:8081/fundraisers/display');
-      props.setFundraisers(response.data); // Update the parent state with the fetched data
-    } catch (error) {
+      // Get fundraisers from the backend
+      let response;
+        try {
+          // Try using the production backend
+          response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/fundraisers/display`);
+          props.setFundraisers(response.data); // Update the parents state with the fetched data
+        } catch (error) {
+          console.warn('Error fetching from production backend, falling back to localhost...');
+          response = await axios.get('http://localhost:8081/fundraisers/display');
+          props.setFundraisers(response.data);
+        } 
+    } catch (error) { 
       console.error('Error fetching fundraisers:', error);
     }
   };
@@ -37,25 +47,43 @@ const EditFundraiserBtn = (props) => {
       fund_date: newFundraiser.fund_date, 
       fund_location: newFundraiser.fund_location, 
     };
+    let response;
 
     try {
+      // Attempt to update fundraiser using production backend
+      console.log("Attempting to edit fundraiser with ID:", props.fundraiser_id);
+  
+      response = await axios.put(
+        `${process.env.REACT_APP_API_BASE_URL}/fundraisers/edit/${props.fundraiser_id}`,
+        fundraiserData
+      );
+  
+      console.log('Updated Fundraiser:', response.data);
+    } catch (error) {
+      console.warn("Error fetching from production backend, falling back to localhost...");
+  
+      // Fallback to local backend
       console.log('Attempting to edit fundraiser with ID:', props.fundraiser_id);
-      const response = await axios.put(
+  
+      response = await axios.put(
         `http://localhost:8081/fundraisers/edit/${props.fundraiser_id}`,
         fundraiserData
       );
-
-      console.log('Updated Fundraiser:', response.data); // Log the response to ensure both fields are updated
-
+  
+      console.log('Updated Fundraiser:', response.data);
+    }
+  
+    try {
       // Fetch updated fundraisers from the server
       fetchFundraisers();
-
-      // Close the popup and reset form fields with the updated data
+  
+      // Close popup and reset form fields with updated data
       setIsPopupOpen(false);
+  
       setNewFundraiser({
         fund_name: response.data.fund_name,
-        fund_description: response.data.fund_description, // Ensure description is correctly updated
-        fund_date: response.data.fund_date, 
+        fund_description: response.data.fund_description,
+        fund_date: response.data.fund_date,
         fund_location: response.data.fund_location,
       });
     } catch (error) {
