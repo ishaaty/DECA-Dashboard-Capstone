@@ -135,14 +135,12 @@ export default function Home() {
                 <p>No announcements yet.</p>
 
               )}
-              {/* {htmlContent ? (
-            <div dangerouslySetInnerHTML={{ __html: htmlContent.html }} />
-          ) : (
-            <p>Loading...</p> */}
-          {/* )} */}
               {userRole === "admin" && (
                 <CreateAnnounceBtn setAnnouncements={setAnnouncements} />
               )}
+              {userRole ==="board member" && (
+              <CreateAnnounceBtn setAnnouncements={setAnnouncements} />
+            )}
             </div>
           </div>
         </div>
