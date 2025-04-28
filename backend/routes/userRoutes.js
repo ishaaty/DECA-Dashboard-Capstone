@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const { User } = require('../models');
 const { Op } = require('sequelize');
-const checkJwt = require("../config/jwtConfig");
 
 // router.put('/edit', async (req, res) => {
 //     const {
@@ -76,7 +75,7 @@ router.post('/create-update', async (req, res) => {
 });
 
 
-router.get('/user-info', checkJwt, async (req, res) => {
+router.get('/user-info', async (req, res) => {
     try {
         const { user_id } = req.query;
 
@@ -130,7 +129,7 @@ router.get('/role', async (req, res) => {
     }
 });
 
-router.get('/get-user-id', checkJwt, async (req, res) => {
+router.get('/get-user-id', async (req, res) => {
     try {
         const { email } = req.query;
 

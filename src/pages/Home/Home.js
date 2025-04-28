@@ -16,6 +16,25 @@ export default function Home() {
   const [htmlContent, setHtmlContent] = useState(null);
 
   useEffect(() => {
+    // To fetch role based content
+    const fetchHtmlContent = async () => { 
+      try {
+        const token = await getAccessTokenSilently({
+          audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+        });
+
+        const response = await axios.post('http://localhost:8081/pages/home', {
+          role: userRole,
+        }, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setHtmlContent(response.data);
+      } catch (error) {
+        console.error('Error fetching HTML content:', error);
+      }
+
       const fetchAnnouncements = async () => {
         let response;
         try {
@@ -32,10 +51,13 @@ export default function Home() {
       }
 
       fetchAnnouncements();
+    };
+  
+    if (user && isAuthenticated) {
+      fetchHtmlContent();
+    }
   }, [getAccessTokenSilently, user, isAuthenticated]);
 
-
-  
   // Handle deleting an announcement
   const handleDeleteAnnouncement = async (ann_id) => {
     try {

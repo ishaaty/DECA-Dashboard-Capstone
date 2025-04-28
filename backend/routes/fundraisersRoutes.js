@@ -2,10 +2,9 @@ const express = require('express');
 const router = express.Router();
 const sequelize = require('../config/db');
 const Fundraisers = require('../models/fundraisersModel')(sequelize);
-const checkJwt = require("../config/jwtConfig");
 
 // Display fundraisers when the fundraisers page is opened
-router.get('/display', checkJwt, async (req, res) => {
+router.get('/display', async (req, res) => {
     try {
         const fundraisers = await Fundraisers.findAll(); // retrieve the existing fundraisers
         res.json(fundraisers);
@@ -17,7 +16,7 @@ router.get('/display', checkJwt, async (req, res) => {
 
 
 // Display fundraisers based on fundraiser_id
-router.get('/display/:fundraiser_id', checkJwt, async (req, res) => {
+router.get('/display/:fundraiser_id', async (req, res) => {
   try {
       const fundraiser_id = parseInt(req.params.fundraiser_id, 10); // Convert to integer
       if (isNaN(fundraiser_id)) {
@@ -34,7 +33,7 @@ router.get('/display/:fundraiser_id', checkJwt, async (req, res) => {
 });
 
 // Add a new fundraisers to the database
-router.post('/add', checkJwt, async (req, res) => {
+router.post('/add', async (req, res) => {
     const { fund_location, fund_date, fund_description, fund_name } = req.body;
 
     if (!fund_name || (!fund_description && !fund_date && !fund_location)) {
@@ -56,7 +55,7 @@ router.post('/add', checkJwt, async (req, res) => {
 });
 
 // Delete a fundraiser by ID
-router.delete('/delete/:id', checkJwt, async (req, res) => {
+router.delete('/delete/:id', async (req, res) => {
   const { id } = req.params; // Get the fundraiser ID from the URL parameter
 
   try {
@@ -74,7 +73,7 @@ router.delete('/delete/:id', checkJwt, async (req, res) => {
 });
 
 // Edit an existing fundraiser while keeping fundraiser_id unchanged
-router.put('/edit/:fundraiser_id', checkJwt, async (req, res) => {
+router.put('/edit/:fundraiser_id', async (req, res) => {
   const { fundraiser_id } = req.params; // Get fundraiser ID from the URL parameter
   const {
       fund_name, fund_description, fund_date, fund_location

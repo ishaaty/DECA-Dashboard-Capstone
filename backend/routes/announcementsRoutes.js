@@ -2,10 +2,9 @@ const express = require('express');
 const router = express.Router();
 const sequelize = require('../config/db');
 const Announcements = require('../models/announcementsModel')(sequelize);
-const checkJwt = require("../config/jwtConfig");
 
 // Display announcements when the home page is opened
-router.get('/display', checkJwt, async (req, res) => {
+router.get('/display', async (req, res) => {
     try {
         const announcements = await Announcements.findAll(); // retrieve the existing announcements
         res.json(announcements);
@@ -16,7 +15,7 @@ router.get('/display', checkJwt, async (req, res) => {
 });
 
 // Display announcements based on ann_id
-router.get('/display/:ann_id', checkJwt, async (req, res) => {
+router.get('/display/:ann_id', async (req, res) => {
   try {
       const ann_id = parseInt(req.params.ann_id, 10); // Convert to integer
       if (isNaN(ann_id)) {
@@ -33,7 +32,7 @@ router.get('/display/:ann_id', checkJwt, async (req, res) => {
 });
 
 // Edit an existing announcement while keeping ann_id unchanged
-router.put('/edit/:ann_id', checkJwt, async (req, res) => {
+router.put('/edit/:ann_id', async (req, res) => {
   const { ann_id } = req.params; // Get announcement ID from the URL parameter
   const {
       ann_name, ann_description
@@ -61,7 +60,7 @@ router.put('/edit/:ann_id', checkJwt, async (req, res) => {
 });
 
 // Add a new announcement to the database
-router.post('/add', checkJwt, async (req, res) => {
+router.post('/add', async (req, res) => {
     const { ann_name, ann_description } = req.body;
 
     if (!ann_name || !ann_description) {
@@ -81,7 +80,7 @@ router.post('/add', checkJwt, async (req, res) => {
 });
 
 // Delete a announcement by ID
-router.delete('/delete/:id', checkJwt, async (req, res) => {
+router.delete('/delete/:id', async (req, res) => {
   const { id } = req.params; // Get the announcement ID from the URL parameter
 
   try {

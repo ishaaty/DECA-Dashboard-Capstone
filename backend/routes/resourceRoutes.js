@@ -6,14 +6,13 @@ const sequelize = require('../config/db');
 const Resources = require('../models/resourcesModel')(sequelize);
 const s3 = require('../config/s3Config'); // Import the updated S3 config
 const { PutObjectCommand } = require('@aws-sdk/client-s3'); // v3 client
-const checkJwt = require("../config/jwtConfig"); // JWT middleware for authentication
 
 // Configure multer storage to memory for manual upload to S3
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 // Route to add a new resource (file upload to S3)
-router.post('/add', checkJwt, upload.single('pdf'), async (req, res) => {
+router.post('/add', upload.single('pdf'), async (req, res) => {
   const { resource_name, web_url } = req.body;
   const file = req.file;
 
@@ -50,7 +49,7 @@ router.post('/add', checkJwt, upload.single('pdf'), async (req, res) => {
 });
 
 // Display resources
-router.get('/display', checkJwt, async (req, res) => {
+router.get('/display', async (req, res) => {
   try {
     const resources = await Resources.findAll();
     res.json(resources);
@@ -61,7 +60,7 @@ router.get('/display', checkJwt, async (req, res) => {
 });
 
 // Delete a resource by ID
-router.delete('/delete/:id', checkJwt, async (req, res) => {
+router.delete('/delete/:id', async (req, res) => {
   const { id } = req.params; // Get the resource ID from the URL parameter
 
   try {
