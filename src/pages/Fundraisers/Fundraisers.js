@@ -4,6 +4,7 @@ import Header from '../../components/Header/Header';
 import Menu from '../../components/Menu/Menu';
 
 import CreateFundraiserBtn from './CreateFundraiserBtn/CreateFundraiserBtn';
+import RequestFundraiserBtn from './RequestFundraiserBtn/RequestFundraiserBtn';
 import FundraiserCard from './FundraiserCard/FundraiserCard';
 import EditFundraiserBtn from './EditFundraiserBtn/EditFundraiserBtn'; 
 import { useAuth0 } from '@auth0/auth0-react';
@@ -43,16 +44,16 @@ const FundraisersPage = () => {
 
   // Handle deleting an fundraiser
   const handleDeleteFundraiser = async (fundraiser_id) => {
-    try {
-      // Send request to backend to delete the fundraiser
-      await axios.delete(`http://localhost:8081/fundraisers/delete/${fundraiser_id}`);
 
-      // Remove the deleted fundraiser from the state
+    try {
+      await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/fundraisers/delete/${fundraiser_id}`);
+  
+      // Update frontend state
       setFundraisers(prevFundraisers =>
         prevFundraisers.filter(fundraiser => fundraiser.fundraiser_id !== fundraiser_id)
       );
     } catch (error) {
-      console.error('Error deleting fundraiser:', error);
+      console.error('Error deleting fundraiser:', error?.response?.data || error?.message || error);
       alert('Failed to delete fundraiser.');
     }
   };

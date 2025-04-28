@@ -8,7 +8,7 @@ import RoleBasedRoute from '../../context/RoleBasedRoute';
 import ProtectedRoute from '../../context/ProtectedRoute';
 
 // Gives pages access to user role
-import { UserRoleProvider, UserRoleContext } from '../../context/UserRoleContext';
+import { UserRoleProvider, UserRoleContext, sessionTimeout } from '../../context/UserRoleContext';
 
 
 // pre sign-in & general pages
@@ -34,6 +34,7 @@ import ViewRequesters from '../Competitions/ViewRequesters/ViewRequesters';
 import Roommates from '../Roommates/Roommates';
 import TodoListPage from '../Competitions/TodoListPage/TodoListPage';
 import Unauthorized from "../Unauthorized/Unauthorized"; 
+import SessionTimeout from '../../context/sessionTimeout';
 
 
 
@@ -41,6 +42,7 @@ export default function App() {
   return (
     <div>
       <BrowserRouter>
+        <SessionTimeout timeout={15 * 60 * 1000} />
         <Routes>
           {/* Public pages */}
           <Route index element={<SignIn />} />
@@ -107,7 +109,7 @@ const RoleRestrictedRoutes = () => {
       <Route 
         path="/unapprovedparticipants" 
         element={
-          <RoleBasedRoute allowedRoles={['admin']}>
+          <RoleBasedRoute allowedRoles={['admin', 'board member']} redirectTo="/unauthorized">
             <UnapprovedParticipants />
           </RoleBasedRoute>
         } 

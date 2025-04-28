@@ -11,7 +11,7 @@ export default function FundraiserCard(props) {
     console.log("Event status:", props.status);
 
     // admin view
-    if (userRole === "admin" ) {
+    if (userRole === "admin" || userRole =="board member") {
         return (
             <div className="fundraiser-card">
                 <h3>{props.fund_name}</h3>
