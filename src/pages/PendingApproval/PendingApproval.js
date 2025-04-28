@@ -118,7 +118,13 @@ function PendingApproval() {
         </div>
         <div>
           <label class="pendinglabel">Demographic:</label>
-          <input type="text" value={demographic} onChange={(e) => setDemographic(e.target.value)} />
+          <select value={demographic} onChange={(e) => setDemographic(e.target.value)}>
+            <option value="">Select Demographic</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+          {/* <input type="text" value={demographic} onChange={(e) => setDemographic(e.target.value)} /> */}
         </div>
         <div>
           <label class="pendinglabel">Date of Birth:</label>
