@@ -16,7 +16,7 @@ instance.interceptors.response.use(
   }
 );
 
-// Fetch access token
+// Pass through authentication token in axios requests
 export const fetchWithAuth = async (getAccessTokenSilently, url, method = 'GET', data = null) => {
   try {
     const token = await getAccessTokenSilently();
