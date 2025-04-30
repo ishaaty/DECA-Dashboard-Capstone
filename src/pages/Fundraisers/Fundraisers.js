@@ -4,7 +4,6 @@ import Header from '../../components/Header/Header';
 import Menu from '../../components/Menu/Menu';
 
 import CreateFundraiserBtn from './CreateFundraiserBtn/CreateFundraiserBtn';
-import RequestFundraiserBtn from './RequestFundraiserBtn/RequestFundraiserBtn';
 import FundraiserCard from './FundraiserCard/FundraiserCard';
 import EditFundraiserBtn from './EditFundraiserBtn/EditFundraiserBtn'; 
 import { useAuth0 } from '@auth0/auth0-react';
