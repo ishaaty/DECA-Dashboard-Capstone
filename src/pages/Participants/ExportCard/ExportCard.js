@@ -33,8 +33,8 @@ export default function ExportCard() {
     };
     return (
         <>
-            <div class="export">
-                <div class="exportbuttons">
+            <div className="export">
+                <div className="exportbuttons">
                     <button onClick={handleExport} id="jpeg"> Export Data</button>
                 </div>
                 <a id="viewunapproved" href="/unapprovedparticipants">
