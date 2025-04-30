@@ -6,6 +6,7 @@ import Header from '../../components/Header/Header';
 import Menu from '../../components/Menu/Menu';
 import AdminCard from './AdminCard/AdminCard';
 import ExportCard from './ExportCard/ExportCard';
+import { useAuth0 } from '@auth0/auth0-react';
 import axios from 'axios';
 
 
@@ -16,16 +17,25 @@ export default function Participants() {
   const [errors, setErrors] = useState({ participants: null, boardMembers: null, admins: null });
   const [searchQuery, setSearchQuery] = useState('');
 
+  const { getAccessTokenSilently } = useAuth0();
   const userRole = useContext(UserRoleContext);
+  
 
   useEffect(() => {
     const fetchUsersByRole = async (role, setState, errorKey) => {
       try {
+        const token = await getAccessTokenSilently({
+          audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+        });
+
         let response;
         try {
           // Try using the production backend URL first
           response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/participantdetails/displayusers`, {
             params: { position: role },
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           });
         } catch (error) {
           console.warn('Error fetching from production backend, falling back to localhost...');
@@ -47,7 +57,7 @@ export default function Participants() {
     fetchUsersByRole('participant', setParticipants, 'participants');
     fetchUsersByRole('board member', setBoardMembers, 'boardMembers');
     fetchUsersByRole('admin', setAdmins, 'admins');
-  }, []);
+  }, [getAccessTokenSilently]);
 
   const renderUserList = (users, error, roleName, isAdminCard = false) => {
     if (error) return <p style={{ color: 'red' }}>{error}</p>;
