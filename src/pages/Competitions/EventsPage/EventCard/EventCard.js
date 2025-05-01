@@ -23,6 +23,7 @@ export default function EventCard(props) {
             props.setEvents(prevEvents => prevEvents.filter(event => event.event_id !== props.event_id));
             alert("Request canceled successfully.");
         } catch (error) {
+            alert("Failed to cancel the request. Please try again.");
             console.error('Error canceling the request:', error);
         }
     };
@@ -44,6 +45,7 @@ export default function EventCard(props) {
             ));
 
         } catch (error) {
+            alert("Request failed. Please try again.");
             console.error('Error fetching user event data:', error);
         }
     };
