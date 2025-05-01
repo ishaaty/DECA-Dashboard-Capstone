@@ -49,6 +49,9 @@ db.connect(err => {
 
 
 // Import routes
+const aboutRoutes = require('./routes/aboutRoutes');
+app.use('/about', aboutRoutes);
+
 const userRoutes = require('./routes/userRoutes');
 app.use('/user', userRoutes);
 
