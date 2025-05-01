@@ -4,6 +4,8 @@ const { User, Event } = require('../models');
 const {Op} = require('sequelize')
 const mysql = require('mysql');
 const ExcelJS = require('exceljs');
+const checkJwt = require('../config/jwtConfig');
+console.log(checkJwt)
 
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
@@ -13,7 +15,7 @@ const db = mysql.createConnection({
 });
 
 // Route to fetch users by position
-router.get('/displayusers', async (req, res) => {
+router.get('/displayusers', checkJwt, async (req, res) => {
   const { position } = req.query;
 
   try {

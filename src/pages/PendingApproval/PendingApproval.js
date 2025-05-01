@@ -99,9 +99,18 @@ function PendingApproval() {
           <label class="pendinglabel">Class Year: *</label>
           <input type="text" value={userClass} onChange={(e) => setUserClass(e.target.value)} required />
         </div>
-        <div>
+        {/* <div>
           <label class="pendinglabel">Gender:</label>
           <input type="text" value={gender} onChange={(e) => setGender(e.target.value)} />
+        </div> */}
+        <div>
+          <label class="pendinglabel">Gender:</label>
+          <select value={gender} onChange={(e) => setGender(e.target.value)}>
+            <option value="">Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+          </select>
         </div>
         <div>
           <label class="pendinglabel">School Email: *</label>
@@ -109,7 +118,13 @@ function PendingApproval() {
         </div>
         <div>
           <label class="pendinglabel">Demographic:</label>
-          <input type="text" value={demographic} onChange={(e) => setDemographic(e.target.value)} />
+          <select value={demographic} onChange={(e) => setDemographic(e.target.value)}>
+            <option value="">Select Demographic</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+          {/* <input type="text" value={demographic} onChange={(e) => setDemographic(e.target.value)} /> */}
         </div>
         <div>
           <label class="pendinglabel">Date of Birth:</label>
