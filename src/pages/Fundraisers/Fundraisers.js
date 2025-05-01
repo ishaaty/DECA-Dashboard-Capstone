@@ -44,6 +44,14 @@ const FundraisersPage = () => {
   // Handle deleting an fundraiser
   const handleDeleteFundraiser = async (fundraiser_id) => {
 
+    const confirmDelete = window.confirm(
+    `Are you sure you want to delete this fundraiser? This action cannot be undone.`
+    );
+
+    if (!confirmDelete) {
+      return;
+    }
+
     try {
       await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/fundraisers/delete/${fundraiser_id}`);
   
@@ -56,6 +64,8 @@ const FundraisersPage = () => {
       alert('Failed to delete fundraiser.');
     }
   };
+
+
   return (
     <>
       <Header />
