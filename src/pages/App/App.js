@@ -35,6 +35,7 @@ import Roommates from '../Roommates/Roommates';
 import TodoListPage from '../Competitions/TodoListPage/TodoListPage';
 import Unauthorized from "../Unauthorized/Unauthorized"; 
 import SessionTimeout from '../../context/sessionTimeout';
+import UserDetails from "../User/UserDetails";
 
 
 
@@ -105,6 +106,8 @@ const RoleRestrictedRoutes = () => {
       <Route path="/participants" element={<Participants />} />
       <Route path="/participantdetails" element={<ParticipantDetails />} />
       <Route path="/resources" element={<Resources />} />
+      <Route path="/userdetails" element={<UserDetails />} />
+
 
       <Route 
         path="/unapprovedparticipants" 
