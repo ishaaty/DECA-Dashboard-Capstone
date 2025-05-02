@@ -76,12 +76,14 @@ export default function ParticipantDetails() {
         {
           userIds: [participant.userId],
           position: selectedRole,
+        },
+        {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
       );
-      
+
       setParticipant((prev) => ({ ...prev, position: selectedRole }));
       alert('User role updated successfully!');
     } catch (error) {

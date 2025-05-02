@@ -70,6 +70,8 @@ export default function UnapprovedParticipants({ userRole }) {
         {
           userIds: selectedIds,
           position: selectedRole,
+        },
+        {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -112,16 +114,16 @@ export default function UnapprovedParticipants({ userRole }) {
       const token = await getAccessTokenSilently({
         audience: process.env.REACT_APP_AUTH0_AUDIENCE,
       });
-      
-        await axios.delete(
-          `${process.env.REACT_APP_API_BASE_URL}/participantdetails/deleteusers`,
-          {
-            data: { userIds: selectedIds },
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+
+      await axios.delete(
+        `${process.env.REACT_APP_API_BASE_URL}/participantdetails/deleteusers`,
+        {
+          data: { userIds: selectedIds },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
 
       // Remove deleted users from the UI

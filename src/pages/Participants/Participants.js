@@ -28,8 +28,7 @@ export default function Participants() {
           audience: process.env.REACT_APP_AUTH0_AUDIENCE,
         });
 
-        let response;
-          response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/participantdetails/displayusers`, {
+        let response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/participantdetails/displayusers`, {
             params: { position: role },
             headers: {
               Authorization: `Bearer ${token}`,
