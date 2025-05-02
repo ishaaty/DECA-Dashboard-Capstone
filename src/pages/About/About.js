@@ -25,7 +25,7 @@ export default function About() {
   useEffect(() => {
     const fetchDescription = async () => {
       try {
-        const response = await axios.get('http://localhost:8081/getDescription');
+        const response = await axios.get('http://localhost:8081/about');
         setDescription(response.data.description); // Assuming the backend sends a description field
       } catch (err) {
         console.error("Error fetching description:", err);
@@ -44,7 +44,7 @@ export default function About() {
   // Handle saving the updated description to the backend
   const handleSave = async () => {
     try {
-      const response = await axios.post('http://localhost:8081/saveDescription', {
+      const response = await axios.put('http://localhost:8081/about/saveDescription', {
         description: description,
       });
       if (response.status === 200) {
@@ -73,7 +73,7 @@ export default function About() {
             />
             <br />
             {/* <button onClick={handleSave}>Save</button> */}
-            <button onClick={() => setIsEditing(false)}>Save</button>
+            <button onClick={handleSave}>Save</button>
           </div>
         ) : (
           <div>
