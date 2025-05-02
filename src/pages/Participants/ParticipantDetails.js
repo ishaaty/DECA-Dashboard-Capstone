@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
+import { useAuth0 } from '@auth0/auth0-react';
 import './ParticipantDetails.css';
 import Header from '../../components/Header/Header';
 import Menu from '../../components/Menu/Menu';
@@ -13,6 +14,7 @@ export default function ParticipantDetails() {
   const params = new URLSearchParams(location.search);
   const userFirst = params.get('userFirst');
   const userLast = params.get('userLast');
+  const { getAccessTokenSilently } = useAuth0();
 
   const [participant, setParticipant] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -22,20 +24,15 @@ export default function ParticipantDetails() {
   useEffect(() => {
     const fetchParticipantDetails = async () => {
       try {
-        let response;
-
-        try {
-          // Try using the production backend URL first
-          response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/participantdetails/displaydetails`, {
-            params: { userFirst, userLast },
-          });
-        } catch (error) {
-          console.warn('Error fetching from production backend, falling back to localhost...');
-          // If the production backend fails, fallback to localhost:8081
-          response = await axios.get('http://localhost:8081/participantdetails/displaydetails', {
-            params: { userFirst, userLast },
-          });
-        }
+        const token = await getAccessTokenSilently({
+          audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+        });
+        let response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/participantdetails/displaydetails`, {
+          params: { userFirst, userLast },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setParticipant(response.data);
         setSelectedRole(response.data.position || '');
         setLoading(false);
@@ -70,26 +67,23 @@ export default function ParticipantDetails() {
     });
 
     try {
-      try {
-        // Try using the production backend URL first
-        await axios.put(
-          `${process.env.REACT_APP_API_BASE_URL}/participantdetails/updateusers`,
-          {
-            userIds: [participant.userId],
-            position: selectedRole,
-          }
-        );
-      } catch (error) {
-        console.warn('Error updating user details on production backend, falling back to localhost...');
-        // If the production backend fails, fallback to localhost:8081
-        await axios.put(
-          'http://localhost:8081/participantdetails/updateusers',
-          {
-            userIds: [participant.userId],
-            position: selectedRole,
-          }
-        );
-      }
+      const token = await getAccessTokenSilently({
+        audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+      });
+
+      await axios.put(
+        `${process.env.REACT_APP_API_BASE_URL}/participantdetails/updateusers`,
+        {
+          userIds: [participant.userId],
+          position: selectedRole,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
       setParticipant((prev) => ({ ...prev, position: selectedRole }));
       alert('User role updated successfully!');
     } catch (error) {

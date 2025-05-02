@@ -33,7 +33,7 @@ router.get('/displayusers', checkJwt, async (req, res) => {
 
 
 // Route to fetch users with no role
-router.get('/displayunapprovedusers', async (req, res) => {
+router.get('/displayunapprovedusers', checkJwt, async (req, res) => {
   try {
     console.log(User.getTableName());
     
@@ -60,7 +60,7 @@ router.get('/displayunapprovedusers', async (req, res) => {
 
 
 // Route to fetch a user's info and events
-router.get('/displaydetails', async (req, res) => {
+router.get('/displaydetails', checkJwt, async (req, res) => {
   const { userFirst, userLast } = req.query;
 
   try {
@@ -102,7 +102,7 @@ router.get('/displaydetails', async (req, res) => {
 
 
 // Route to fetch all events
-router.get('/events', async (req, res) => {
+router.get('/events', checkJwt, async (req, res) => {
   try {
     const events = await Event.findAll();
 
@@ -120,7 +120,7 @@ router.get('/events', async (req, res) => {
 
 
 // Route to update user role
-router.put("/updateusers", async (req, res) => {
+router.put("/updateusers", checkJwt, async (req, res) => {
   const { userIds, position } = req.body;
   formattedPosition = position.toLowerCase();
   
@@ -142,7 +142,7 @@ router.put("/updateusers", async (req, res) => {
 
 
 
-router.delete("/deleteusers", async (req, res) => {
+router.delete("/deleteusers", checkJwt, async (req, res) => {
   const { userIds } = req.body; // Expecting an array of user IDs
 
   if (!Array.isArray(userIds) || userIds.length === 0) {
@@ -158,7 +158,7 @@ router.delete("/deleteusers", async (req, res) => {
   }
 });
 
-router.get('/export', async (req, res) => {
+router.get('/export', checkJwt, async (req, res) => {
   try {
     const users = await User.findAll({
       include: {

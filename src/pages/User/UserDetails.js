@@ -107,7 +107,7 @@ export default function UserDetails() {
     <>
       <Header />
       <Menu />
-      <h1 id="partheader">Participant Details</h1>
+      <h1 id="partheader">User Details test test test</h1>
       <div className="partdetailcontainer">
         <h3 id="detailname">Name: {participant.userFirst} {participant.userLast}</h3>
         <h3 id="detailemail">Email: {participant.userEmail}</h3>
