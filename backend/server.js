@@ -76,6 +76,10 @@ app.use('/announcements', announcementsRoutes);
 const pagesRoutes = require('./routes/displayPages');
 app.use('/pages', pagesRoutes);
 
+const profileRoutes = require('./routes/profileRoutes');
+app.use('/profile', profileRoutes);
+
+
 
 
 // Define test routes
