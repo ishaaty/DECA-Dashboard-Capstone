@@ -24,14 +24,7 @@ export default function TodoListPage(props) {
     const [isThisMyList, setIsThisMyList] = useState(false);
 
     const userRole = useContext(UserRoleContext);
-
-    // let isThisMyList = false;
     
-    // const [searchParams] = useSearchParams();
-    // const user_id = searchParams.get("user_id");
-    // const event_id = searchParams.get("event_id");
-    // const user = searchParams.get("user");
-
     const location = useLocation();
     const { user_id, event_id, user, title } = location.state || {};  // Retrieve state from navigation
 
