@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const sequelize = require('../config/db');
 const Announcements = require('../models/announcementsModel')(sequelize);
-const { checkJwt } = require('../config/jwtConfig');
+const checkJwt = require('../config/jwtConfig');
 
 // Display announcements when the home page is opened
 router.get('/display', checkJwt, async (req, res) => {

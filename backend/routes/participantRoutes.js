@@ -5,7 +5,6 @@ const {Op} = require('sequelize')
 const mysql = require('mysql');
 const ExcelJS = require('exceljs');
 const checkJwt = require('../config/jwtConfig');
-console.log(checkJwt)
 
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
