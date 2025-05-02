@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useAuth0 } from "@auth0/auth0-react";
+
 import "./UnapprovedParticipants.css";
 import Header from "../../components/Header/Header";
 import Menu from "../../components/Menu/Menu";
@@ -10,20 +12,22 @@ export default function UnapprovedParticipants({ userRole }) {
   const [selectedRole, setSelectedRole] = useState(""); // Stores the selected role
   const [error, setError] = useState(null);
 
+  const { getAccessTokenSilently } = useAuth0();
+
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        let response;
-        try {
-          // Try using the production backend URL first
-          response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/participantdetails/displayunapprovedusers`);
-        } catch (error) {
-          console.warn('Error fetching from production backend, falling back to localhost...');
-          // If the production backend fails, fallback to localhost:8081
-          response = await axios.get('http://localhost:8081/participantdetails/displayunapprovedusers');
-        }
+        const token = await getAccessTokenSilently({
+          audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+        });
+
+        let response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/participantdetails/displayunapprovedusers`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setUsers(Array.isArray(response.data) ? response.data : []);
-        setError(null); // Clear any previous errors
+        setError(null);
       } catch (err) {
         console.error("Error fetching users:", err);
         setError("Failed to load users.");
@@ -58,29 +62,22 @@ export default function UnapprovedParticipants({ userRole }) {
     }
 
     try {
-      let response;
+      const token = await getAccessTokenSilently({
+        audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+      });
 
-      try {
-        // Try using the production backend URL first
-        response = await axios.put(
-          `${process.env.REACT_APP_API_BASE_URL}/participantdetails/updateusers`,
-          {
-            userIds: selectedIds,
-            position: selectedRole,
-          }
-        );
-      } catch (error) {
-        console.warn('Error updating user details on production backend, falling back to localhost...');
-        
-        // If the production backend fails, fallback to localhost:8081
-        response = await axios.put(
-          'http://localhost:8081/participantdetails/updateusers',
-          {
-            userIds: selectedIds,
-            position: selectedRole,
-          }
-        );
-      }
+      await axios.put(`${process.env.REACT_APP_API_BASE_URL}/participantdetails/updateusers`,
+        {
+          userIds: selectedIds,
+          position: selectedRole,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
 
       // Update UI with new role
       setUsers((prevUsers) =>
@@ -114,25 +111,20 @@ export default function UnapprovedParticipants({ userRole }) {
     }
 
     try {
+      const token = await getAccessTokenSilently({
+        audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+      });
 
-      try {
-        // Try using the production backend URL first
-        await axios.delete(
-          `${process.env.REACT_APP_API_BASE_URL}/participantdetails/deleteusers`,
-          {
-            data: { userIds: selectedIds },
-          }
-        );
-      } catch (error) {
-        console.warn('Error deleting users on production backend, falling back to localhost...');
-        // If the production backend fails, fallback to localhost:8081
-        await axios.delete(
-          'http://localhost:8081/participantdetails/deleteusers',
-          {
-            data: { userIds: selectedIds },
-          }
-        );
-      }
+      await axios.delete(
+        `${process.env.REACT_APP_API_BASE_URL}/participantdetails/deleteusers`,
+        {
+          data: { userIds: selectedIds },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
 
       // Remove deleted users from the UI
       setUsers((prevUsers) => prevUsers.filter((user) => !selectedIds.includes(user.user_id.toString())));
