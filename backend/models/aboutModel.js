@@ -13,7 +13,9 @@ module.exports = (sequelize) => {
         allowNull: false,
         defaultValue: '',
       },
-  })
+  });
+  return About;
+};
     // {
     //   idabout: {
     //     type: DataTypes.INTEGER,
@@ -31,4 +33,3 @@ module.exports = (sequelize) => {
     //   tableName: 'about',
     //   timestamps: false,
     // }
-};

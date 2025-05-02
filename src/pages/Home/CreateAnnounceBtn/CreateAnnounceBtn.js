@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import './CreateAnnounceBtn.css';
 import axios from '../../../services/axiosConfig';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const CreateAnnounceBtn = ({ setAnnouncements }) => {
   const [newAnnouncement, setNewAnnouncement] = useState({ title: '', descrip: '' });
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  const { getAccessTokenSilently } = useAuth0();
 
   const handleAddAnnouncement = async () => {
     if (!newAnnouncement.title || !newAnnouncement.descrip) {
@@ -18,29 +21,19 @@ const CreateAnnounceBtn = ({ setAnnouncements }) => {
 
     try {
       // Add new announcement to the backend
-      let response;
+      const token = await getAccessTokenSilently({
+        audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+      });
 
-      try {
-        // Try using the production backend URL first
-        response = await axios.post(
-          `${process.env.REACT_APP_API_BASE_URL}/announcements/add`, {
-            ann_name: newAnnouncement.title,
-            ann_description: newAnnouncement.descrip,
-          }
-        );
-      } catch (error) {
-        console.warn('Error adding announcement to production backend, falling back to localhost...');
-        
-        // If the production backend fails, fallback to localhost:8081
-        response = await axios.post(
-          `http://localhost:8081/announcements/add`, {
-            ann_name: newAnnouncement.title,
-            ann_description: newAnnouncement.descrip,
-          }
-        );
+      let response = await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/announcements/add`, {
+        ann_name: newAnnouncement.title,
+        ann_description: newAnnouncement.descrip,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
       }
-
-      
+      );
 
       // Add the new announcement to the current list of announcements (state)
       setAnnouncements(prevAnnouncements => [...prevAnnouncements, response.data]);
