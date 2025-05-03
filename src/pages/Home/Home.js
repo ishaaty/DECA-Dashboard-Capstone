@@ -17,23 +17,24 @@ export default function Home() {
 
   useEffect(() => {
     // To fetch role based content
-    const fetchHtmlContent = async () => { 
-      try {
-        const token = await getAccessTokenSilently({
-          audience: process.env.REACT_APP_AUTH0_AUDIENCE,
-        });
+    // const fetchHtmlContent = async () => { 
+    //   try {
+    //     const token = await getAccessTokenSilently({
+    //       audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+    //     });
 
-        const response = await axios.post('http://localhost:8081/pages/home', {
-          role: userRole,
-        }, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setHtmlContent(response.data);
-      } catch (error) {
-        console.error('Error fetching HTML content:', error);
-      }
+    //     const response = await axios.post('http://localhost:8081/pages/home', {
+    //       role: userRole,
+    //     }, {
+    //       headers: {
+    //         Authorization: `Bearer ${token}`,
+    //       },
+    //     });
+    //     setHtmlContent(response.data);
+    //   } catch (error) {
+    //     console.error('Error fetching HTML content:', error);
+    //   }
+    // };
 
       const fetchAnnouncements = async () => {
         const token = await getAccessTokenSilently({
@@ -50,7 +51,6 @@ export default function Home() {
       }
 
       fetchAnnouncements();
-    };
   
     if (user && isAuthenticated) {
       fetchHtmlContent();

@@ -21,7 +21,7 @@ const EditAnnouncementBtn = (props) => {
 
       let response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/announcements/display`, {
         headers: {
-          Authorization: `Bearer ${props.token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
       
