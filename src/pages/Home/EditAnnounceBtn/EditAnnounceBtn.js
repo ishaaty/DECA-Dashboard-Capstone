@@ -43,15 +43,17 @@ const EditAnnouncementBtn = (props) => {
     const announcementData = {
       ann_name: newAnnouncement.title,
       ann_description: newAnnouncement.description,
-      headers: {
-        Authorization: `Bearer ${props.token}`,
-      }
     };
 
     try {
       let response = await axios.put(
         `${process.env.REACT_APP_API_BASE_URL}/announcements/edit/${props.ann_id}`,
-        announcementData
+        announcementData,
+        {
+          headers: {
+            Authorization: `Bearer ${props.token}`,
+          },
+        }
       );
       
       fetchAnnouncements();
