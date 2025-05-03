@@ -51,21 +51,5 @@
     border-radius: 4px;
     cursor: pointer;
   }
-  
-  .user-card button:hover {
-    background-color: #0056b3;
-  }
-  
-  .user-card button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
-  
-  .user-card button:nth-of-type(2) {
-    background-color: #6c757d;
-  }
-  
-  .user-card button:nth-of-type(2):hover {
-    background-color: #5a6268;
-  }
+
   
