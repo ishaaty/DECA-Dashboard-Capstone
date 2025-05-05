@@ -13,7 +13,7 @@ export default function Home() {
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
   const userRole = useContext(UserRoleContext);
   const [announcements, setAnnouncements] = useState([]);
-  const [htmlContent, setHtmlContent] = useState(null);
+  //const [htmlContent, setHtmlContent] = useState(null);
 
   useEffect(() => {
     // To fetch role based content
@@ -52,9 +52,9 @@ export default function Home() {
 
       fetchAnnouncements();
   
-    if (user && isAuthenticated) {
-      fetchHtmlContent();
-    }
+    // if (user && isAuthenticated) {
+    //   fetchHtmlContent();
+    // }
   }, [getAccessTokenSilently, user, isAuthenticated]);
 
   // Handle deleting an announcement
