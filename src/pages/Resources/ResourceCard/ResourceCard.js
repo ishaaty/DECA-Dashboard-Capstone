@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import './ResourceCard.css';
+import {useAuth0} from '@auth0/auth0-react';
 
 import axios from '../../../services/axiosConfig';
 
 // Single Resource Component
 const Resource = ({ text, link, pdf, onDelete, userRole }) => {
+
   return (
     <div className="resource-box">
       <p className="resource-text">{text}</p>
@@ -29,6 +31,7 @@ const Resource = ({ text, link, pdf, onDelete, userRole }) => {
 
 // Resources List Component
 const Resources = ({ resources, userRole }) => {
+  const { getAccessTokenSilently } = useAuth0();
   const [resourceList, setResourceList] = useState([]);
 
   // Synchronize resourceList state with resources prop
@@ -61,25 +64,15 @@ const Resources = ({ resources, userRole }) => {
             formData.append('pdf', newResource.pdf);
         }
 
-        let response;
+      const token = await getAccessTokenSilently({
+        audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+      });
 
-        try {
-          // Try using the production backend URL first
-          response = await axios.post(
-            `${process.env.REACT_APP_API_BASE_URL}/resources/add`,
-            formData,
-            { headers: { 'Content-Type': 'multipart/form-data' } }
-          );
-        } catch (error) {
-          console.warn('Error adding resource on production backend, falling back to localhost...');
-          
-          // If the production backend fails, fallback to localhost:8081
-          response = await axios.post(
-            'http://localhost:8081/resources/add',
-            formData,
-            { headers: { 'Content-Type': 'multipart/form-data' } }
-          );
-        }
+      let response = await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/resources/add`,
+        formData,
+        { headers: { 'Content-Type': 'multipart/form-data' }, Authorization: `Bearer ${token}` }
+      );
 
         setResourceList([...resourceList, response.data]);
         setIsPopupOpen(false);
@@ -95,15 +88,12 @@ const Resources = ({ resources, userRole }) => {
   const handleDeleteResource = async (id) => {
     try {
       // send the id of the resource to delete to the backend
+      let token = await getAccessTokenSilently({  
+        audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+      });
 
-      try {
-        // Try using the production backend URL first
-        await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/resources/delete/${id}`);
-      } catch (error) {
-        console.warn('Error deleting resource on production backend, falling back to localhost...');
-        // If the production backend fails, fallback to localhost:8081
-        await axios.delete(`http://localhost:8081/resources/delete/${id}`);
-      }
+      await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/resources/delete/${id}`);
+
       setResourceList(resourceList.filter((resource) => resource.resource_id !== id)); // Update local state
     } catch (error) {
       console.error('Error deleting resource:', error);

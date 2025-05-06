@@ -6,31 +6,35 @@ import ResourceCards from './ResourceCard/ResourceCard';
 import { useState, useEffect, useContext } from 'react';
 import { UserRoleContext } from '../../context/UserRoleContext';
 import axios from 'axios';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const ResourcesPage = () => {
   const [resources, setResources] = useState([]);
   const userRole = useContext(UserRoleContext);
   console.log(userRole);
 
+  const { getAccessTokenSilently } = useAuth0();
+
   // Fetch resources from axios
   useEffect(() => {
     const fetchResources = async () => {
       try {
-        let response;
-        try {
-          // Try using the production backend URL first
-          response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/resources/display`);
-        } catch (error) {
-          console.warn('Error fetching from production backend, falling back to localhost...');
-          // If the production backend fails, fallback to localhost:8081
-          response = await axios.get('http://localhost:8081/resources/display');
-        }
+        let token = await getAccessTokenSilently({
+          audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+        });
+
+        let response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/resources/display`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        
         setResources(response.data);
       } catch (error) {
         console.error('Error fetching resources:', error);
       }
     };
-    
+
     fetchResources();
   }, []);
 
