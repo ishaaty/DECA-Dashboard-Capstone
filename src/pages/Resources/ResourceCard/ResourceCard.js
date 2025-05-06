@@ -68,11 +68,16 @@ const Resources = ({ resources, userRole }) => {
         audience: process.env.REACT_APP_AUTH0_AUDIENCE,
       });
 
-      let response = await axios.post(
-        `${process.env.REACT_APP_API_BASE_URL}/resources/add`,
+      let response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/resources/add`,
         formData,
-        { headers: { 'Content-Type': 'multipart/form-data' }, Authorization: `Bearer ${token}` }
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
+      
 
         setResourceList([...resourceList, response.data]);
         setIsPopupOpen(false);
@@ -92,7 +97,11 @@ const Resources = ({ resources, userRole }) => {
         audience: process.env.REACT_APP_AUTH0_AUDIENCE,
       });
 
-      await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/resources/delete/${id}`);
+      await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/resources/delete/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       setResourceList(resourceList.filter((resource) => resource.resource_id !== id)); // Update local state
     } catch (error) {
