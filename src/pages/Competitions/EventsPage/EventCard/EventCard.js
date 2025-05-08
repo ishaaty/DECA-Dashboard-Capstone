@@ -54,7 +54,7 @@ export default function EventCard(props) {
             // Use GET to fetch the user-event data from the route
             let response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/todolist/user-event/${props.event_id}/${props.user_id}`, {
                 headers: {
-                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
                 },
             });
             alert("Request sent successfully.");

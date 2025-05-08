@@ -36,7 +36,7 @@ export default function TodoListPage(props) {
     useEffect(() => {
         const fetchTodoData = async () => {
             try {
-                let token = getAccessTokenSilently({
+                let token = await getAccessTokenSilently({
                     audience: process.env.REACT_APP_AUTH0_AUDIENCE,
                 });
 
@@ -54,7 +54,7 @@ export default function TodoListPage(props) {
 
         const fetchEventData = async () => {
             try {
-                let token = getAccessTokenSilently({
+                let token = await getAccessTokenSilently({
                     audience: process.env.REACT_APP_AUTH0_AUDIENCE,
                 });
 
@@ -73,7 +73,7 @@ export default function TodoListPage(props) {
         const fetchViewingUserId = async () => {
             if (viewing_user?.email) {  // Check if user and user.email are available
                 try {
-                    let token = getAccessTokenSilently({
+                    let token = await getAccessTokenSilently({
                         audience: process.env.REACT_APP_AUTH0_AUDIENCE,
                     });
 
@@ -135,7 +135,7 @@ export default function TodoListPage(props) {
         }
     
         try {
-            let token = getAccessTokenSilently({
+            let token = await getAccessTokenSilently({
                 audience: process.env.REACT_APP_AUTH0_AUDIENCE,
             });
 

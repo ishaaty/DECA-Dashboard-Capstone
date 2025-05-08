@@ -26,10 +26,11 @@ const AddCommentBtn = (props) => {
       let response;
       try {
         // Try fetching from the production API first
+        const token = await getAccessTokenSilently({ audience: process.env.REACT_APP_AUTH0_AUDIENCE });
         response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/todolist/save-comment/${event_id}/${user_id}`, {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({ comment: newComment.comment }),
         });
