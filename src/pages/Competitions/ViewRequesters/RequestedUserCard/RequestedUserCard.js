@@ -49,7 +49,7 @@ export default function RequestedUserCard(props) {
 
             // Make a request to approve the event
             let response = await axios.post(
-                `${process.env.REACT_APP_API_BASE_URL}/todolist/approve-event/${props.event_id}/${props.user_id}`, {
+                `${process.env.REACT_APP_API_BASE_URL}/todolist/approve-event/${props.event_id}/${props.user_id}`, {}, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -79,7 +79,7 @@ export default function RequestedUserCard(props) {
             });
 
             // Make a request to deny the event
-            let response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/todolist/deny-event/${props.event_id}/${props.user_id}`, {
+            let response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/todolist/deny-event/${props.event_id}/${props.user_id}`, {}, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
