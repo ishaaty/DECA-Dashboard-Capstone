@@ -25,14 +25,16 @@ const CreateAnnounceBtn = ({ setAnnouncements }) => {
         audience: process.env.REACT_APP_AUTH0_AUDIENCE,
       });
 
-      let response = await axios.post(
-        `${process.env.REACT_APP_API_BASE_URL}/announcements/add`, {
-        ann_name: newAnnouncement.title,
-        ann_description: newAnnouncement.descrip,
-        headers: {
-          Authorization: `Bearer ${token}`,
+      let response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/announcements/add`,
+        {
+          ann_name: newAnnouncement.title,
+          ann_description: newAnnouncement.descrip,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-      }
       );
 
       // Add the new announcement to the current list of announcements (state)

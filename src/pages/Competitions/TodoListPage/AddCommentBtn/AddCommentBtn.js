@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import './AddCommentBtn.css';
+const { useAuth0 } = require('@auth0/auth0-react');
 
 const AddCommentBtn = (props) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [newComment, setNewComment] = useState({ comment: '' });
+
+  const { getAccessTokenSilently } = useAuth0();
 
   // Pre-populate the comment field if there's an existing comment
   useEffect(() => {
@@ -23,10 +26,12 @@ const AddCommentBtn = (props) => {
       let response;
       try {
         // Try fetching from the production API first
+        const token = await getAccessTokenSilently({ audience: process.env.REACT_APP_AUTH0_AUDIENCE });
         response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/todolist/save-comment/${event_id}/${user_id}`, {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json',  // <== Add this
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({ comment: newComment.comment }),
         });
@@ -34,13 +39,17 @@ const AddCommentBtn = (props) => {
         // If the production API fails, fall back to localhost
         if (!response.ok) {
           console.warn('Production API failed, falling back to localhost...');
-          response = await fetch(`http://localhost:8081/todolist/save-comment/${event_id}/${user_id}`, {
+          const token = await getAccessTokenSilently({ audience: process.env.REACT_APP_AUTH0_AUDIENCE });
+
+          const response = await fetch(`http://localhost:8081/todolist/save-comment/${event_id}/${user_id}`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
             },
             body: JSON.stringify({ comment: newComment.comment }),
           });
+
         }
       } catch (err) {
         console.error("Error saving comment:", err);

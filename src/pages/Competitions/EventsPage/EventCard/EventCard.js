@@ -6,6 +6,7 @@ import ViewEventBtn from '../ViewEventBtn/ViewEventBtn'
 import { UserRoleContext } from "../../../../context/UserRoleContext";
 import { Link } from "react-router-dom";
 import axios from 'axios'; 
+const { useAuth0 } = require('@auth0/auth0-react');
 
 
 
@@ -15,10 +16,23 @@ export default function EventCard(props) {
     const navigate = useNavigate();  
     console.log("User role:", userRole);
     console.log("Event status:", props.status);
+    const {getAccessTokenSilently} = useAuth0();
 
     const handleCancelRequest = async () => {
         try {
-            await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/todolist/delete-user-event/${props.event_id}/${props.user_id}`);
+            const token = await getAccessTokenSilently({
+                audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+            });
+
+            await axios.delete(
+                `${process.env.REACT_APP_API_BASE_URL}/todolist/delete-user-event/${props.event_id}/${props.user_id}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+
             // Handle success (e.g., show a success message or update the UI)
             props.setEvents(prevEvents => prevEvents.filter(event => event.event_id !== props.event_id));
             alert("Request canceled successfully.");
@@ -33,8 +47,16 @@ export default function EventCard(props) {
             console.log("event_id ", props.event_id);
             console.log("user_id ", props.user_id);
 
+            let token = await getAccessTokenSilently({
+                audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+            });
+
             // Use GET to fetch the user-event data from the route
-            let response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/todolist/user-event/${props.event_id}/${props.user_id}`);
+            let response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/todolist/user-event/${props.event_id}/${props.user_id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
             alert("Request sent successfully.");
 
             // You can now update the UI or handle the fetched data

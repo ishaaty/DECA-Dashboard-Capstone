@@ -21,7 +21,7 @@ const EditAnnouncementBtn = (props) => {
 
       let response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/announcements/display`, {
         headers: {
-          Authorization: `Bearer ${props.token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
       
@@ -43,15 +43,21 @@ const EditAnnouncementBtn = (props) => {
     const announcementData = {
       ann_name: newAnnouncement.title,
       ann_description: newAnnouncement.description,
-      headers: {
-        Authorization: `Bearer ${props.token}`,
-      }
     };
 
     try {
+      const token = await getAccessTokenSilently({
+        audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+      });
+
       let response = await axios.put(
         `${process.env.REACT_APP_API_BASE_URL}/announcements/edit/${props.ann_id}`,
-        announcementData
+        announcementData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       
       fetchAnnouncements();

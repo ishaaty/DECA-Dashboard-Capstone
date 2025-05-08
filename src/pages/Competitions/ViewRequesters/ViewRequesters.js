@@ -7,6 +7,7 @@ import ApprovedUserCard from './ApprovedUserCard/ApprovedUserCard'
 import { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';  // Import useParams here
 import { useLocation } from 'react-router-dom';
+const { useAuth0 } = require('@auth0/auth0-react');
 
 
 export default function ViewRequesters() {
@@ -17,24 +18,21 @@ export default function ViewRequesters() {
     const [requesters, setRequesters] = useState([]);
     const [approvedUsers, setApprovedUsers] = useState([]);
 
+    const {getAccessTokenSilently} = useAuth0();
+
     useEffect(() => {
         if (event_id) {
           const fetchEventData = async () => {
-            let data;
-            try {
-              // Try fetching from production first
-              const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/todolist/get-user-event/${event_id}`);
-              data = await response.json();
-            } catch (err) {
-              console.warn('Error fetching from production, falling back to localhost...');
-              try {
-                // If production fails, try localhost
-                const response = await fetch(`http://localhost:8081/todolist/get-user-event/${event_id}`);
-                data = await response.json();
-              } catch (err) {
-                console.error("Error fetching from localhost:", err);
+            let token = await getAccessTokenSilently({
+              audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+            });
+
+            const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/todolist/get-user-event/${event_id}`, {
+              headers: {
+                Authorization: `Bearer ${token}`,
               }
-            }
+            });
+            let data = await response.json();
       
             // Process data if it's valid
             if (Array.isArray(data)) {
