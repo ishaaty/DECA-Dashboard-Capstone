@@ -7,13 +7,14 @@ const UserEventXref = require('../models/user_event_xrefModel')(sequelize);
 const Events = require('../models/eventsModel')(sequelize);
 const s3 = require('../config/s3Config');
 const { Op } = require('sequelize');
+const checkJwt = require('../config/jwtConfig');
 
 // Multer storage setup (Memory storage for S3 upload)
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 // Route to upload a PDF for a specific event and user
-router.post('/upload-pdf/:event_id/:user_id', upload.single('pdf'), async (req, res) => {
+router.post('/upload-pdf/:event_id/:user_id', checkJwt, upload.single('pdf'), async (req, res) => {
     const { event_id, user_id } = req.params;
     const { requirement } = req.body;  // This will now capture the selected requirement (1, 2, etc.)
     const file = req.file;
@@ -66,7 +67,7 @@ router.post('/upload-pdf/:event_id/:user_id', upload.single('pdf'), async (req, 
 
 
 // Route to get a single row based on event_id and user_id
-router.get('/user-event/:event_id/:user_id', async (req, res) => {
+router.get('/user-event/:event_id/:user_id', checkJwt, async (req, res) => {
     const { event_id, user_id } = req.params;  // Get event_id and user_id from URL parameters
 
     try {
@@ -100,7 +101,7 @@ router.get('/user-event/:event_id/:user_id', async (req, res) => {
 
 
 // Route to update statuses dynamically based on provided numbers
-router.post('/save-statuses/:event_id/:user_id', async (req, res) => {
+router.post('/save-statuses/:event_id/:user_id', checkJwt, async (req, res) => {
     const { event_id, user_id } = req.params;
     const statuses = req.body; // Example: {2: 'completed', 4: 'pending'}
 
@@ -135,7 +136,7 @@ router.post('/save-statuses/:event_id/:user_id', async (req, res) => {
 
 
 // Route to save the comment
-router.post('/save-comment/:event_id/:user_id', async (req, res) => {
+router.post('/save-comment/:event_id/:user_id', checkJwt, async (req, res) => {
     const { event_id, user_id } = req.params;
     const { comment } = req.body;  // Get the comment from the request body
   
@@ -162,7 +163,7 @@ router.post('/save-comment/:event_id/:user_id', async (req, res) => {
 
 
 
-router.get('/get-user-event/:event_id', async (req, res) => {
+router.get('/get-user-event/:event_id', checkJwt, async (req, res) => {
     const { event_id } = req.params;
     
     try {
@@ -183,7 +184,7 @@ router.get('/get-user-event/:event_id', async (req, res) => {
 
 
 // Route to update the request_status for a user (approve or deny)
-router.post('/update-request-status/:user_id', async (req, res) => {
+router.post('/update-request-status/:user_id', checkJwt, async (req, res) => {
     const { user_id } = req.params;
     const { request_status } = req.body;
 
@@ -211,7 +212,7 @@ router.post('/update-request-status/:user_id', async (req, res) => {
 
 
 // Route to delete a user-event entry
-router.delete('/delete-user-event/:event_id/:user_id', async (req, res) => {
+router.delete('/delete-user-event/:event_id/:user_id', checkJwt, async (req, res) => {
     const { event_id, user_id } = req.params;
 
     try {
@@ -235,7 +236,7 @@ router.delete('/delete-user-event/:event_id/:user_id', async (req, res) => {
 });
 
 // Route to request an event (create a new user-event entry with "pending" status)
-router.post('/request-event/:event_id/:user_id', async (req, res) => {
+router.post('/request-event/:event_id/:user_id', checkJwt, async (req, res) => {
     const { event_id, user_id } = req.params;
     console.log("event_id again ", event_id);
     console.log("user_id again ", user_id);
@@ -275,7 +276,7 @@ router.post('/request-event/:event_id/:user_id', async (req, res) => {
 });
 
 // Route to approve an event (mark as approved)
-router.post('/approve-event/:event_id/:user_id', async (req, res) => {
+router.post('/approve-event/:event_id/:user_id', checkJwt, async (req, res) => {
     const { event_id, user_id } = req.params;
 
     try {
@@ -303,7 +304,7 @@ router.post('/approve-event/:event_id/:user_id', async (req, res) => {
 });
 
 // Route to deny an event (mark as denied)
-router.post('/deny-event/:event_id/:user_id', async (req, res) => {
+router.post('/deny-event/:event_id/:user_id', checkJwt, async (req, res) => {
     const { event_id, user_id } = req.params;
 
     try {

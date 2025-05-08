@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "./RequestedUserCard.css";
+const { useAuth0 } = require('@auth0/auth0-react');
 
 export default function RequestedUserCard(props) {
     const [user, setUser] = useState(null);
     const [error, setError] = useState(null);
+
+    const { getAccessTokenSilently } = useAuth0();
 
     // Fetch user info when component mounts or when `user_id` changes
     useEffect(() => {
@@ -40,20 +43,18 @@ export default function RequestedUserCard(props) {
             console.log("event_id ", props.event_id);
             console.log("user_id ", props.user_id);
 
+            let token = await getAccessTokenSilently({
+                audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+            });
+
             // Make a request to approve the event
-            let response;
-            try {
-                // Try using the production backend URL first
-                response = await axios.post(
-                    `${process.env.REACT_APP_API_BASE_URL}/todolist/approve-event/${props.event_id}/${props.user_id}`
-                );
-            } catch (error) {
-                console.warn('Error approving event to production backend, falling back to localhost...');
-                // If the production backend fails, fallback to localhost:8081
-                response = await axios.post(
-                    `http://localhost:8081/todolist/approve-event/${props.event_id}/${props.user_id}`
-                );
+            let response = await axios.post(
+                `${process.env.REACT_APP_API_BASE_URL}/todolist/approve-event/${props.event_id}/${props.user_id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
             }
+            );
 
             // Handle success (e.g., update the UI with the new status)
             console.log('Event request approved');
@@ -73,20 +74,17 @@ export default function RequestedUserCard(props) {
             console.log("event_id ", props.event_id);
             console.log("user_id ", props.user_id);
 
+            let token = await getAccessTokenSilently({
+                audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+            });
+
             // Make a request to deny the event
-            let response;
-            try {
-                // Try using the production backend URL first
-                response = await axios.post(
-                    `${process.env.REACT_APP_API_BASE_URL}/todolist/deny-event/${props.event_id}/${props.user_id}`
-                );
-            } catch (error) {
-                console.warn('Error denying event to production backend, falling back to localhost...');
-                // If the production backend fails, fallback to localhost:8081
-                response = await axios.post(
-                    `http://localhost:8081/todolist/deny-event/${props.event_id}/${props.user_id}`
-                );
-            }
+            let response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/todolist/deny-event/${props.event_id}/${props.user_id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            
 
             // Handle success (e.g., update the UI with the new status)
             console.log('Event request denied');
