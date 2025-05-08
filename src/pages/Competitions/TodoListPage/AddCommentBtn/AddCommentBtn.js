@@ -30,6 +30,7 @@ const AddCommentBtn = (props) => {
         response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/todolist/save-comment/${event_id}/${user_id}`, {
           method: 'POST',
           headers: {
+            'Content-Type': 'application/json',  // <== Add this
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({ comment: newComment.comment }),
