@@ -11,7 +11,7 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    fund_id: {
+    fundraiser_id: {
       type: DataTypes.INTEGER,
       allowNull: false
     },
