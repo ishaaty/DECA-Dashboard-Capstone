@@ -224,7 +224,7 @@ export default function FundraiserCard(props) {
                 <p>{props.fund_date}</p>
                 <div className="align-center">
                         <button className="delete-btn" id="request-event" onClick = {handleRequestEvent}>
-                            View Requesters
+                            Request Fundraiser
                         </button>
                 </div>
             </div>
