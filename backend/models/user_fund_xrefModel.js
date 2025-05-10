@@ -17,7 +17,8 @@ module.exports = (sequelize) => {
     },
     status: {
       type: DataTypes.STRING(45),
-      allowNull: false
+      allowNull: false,
+      defaultValue: 'pending',
     }
   }, {
     tableName: 'user_fund_xref',
