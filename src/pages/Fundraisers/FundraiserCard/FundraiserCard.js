@@ -68,7 +68,7 @@ export default function FundraiserCard(props) {
     }; 
 
     const handleViewRequesters = () => {
-        navigate('/viewrequester', { state: { fundraiser_id: props.fundraiser_id, fund_name: props.fund_name}}); 
+        navigate('/viewrequesters', { state: { fundraiser_id: props.fundraiser_id, fund_name: props.fund_name}}); 
     };
 
     
