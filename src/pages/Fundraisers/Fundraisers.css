@@ -2,12 +2,17 @@
     color: #00529B;
     text-align: center;
     padding-left: 20vw;
+    padding-top: 20vw;
 }
 
 .funds {
-    grid-template-columns: auto auto auto;
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two boxes per row */
+    gap: 40px; /* Spacing between boxes */
+    padding: 5px;
+    margin-left: 44vh;
+    margin-bottom: 20px; /* Ensures space between resources and button */
+    box-sizing: border-box;
 }
 
 .nofunds {
