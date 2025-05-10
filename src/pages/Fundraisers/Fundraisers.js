@@ -71,7 +71,7 @@ const FundraisersPage = () => {
       <Header />
       <Menu />
 
-      <div id = "fundheader"><h3>Fundraisers</h3></div>
+      <div id = "fundheader"><h1>Fundraisers</h1></div>
   
       <div className ="funds">
         {fundraisers.length > 0 ? (
