@@ -21,7 +21,7 @@ export default function FundraiserCard(props) {
             });
 
             await axios.delete(
-                `${process.env.REACT_APP_API_BASE_URL}/fundraisers/delete-user-fundraiser/${props.event_id}/${props.user_id}`, 
+                `${process.env.REACT_APP_API_BASE_URL}/fundraisers/delete-user-fundraiser/${props.fundraiser_id}/${props.user_id}`, 
                 {
                     headers: {
                         Authorization: `Bearer ${token}`, 
@@ -38,7 +38,7 @@ export default function FundraiserCard(props) {
         }
     }; 
     
-    const handleRequestEvent = async () => {
+    const handleRequestFundraiser = async () => {
         try { 
             console.log("fundraiser_id", props.fundraiser_id);
             console.log("user_id ", props.user_id); 
@@ -63,7 +63,7 @@ export default function FundraiserCard(props) {
                 ));
         } catch (error) { 
             alert("Request failed. Please try again."); 
-            console.error('Error fetching user event data: ', error); 
+            console.error('Error fetching user fundraiser data: ', error); 
         }
     }; 
 
@@ -175,8 +175,8 @@ export default function FundraiserCard(props) {
                         <button className="delete-btn" id="view-requesters" onClick = {handleViewRequesters}>
                             View Requesters
                         </button>
-                        <button className = "delete-btn" id = "request-event" onClick = {handleRequestEvent}>
-                            Request Event
+                        <button className = "delete-btn" id = "request-fundraiser" onClick = {handleRequestFundraiser}>
+                            Request Fundraiser
                         </button>
                         <button className="delete-btn" onClick={props.onDelete}>
                             Delete
@@ -223,7 +223,7 @@ export default function FundraiserCard(props) {
                 <p>{props.fund_location}</p>
                 <p>{props.fund_date}</p>
                 <div className="align-center">
-                        <button className="delete-btn" id="request-event" onClick = {handleRequestEvent}>
+                        <button className="delete-btn" id="request-fundraiser" onClick = {handleRequestFundraiser}>
                             Request Fundraiser
                         </button>
                 </div>
@@ -237,7 +237,7 @@ export default function FundraiserCard(props) {
             <p>{props.fund_description}</p>
             <p>{props.fund_location}</p>
             <p>{props.fund_date}</p>
-            <button className="delete-btn" id="request-event" onClick = {handleRequestEvent}>
+            <button className="delete-btn" id="request-fundraiser" onClick = {handleRequestFundraiser}>
                             Request Fundraiser
                         </button>
           </div>
