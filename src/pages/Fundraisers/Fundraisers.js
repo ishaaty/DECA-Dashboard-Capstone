@@ -84,6 +84,7 @@ const FundraisersPage = () => {
               fund_location={fundraiser.fund_location}
               fund_date={fundraiser.fund_date}
               acquired={fundraiser.acquired}
+              status={fundraiser.status || "default"}
               setFundraisers={setFundraisers}
               onDelete={() => handleDeleteFundraiser(fundraiser.fundraiser_id)}            />
           ))
