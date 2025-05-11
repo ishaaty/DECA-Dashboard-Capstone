@@ -11,7 +11,7 @@ export default function FundraiserCard(props) {
     const userRole = useContext(UserRoleContext);
     const navigate = useNavigate(); 
     console.log("User role:", userRole);
-    console.log("Event status:", props.status);
+    console.log("Fundraiser status:", props.status);
     const {getAccessTokenSilently} = useAuth0();
 
     const handleCancelRequest = async () => {
