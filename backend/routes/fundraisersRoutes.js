@@ -188,7 +188,7 @@ router.post('/update-request-status/:user_id', checkJwt, async (req, res) => {
 });
 
 // Route to delete a user-fundraiser entry
-router.delete('/delete-user-fundraiser/:fundraiser_id/:usr_id', checkJwt, async (req,res) => {
+router.delete('/delete-user-fundraiser/:fundraiser_id/:user_id', checkJwt, async (req,res) => {
     const { fundraiser_id, user_id } = req.params; 
 
     try { 
@@ -304,24 +304,6 @@ router.post('/deny-fundraiser/:fundraiser_id/:user_id', checkJwt, async (req, re
     } catch (error) {
         console.error('Error denying fundraiser:', error);
         res.status(500).json({ error: 'Failed to deny fundraiser' });
-    }
-});
-
-router.get('/user-fundraiser/:fundraiser_id/:user_id', checkJwt, async (req, res) => {
-    const { fundraiser_id, user_id } = req.params;
-    try {
-        const request = await UserFundXref.findOne({
-            where: { fundraiser_id, user_id }
-        });
-
-        if (!request) {
-            return res.status(404).json({ error: 'Request not found' });
-        }
-
-        res.json({ request_status: request.status });
-    } catch (error) {
-        console.error('Error fetching user-fundraiser request:', error);
-        res.status(500).json({ error: 'Failed to fetch request status' });
     }
 });
 
