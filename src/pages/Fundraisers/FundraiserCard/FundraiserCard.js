@@ -230,7 +230,19 @@ export default function FundraiserCard(props) {
             </div>
             );
         }
-    }
+    } else {
+        return (
+          <div className="fundraiser-card">
+            <h3>{props.fund_name}</h3>
+            <p>{props.fund_description}</p>
+            <p>{props.fund_location}</p>
+            <p>{props.fund_date}</p>
+            <button className="delete-btn" id="request-event" onClick = {handleRequestEvent}>
+                            Request Fundraiser
+                        </button>
+          </div>
+        );
+      }
 
     return null; 
 }
