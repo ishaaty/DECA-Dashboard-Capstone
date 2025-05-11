@@ -92,7 +92,7 @@ const FundraisersPage = () => {
         )}
         </div>
   
-        {(userRole === "admin" || userRole === "board member") && (
+        {(userRole === "admin") && (
           <div className = "createfund"><CreateFundraiserBtn setFundraisers={setFundraisers} /></div>
         )}
 

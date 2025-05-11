@@ -189,7 +189,7 @@ router.post('/update-request-status/:user_id', checkJwt, async (req, res) => {
 
 // Route to delete a user-fundraiser entry
 router.delete('/delete-user-fundraiser/:fundraiser_id/:usr_id', checkJwt, async (req,res) => {
-    const { event_id, user_id } = req.params; 
+    const { fundraiser_id, user_id } = req.params; 
 
     try { 
         // find an delete the record in user_fundraiser_xref
@@ -324,50 +324,5 @@ router.get('/user-fundraiser/:fundraiser_id/:user_id', checkJwt, async (req, res
         res.status(500).json({ error: 'Failed to fetch request status' });
     }
 });
-
-router.delete('/delete-user-fundraiser/:event_id/:user_id', checkJwt, async (req, res) => {
-    const { event_id, user_id } = req.params;
-
-    try {
-        const deleted = await UserFundXref.destroy({
-            where: { fundraiser_id: event_id, user_id }
-        });
-
-        if (!deleted) {
-            return res.status(404).json({ error: 'Request not found' });
-        }
-
-        res.status(200).json({ message: 'Request successfully deleted' });
-    } catch (error) {
-        console.error('Error deleting user fundraiser request:', error);
-        res.status(500).json({ error: 'Failed to delete request' });
-    }
-});
-
-router.post('/user-fundraiser', checkJwt, async (req, res) => {
-    const { fundraiser_id, user_id } = req.body;
-
-    try {
-        const existingRequest = await UserFundXref.findOne({
-            where: { fundraiser_id, user_id }
-        });
-
-        if (existingRequest) {
-            return res.status(400).json({ error: 'Request already exists' });
-        }
-
-        const newRequest = await UserFundXref.create({
-            fundraiser_id,
-            user_id,
-            status: 'pending'
-        });
-
-        res.status(201).json({ message: 'Request created successfully', newRequest });
-    } catch (error) {
-        console.error('Error creating user fundraiser request:', error);
-        res.status(500).json({ error: 'Failed to create request' });
-    }
-});
-
 
 module.exports = router
