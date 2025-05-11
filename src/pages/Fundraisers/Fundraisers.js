@@ -13,33 +13,74 @@ import axios from 'axios';
 const FundraisersPage = () => {
   const { user, isAuthenticated } = useAuth0();
   const userRole = useContext(UserRoleContext);
-  const [fundraisers, setFundraisers] = useState([]); // Ensure it's an array
+  const [user_id, setUserId] = useState(null); 
+  const [fundraisers, setFundraisers] = useState([]); 
+  const [pendingEvents, setPendingEvents] = useState([]); 
+  const [defaultEvents, setDefaultEvents] = useState([]); 
+  const [deniedEvents, setDeniedEvents] = useState([]); 
 
-  // Fetch fundraisers from axios
-  useEffect(() => {
-    const fetchFundraisers = async () => {
-      let response;
-  
-      try {
-        // Try using the production backend
-        response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/fundraisers/display`);
-      } catch (error) {
-        console.warn("Error fetching from production backend, falling back to localhost...");
-  
-        // If production URL fails, fallback to localhost
-        response = await axios.get('http://localhost:8081/fundraisers/display');
+  // Fetch user ID based on email
+  useEffect(() => { 
+    const fetchUserId = async () => { 
+      if (user?.email) { 
+        try { 
+          let response; 
+
+          try {
+            // Try using the production backend
+            response = await axios.get('http://localhost:8081/user/get-user-id', {
+              params: { email: user.email }
+            });
+          } catch (error) { 
+            console.warn('Error fetching from production backend, falling back to localhost...'); 
+
+            // If the production URL fails, fallback to local host
+            response = await axios.get('http://localhost:8081/user/get-user-id', { 
+              params: { email: user.email }
+            }); 
+          }
+
+          if (response.data?.user_id) { 
+            setUserId(response.data.user_id); 
+            console.log(user_id)
+          } else { 
+            console.error('User ID not found');
+          }
+        } catch (error) { 
+          console.error('User email is not available');
+        }
       }
-  
-      try {
-        console.log(response.data); // Log to check the response
-        setFundraisers(response.data); // Update state with fetched data
-      } catch (error) {
-        console.error('Error fetching fundraisers:', error);
-      }
-    };
-  
-    fetchFundraisers();
-  }, []);
+    }; 
+
+    fetchUserId();
+  }, [user]); 
+
+    // Fetch fundraisers from axios
+    useEffect(() => {
+      const fetchFundraisers = async () => {
+        let response;
+    
+        try {
+          // Try using the production backend
+          response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/fundraisers/display`);
+        } catch (error) {
+          console.warn("Error fetching from production backend, falling back to localhost...");
+    
+          // If production URL fails, fallback to localhost
+          response = await axios.get('http://localhost:8081/fundraisers/display');
+        }
+    
+        try {
+          console.log(response.data); // Log to check the response
+          setFundraisers(response.data); // Update state with fetched data
+        } catch (error) {
+          console.error('Error fetching fundraisers:', error);
+        }
+      };
+    
+      fetchFundraisers();
+    }, []);  
+
 
   // Handle deleting an fundraiser
   const handleDeleteFundraiser = async (fundraiser_id) => {
