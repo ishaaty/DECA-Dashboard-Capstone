@@ -83,6 +83,7 @@ const FundraisersPage = () => {
               fund_description={fundraiser.fund_description}
               fund_location={fundraiser.fund_location}
               fund_date={fundraiser.fund_date}
+              user_id={user_id}
               acquired={fundraiser.acquired}
               status={fundraiser.request_status || "default"}
               setFundraisers={setFundraisers}
