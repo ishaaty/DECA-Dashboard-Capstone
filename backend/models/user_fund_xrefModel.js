@@ -3,9 +3,10 @@ const { DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
   const UserFundXref = sequelize.define('UserFundXref', {
     user_fund_xref_id: {
-      type: DataTypes.STRING(45),
+      type: DataTypes.INTEGER,
       primaryKey: true,
-      allowNull: false
+      allowNull: false,
+      autoIncrement: true
     },
     user_id: {
       type: DataTypes.INTEGER,
