@@ -47,12 +47,16 @@ export default function FundraiserCard(props) {
                 audience: process.env.REACT_APP_AUTH0_AUDIENCE,
             }); 
 
+            console.log("Token: ", token); 
+
             // Use GET to fetch the user-fundraiser data from the route
             let response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/fundraisers/user-fundraiser/${props.fundraiser_id}/${props.user_id}`, {
                 headers: { 
                     Authorization: `Bearer ${token}`,
                 }
             }); 
+
+            console.log("Response:", response);
             alert("Request sent successfully."); 
 
             // You can now update the UI or handle the fetched data
