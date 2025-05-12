@@ -246,7 +246,7 @@ router.post('/request-fundraiser/:fundraiser_id/:user_id', checkJwt, async (req,
             res.status(201).json({ message: 'Fundraiser request created successfully', newUserFundraiser });
         }
     } catch (error) {
-        console.error('Error processing event request:', error);
+        console.error('Error processing fundraiser request:', error);
         res.status(500).json({ error: 'Failed to process fundraiser request' });
     }
 });
@@ -279,7 +279,7 @@ router.post('/approve-fundraiser/:fundraiser_id/:user_id', checkJwt, async (req,
     }
 });
 
-// Route to deny an event (mark as denied)
+// Route to deny an fundraiser (mark as denied)
 router.post('/deny-fundraiser/:fundraiser_id/:user_id', checkJwt, async (req, res) => {
     const { fundraiser_id, user_id } = req.params;
 
