@@ -133,7 +133,7 @@ const FundraisersPage = () => {
               fund_date={fundraiser.fund_date}
               user_id={user_id}
               acquired={fundraiser.acquired}
-              status={fundraiser.request_status}
+              status={"pending"}
               setFundraisers={setFundraisers}
               onDelete={() => handleDeleteFundraiser(fundraiser.fundraiser_id)}            />
           ))
