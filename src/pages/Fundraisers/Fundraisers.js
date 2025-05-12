@@ -60,7 +60,7 @@ const FundraisersPage = () => {
     }; 
 
     fetchUserId();
-  }, [user?.email]); 
+  }, [user]); 
 
     // Fetch fundraisers from axios
     useEffect(() => {
