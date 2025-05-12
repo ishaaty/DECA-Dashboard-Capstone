@@ -36,6 +36,7 @@ import TodoListPage from '../Competitions/TodoListPage/TodoListPage';
 import Unauthorized from "../Unauthorized/Unauthorized"; 
 import SessionTimeout from '../../context/sessionTimeout';
 import UserDetails from "../User/UserDetails";
+import ViewFundraiserRequesters from "../Fundraisers/ViewRequesters/ViewFundraiserRequesters"; 
 
 
 
@@ -107,6 +108,7 @@ const RoleRestrictedRoutes = () => {
       <Route path="/participantdetails" element={<ParticipantDetails />} />
       <Route path="/resources" element={<Resources />} />
       <Route path="/userdetails" element={<UserDetails />} />
+      <Route path="/viewfundraiserrequesters" element={<ViewFundraiserRequesters />} />
 
 
       <Route 
