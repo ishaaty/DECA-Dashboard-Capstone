@@ -32,7 +32,7 @@ const FundraisersPage = () => {
           try {
             // Try using the production backend
             console.log("Fetching user_id for:", user.email);
-            response = await axios.get('http://localhost:8081/user/get-user-id', {
+            response = await axios.get('${process.env.REACT_APP_API_BASE_URL}/user/get-user-id', {
               params: { email: user.email }
             });
 
