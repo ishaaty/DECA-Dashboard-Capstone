@@ -1,4 +1,4 @@
-import './ViewRequesters.css';
+import './ViewFundraiserRequesters.css';
 import Header from '../../../components/Header/Header'
 import Menu from '../../../components/Menu/Menu'
 import ParticipantCard from '../../../components/ParticipantCard/ParticipantCard';
