@@ -19,6 +19,13 @@ const FundraisersPage = () => {
   const [defaultEvents, setDefaultEvents] = useState([]); 
   const [deniedEvents, setDeniedEvents] = useState([]); 
 
+
+  useEffect(() => {
+    if (user_id) {
+      console.log("Updated user_id:", user_id);
+    }
+  }, [user_id]);
+  
   // Fetch user ID based on email
   useEffect(() => { 
     const fetchUserId = async () => { 
