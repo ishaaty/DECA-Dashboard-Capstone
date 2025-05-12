@@ -22,6 +22,9 @@ const FundraisersPage = () => {
   // Fetch user ID based on email
   useEffect(() => { 
     const fetchUserId = async () => { 
+
+      console.log(user_id); 
+      
       if (user?.email) { 
         try { 
           let response; 
