@@ -306,7 +306,7 @@ if (userRole === "admin") {
               onDelete={() => handleDeleteFundraiser(fundraiser.fundraiser_id)}            />
           ))
         ) : (
-          <h2>All Fundraisers</h2>
+          <h2>[All other Fundraisers here]</h2>
         )}
         </div>
 
@@ -357,7 +357,7 @@ if (userRole === "admin") {
               status = {"default"}           />
           ))
         ) : (
-          <h2>All Fundraisers</h2>
+          <h3>[All other Fundraisers here]</h3>
         )}
         {myFundraisers.length > 0 ? (
           myFundraisers.map((fundraiser) => (
