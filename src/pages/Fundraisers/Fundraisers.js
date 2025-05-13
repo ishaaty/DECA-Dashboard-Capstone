@@ -254,6 +254,7 @@ if (userRole === "admin") {
       <div id = "fundheader"><h1>Fundraisers</h1></div>
   
       <div className ="funds">
+        <h2>Requested</h2>
         {pendingFundraisers.length > 0 ? (
           pendingFundraisers.map((fundraiser) => (
             <FundraiserCard
@@ -272,7 +273,7 @@ if (userRole === "admin") {
         ) : (
           <p></p>
         )}
-
+        <h2>Approved</h2>
         {myFundraisers.length > 0 ? (
           myFundraisers.map((fundraiser) => (
             <FundraiserCard
@@ -291,7 +292,7 @@ if (userRole === "admin") {
         ) : (
           <p></p>
         )}
-
+        <h2>Default</h2>
         {defaultFundraisers.length > 0 ? (
           defaultFundraisers.map((fundraiser) => (
             <FundraiserCard
@@ -327,6 +328,7 @@ if (userRole === "admin") {
       <div id = "fundheader"><h1>Fundraisers</h1></div>
   
       <div className ="funds">
+        <h2>Pending</h2>
         {pendingFundraisers.length > 0 ? (
           pendingFundraisers.map((fundraiser) => (
             <FundraiserCard
@@ -344,6 +346,7 @@ if (userRole === "admin") {
         ) : (
           <p></p>
         )}
+        <h2>Default</h2>
         {defaultFundraisers.length > 0 ? (
           defaultFundraisers.map((fundraiser) => (
             <FundraiserCard
@@ -361,6 +364,7 @@ if (userRole === "admin") {
         ) : (
           <p></p>
         )}
+        <h2>Approved</h2>
         {myFundraisers.length > 0 ? (
           myFundraisers.map((fundraiser) => (
             <FundraiserCard
