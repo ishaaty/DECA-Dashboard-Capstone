@@ -85,6 +85,10 @@
   font-size: 18px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  justify-content: center;
+  margin: auto auto;
+  display: flex;
+  align-items: center;
 }
 
 .center-button:hover {

@@ -1,9 +1,11 @@
 .export {
     display: grid;
     justify-content: center;
-    background-color: #8EA1B3;
-    width: 15vw;
-    height: 20vw;
+    /* background-color: #8EA1B3; */
+    background-color: #E3E8F1;
+    width: 20vw;
+    height: 10vw;
+    margin-left: 20vw;
     padding-top: 10px;
     border-radius: 10px;
     margin-top: 5vh;
@@ -21,15 +23,20 @@
     display: flex;
 }
 
+#adminaccess {
+    text-align: center;
+}
+
 #pdf {
     background-color: #F5585E;
     border: #F5585E;
 }
 
-#jpeg {
-    background-color: #FFC511;
-    border: #FFC511;
-    width: 5vw;
+#jpeg, #viewunapproved {
+    background-color: #00529B;
+    border: #00529B;
+    color: white;
+    width: 8vw;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
     text-align: center;
@@ -38,8 +45,8 @@
     align-items: center;
     justify-content: center;
     border-radius: 1vh;
-    width: 60%;
     height: 5vh;
+    margin: 1vw;
 
 }
 
@@ -48,19 +55,15 @@
     border: #00984D;
 }
 
-#jpeg:hover {
-    background-color: #FFD633;
-    transform: scale(1.05);
+#jpeg:hover, #viewunapproved:hover {
+    background-color: #136ebd;
+    /* transform: scale(1.05); */
 }
 
 /* Active Effect */
 #jpeg:active {
     transform: scale(0.98);
     background-color: #E6B800;
-}
-
-#viewunapproved {
-    color: black;
 }
 
 #switchlabel {
