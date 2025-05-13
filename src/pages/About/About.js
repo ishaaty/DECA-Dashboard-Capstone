@@ -22,40 +22,9 @@ export default function About() {
   const [error, setError] = useState(null); // State for error handling
 
   // Fetch the current description from the backend when the component mounts
-  useEffect(() => {
-    const fetchDescription = async () => {
-      try {
-        const response = await axios.get('http://localhost:8081/about');
-        setDescription(response.data.description); // Assuming the backend sends a description field
-      } catch (err) {
-        console.error("Error fetching description:", err);
-        setError("Failed to load description.");
-      }
-    };
-
-    fetchDescription();
-  }, []);
 
   // Handle the change in the description textbox
-  const handleChange = (event) => {
-    setDescription(event.target.value);
-  };
 
-  // Handle saving the updated description to the backend
-  const handleSave = async () => {
-    try {
-      const response = await axios.put('http://localhost:8081/about/saveDescription', {
-        description: description,
-      });
-      if (response.status === 200) {
-        alert('Description saved successfully!');
-        setIsEditing(false); // Exit edit mode after saving
-      }
-    } catch (err) {
-      console.error("Error saving description:", err);
-      setError("Failed to save description.");
-    }
-  };
 
   return (
     <>
@@ -67,18 +36,14 @@ export default function About() {
           <div>
             <textarea
               value={description}
-              onChange={handleChange}
               rows="10"
               cols="50"
             />
             <br />
-            {/* <button onClick={handleSave}>Save</button> */}
-            <button onClick={handleSave}>Save</button>
           </div>
         ) : (
           <div>
-            <p>{description}</p>
-            <button onClick={() => setIsEditing(true)}>Edit</button>
+            <p>DECA prepares emerging leaders and entrepreneurs for careers in marketing, finance, hospitality and management in high schools and colleges around the globe. The Bergen County Academies chapter has over 100 student members who successfully compete in the district, state, and international competition levels.</p>
           </div>
         )}
       </div>
