@@ -18,6 +18,7 @@ const FundraisersPage = () => {
   const [pendingFundraisers, setPendingFundraisers] = useState([]); 
   const [defaultFundraisers, setDefaultFundraisers] = useState([]); 
   const [deniedFundraisers, setDeniedFundraisers] = useState([]); 
+  const [myFundraisers, setMyFundraisers] = useState([]);
 
   // Fetch user ID based on email
   useEffect(() => { 
@@ -253,8 +254,8 @@ if (userRole === "admin") {
       <div id = "fundheader"><h1>Fundraisers</h1></div>
   
       <div className ="funds">
-        {fundraisers.length > 0 ? (
-          fundraisers.map((fundraiser) => (
+        {pendingFundraisers.length > 0 ? (
+          pendingFundraisers.map((fundraiser) => (
             <FundraiserCard
               key={fundraiser.fundraiser_id}
               fundraiser_id={fundraiser.fundraiser_id}
@@ -272,8 +273,8 @@ if (userRole === "admin") {
           <p>No fundraisers yet.</p>
         )}
 
-        {fundraisers.length > 0 ? (
-          fundraisers.map((fundraiser) => (
+        {myFundraisers.length > 0 ? (
+          myFundraisers.map((fundraiser) => (
             <FundraiserCard
               key={fundraiser.fundraiser_id}
               fundraiser_id={fundraiser.fundraiser_id}
@@ -289,10 +290,10 @@ if (userRole === "admin") {
           ))
         ) : (
           <p>No fundraisers yet.</p>
-        )}  
+        )}
 
-        {fundraisers.length > 0 ? (
-          fundraisers.map((fundraiser) => (
+        {defaultFundraisers.length > 0 ? (
+          defaultFundraisers.map((fundraiser) => (
             <FundraiserCard
               key={fundraiser.fundraiser_id}
               fundraiser_id={fundraiser.fundraiser_id}
@@ -326,8 +327,8 @@ if (userRole === "admin") {
       <div id = "fundheader"><h1>Fundraisers</h1></div>
   
       <div className ="funds">
-        {fundraisers.length > 0 ? (
-          fundraisers.map((fundraiser) => (
+        {pendingFundraisers.length > 0 ? (
+          pendingFundraisers.map((fundraiser) => (
             <FundraiserCard
               key={fundraiser.fundraiser_id}
               fundraiser_id={fundraiser.fundraiser_id}
@@ -343,8 +344,8 @@ if (userRole === "admin") {
         ) : (
           <p>No fundraisers yet.</p>
         )}
-        {fundraisers.length > 0 ? (
-          fundraisers.map((fundraiser) => (
+        {defaultFundraisers.length > 0 ? (
+          defaultFundraisers.map((fundraiser) => (
             <FundraiserCard
               key={fundraiser.fundraiser_id}
               fundraiser_id={fundraiser.fundraiser_id}
@@ -360,8 +361,8 @@ if (userRole === "admin") {
         ) : (
           <p>No fundraisers yet.</p>
         )}
-        {fundraisers.length > 0 ? (
-          fundraisers.map((fundraiser) => (
+        {myFundraisers.length > 0 ? (
+          myFundraisers.map((fundraiser) => (
             <FundraiserCard
               key={fundraiser.fundraiser_id}
               fundraiser_id={fundraiser.fundraiser_id}
