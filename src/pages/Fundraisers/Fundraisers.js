@@ -254,7 +254,6 @@ if (userRole === "admin") {
       <div id = "fundheader"><h1>Fundraisers</h1></div>
   
       <div className ="funds">
-        <h2>Requested</h2>
         {pendingFundraisers.length > 0 ? (
           pendingFundraisers.map((fundraiser) => (
             <FundraiserCard
@@ -271,9 +270,8 @@ if (userRole === "admin") {
               onDelete={() => handleDeleteFundraiser(fundraiser.fundraiser_id)}            />
           ))
         ) : (
-          <p></p>
+          <h2>Requested</h2>
         )}
-        <h2>Approved</h2>
         {myFundraisers.length > 0 ? (
           myFundraisers.map((fundraiser) => (
             <FundraiserCard
@@ -290,9 +288,8 @@ if (userRole === "admin") {
               onDelete={() => handleDeleteFundraiser(fundraiser.fundraiser_id)}            />
           ))
         ) : (
-          <p></p>
+          <h2>Approved</h2>
         )}
-        <h2>Default</h2>
         {defaultFundraisers.length > 0 ? (
           defaultFundraisers.map((fundraiser) => (
             <FundraiserCard
@@ -309,7 +306,7 @@ if (userRole === "admin") {
               onDelete={() => handleDeleteFundraiser(fundraiser.fundraiser_id)}            />
           ))
         ) : (
-          <p></p>
+          <h2>All Fundraisers</h2>
         )}
         </div>
 
@@ -328,7 +325,6 @@ if (userRole === "admin") {
       <div id = "fundheader"><h1>Fundraisers</h1></div>
   
       <div className ="funds">
-        <h2>Pending</h2>
         {pendingFundraisers.length > 0 ? (
           pendingFundraisers.map((fundraiser) => (
             <FundraiserCard
@@ -344,9 +340,8 @@ if (userRole === "admin") {
               status = {"pending"}           />
           ))
         ) : (
-          <p></p>
+          <h2>Requested</h2>
         )}
-        <h2>Default</h2>
         {defaultFundraisers.length > 0 ? (
           defaultFundraisers.map((fundraiser) => (
             <FundraiserCard
@@ -362,9 +357,8 @@ if (userRole === "admin") {
               status = {"default"}           />
           ))
         ) : (
-          <p></p>
+          <h2>All Fundraisers</h2>
         )}
-        <h2>Approved</h2>
         {myFundraisers.length > 0 ? (
           myFundraisers.map((fundraiser) => (
             <FundraiserCard
@@ -380,7 +374,7 @@ if (userRole === "admin") {
               status = {"approved"}           />
           ))
         ) : (
-          <p></p>
+          <h2>Approved</h2>
         )}
         </div>
     </>
