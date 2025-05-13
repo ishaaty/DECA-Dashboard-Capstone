@@ -237,7 +237,7 @@ if (userRole === "admin") {
                 onDelete={() => handleDeleteFundraiser(fundraiser.fundraiser_id)}            />
             ))
           ) : (
-            <p>No fundraisers yet.</p>
+            <p></p>
           )}
           </div>
 
@@ -270,7 +270,7 @@ if (userRole === "admin") {
               onDelete={() => handleDeleteFundraiser(fundraiser.fundraiser_id)}            />
           ))
         ) : (
-          <p>No fundraisers yet.</p>
+          <p></p>
         )}
 
         {myFundraisers.length > 0 ? (
@@ -289,7 +289,7 @@ if (userRole === "admin") {
               onDelete={() => handleDeleteFundraiser(fundraiser.fundraiser_id)}            />
           ))
         ) : (
-          <p>No fundraisers yet.</p>
+          <p></p>
         )}
 
         {defaultFundraisers.length > 0 ? (
@@ -308,7 +308,7 @@ if (userRole === "admin") {
               onDelete={() => handleDeleteFundraiser(fundraiser.fundraiser_id)}            />
           ))
         ) : (
-          <p>No fundraisers yet.</p>
+          <p></p>
         )}
         </div>
 
@@ -342,7 +342,7 @@ if (userRole === "admin") {
               status = {"pending"}           />
           ))
         ) : (
-          <p>No fundraisers yet.</p>
+          <p></p>
         )}
         {defaultFundraisers.length > 0 ? (
           defaultFundraisers.map((fundraiser) => (
@@ -359,7 +359,7 @@ if (userRole === "admin") {
               status = {"default"}           />
           ))
         ) : (
-          <p>No fundraisers yet.</p>
+          <p></p>
         )}
         {myFundraisers.length > 0 ? (
           myFundraisers.map((fundraiser) => (
@@ -376,7 +376,7 @@ if (userRole === "admin") {
               status = {"approved"}           />
           ))
         ) : (
-          <p>No fundraisers yet.</p>
+          <p></p>
         )}
         </div>
     </>
