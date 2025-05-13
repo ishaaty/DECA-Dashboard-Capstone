@@ -307,4 +307,111 @@ router.post('/deny-fundraiser/:fundraiser_id/:user_id', checkJwt, async (req, re
     }
 });
 
+
+// Fetch "My Fundraisers" 
+router.get('/myfundraisers', async (req, res) => {
+    const { user_id } = req.query; 
+
+    if (!user_id) {
+        return res.status(400).json({ error: "Missing user_id" });
+    }
+
+    try {
+        // Find all fundraiser_ids where the user is approved
+        const approvedFundraisers = await UserFundXref.findAll({
+            where: {
+                user_id: user_id,
+                request_status: 'approved'
+            },
+            attributes: ['fundraiser_id']  
+        });
+
+        // Extract fundraiser IDs from the results
+        const fundraiserIds = approvedFundraisers.map(f => f.fundraiser_id);
+
+        // Find fundraisers that match those fundraiser IDs and belong to the competition
+        const myFundraisers = await Fundraisers.findAll({
+            where: {
+                fundraiser_id: { [Op.in]: fundraiserIds },
+            }
+        });
+
+        res.status(200).json(myFundraisers);
+    } catch (error) {
+        console.error('Error fetching my fundraisers:', error);
+        res.status(500).json({ error: 'Failed to fetch my fundraisers' });
+    }
+});
+
+router.get('/pending-fundraisers', async (req, res) => {
+    const { user_id } = req.query; 
+
+    if (!user_id) {
+        return res.status(400).json({ error: "Missing user_id" });
+    }
+
+    try {
+        // Find all fundraiser_ids where the user is approved
+        const pendingFundraisers = await UserFundXref.findAll({
+            where: {
+                user_id: user_id,
+                request_status: 'pending'
+            },
+            attributes: ['fundraiser_id']  
+        });
+
+        // Extract fundraiser IDs from the results
+        const fundraiserIds = pendingFundraisers.map(f => f.fundraiser_id);
+
+        // Find fundraisers that match those fundraiser IDs and belong to the competition
+        const myFundraisers = await Fundraisers.findAll({
+            where: {
+                fundraiser_id: { [Op.in]: fundraiserIds },
+            }
+        });
+
+        res.status(200).json(myFundraisers);
+    } catch (error) {
+        console.error('Error fetching pending fundraisers:', error);
+        res.status(500).json({ error: 'Failed to fetch pending fundraisers`' });
+    }
+});
+
+
+router.get('/denied-fundraisers', async (req, res) => {
+    const { user_id } = req.query;  // Get user_id and comp_id from request query params
+
+    if (!user_id ) {
+        return res.status(400).json({ error: "Missing user_id" });
+    }
+
+    try {
+        // Find all fundraiser_ids where the user is approved
+        const deniedFundraisers = await UserFundXref.findAll({
+            where: {
+                user_id: user_id,
+                request_status: 'denied'
+            },
+            attributes: ['fundraiser_id']  // Only fetch fundraiser_id
+        });
+
+        // Extract fundraiser IDs from the results
+        const fundraiserIds = deniedFundraisers.map(f => f.fundraiser_id);
+
+        // Find fundraisers that match those fundraiser IDs and belong to the competition
+        const myDeniedFundraisers = await Fundraisers.findAll({
+            where: {
+                fundraiser_id: { [Op.in]: fundraiserIds },
+            }
+        });
+        console.log(myDeniedFundraisers)
+        res.status(200).json(myDeniedFundraisers);
+    } catch (error) {
+        console.error('Error fetching denied fundraisers:', error);
+        res.status(500).json({ error: 'Failed to fetch denied fundraisers' });
+    }
+});
+
+
+
 module.exports = router
