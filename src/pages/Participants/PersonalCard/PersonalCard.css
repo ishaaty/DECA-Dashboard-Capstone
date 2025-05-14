@@ -1,10 +1,11 @@
 .personalinfocontainer {
     background-color: #E3E8F1;
     margin-top: 10vh;
+    margin-bottom: 3vh;
+    margin-left: 18vw;
     padding-left: 1vw;
     padding-bottom: 1vh;
     padding-top: 1px;
-    margin-bottom: 3vh;
     border-radius: 10px;
     width: 20vw;
 }
