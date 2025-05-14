@@ -114,6 +114,7 @@ export default function ParticipantDetails() {
         <h3 id="detailname">Name: {participant.userFirst} {participant.userLast}</h3>
         <h3 id="detailemail">Email: {participant.userEmail}</h3>
         <h3 id="detailclass">Class: {participant.userClass}</h3>
+        <h3 id="detailyears">Years of Experience: {participant.userExperience}</h3>
         <div className="partevents">
           <h3 id="parteventhead">Events</h3>
           {renderEvents()}

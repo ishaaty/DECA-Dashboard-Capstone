@@ -11,6 +11,10 @@
     color: #00984D;
 }
 
+#detailyears {
+    color: #00529B;
+}
+
 #detailname, #detailemail, #detailclass {
     margin-top: 1vh;
 }
