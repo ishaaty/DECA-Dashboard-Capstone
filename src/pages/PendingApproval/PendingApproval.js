@@ -116,9 +116,14 @@ function PendingApproval() {
           <label class="pendinglabel">Demographic:</label>
           <select value={demographic} onChange={(e) => setDemographic(e.target.value)}>
             <option value="">Select Demographic</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
+            <option value="American Indian/Alaskan Native">American Indian/Alaskan Native</option>
+            <option value="Asian/Asian-American/Pacific Islander">Asian/Asian-American/Pacific Islander</option>
+            <option value="Black/African-American">Black/African-American</option>
+            <option value="Latino/Hispanic">Latino/Hispanic</option>
+            <option value="Middle-Eastern">Middle-Eastern</option>
+            <option value="Opt-Out">Opt-Out</option>
+            <option value="Other">Othe</option>
+            <option value="White/Caucasian">White/Caucasian</option>
           </select>
           {/* <input type="text" value={demographic} onChange={(e) => setDemographic(e.target.value)} /> */}
         </div>
