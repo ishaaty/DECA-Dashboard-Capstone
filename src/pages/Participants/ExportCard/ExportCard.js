@@ -34,7 +34,7 @@ export default function ExportCard() {
     return (
         <>
             <div className="export">
-              <h3 id="adminaccess">Administrative Access:</h3>
+              <h3 id="adminaccess">Administrative Access</h3>
                 <div className="exportbuttons">
                     <button onClick={handleExport} id="jpeg"> Export Data</button>
                     <button id="viewunapproved" onClick={() => window.location.href = '/unapprovedparticipants'}>View New Users</button>
