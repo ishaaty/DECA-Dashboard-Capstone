@@ -20,7 +20,7 @@
 }
 
 .partdetailcontainer {
-    grid-template-columns: auto;
+    grid-template-columns: auto auto;
     margin-left: 25vw;
     display: grid;
     padding: 5px;

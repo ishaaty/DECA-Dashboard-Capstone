@@ -1,0 +1,15 @@
+.personalinfocontainer {
+    background-color: #E3E8F1;
+    margin-top: 10vh;
+    padding-left: 1vw;
+    padding-bottom: 1vh;
+    padding-top: 1px;
+    margin-bottom: 3vh;
+    border-radius: 10px;
+    width: 20vw;
+}
+
+#personaldetailsheader {
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+}
