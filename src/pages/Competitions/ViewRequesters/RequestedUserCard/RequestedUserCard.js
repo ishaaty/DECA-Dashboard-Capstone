@@ -13,19 +13,17 @@ export default function RequestedUserCard(props) {
     useEffect(() => {
         const fetchUserInfo = async () => {
             try {
-                let response;
-                try {
-                    // Try using the production backend
-                    response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/user/user-info`, {
-                        params: { user_id: props.user_id }
-                    });
-                } catch (error) {
-                    console.warn('Error fetching from production backend, falling back to localhost...');
-                    // If the production URL fails, fallback to localhost
-                    response = await axios.get('http://localhost:8081/user/user-info', {
-                        params: { user_id: props.user_id }
-                    });
-                }
+                let token = await getAccessTokenSilently({
+                    audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+                });
+                
+                let response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/user/user-info`, {
+                    params: { user_id: props.user_id },
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+
                 setUser(response.data);
             } catch (err) {
                 console.error("Error fetching user info:", err);

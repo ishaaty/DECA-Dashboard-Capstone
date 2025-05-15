@@ -12,7 +12,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 
 export default function EventsPage() {
-    const { user, isAuthenticated } = useAuth0();
+    const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
     const [user_id, setUserId] = useState(null);
     const [events, setEvents] = useState([]);
     const [myEvents, setMyEvents] = useState([]);
@@ -40,22 +40,16 @@ export default function EventsPage() {
         const fetchUserId = async () => {
             if (user?.email) {  // Check if user and user.email are available
                 try {
+                    let token = await getAccessTokenSilently({
+                        audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+                    });
 
-                    let response;
-
-                    try {
-                        // Try using the production backend
-                        response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/user/get-user-id`, {
-                            params: { email: user.email }
-                        });
-                    } catch (error) {
-                        console.warn('Error fetching from production backend, falling back to localhost...');
-                        
-                        // If the production URL fails, fallback to localhost
-                        response = await axios.get('http://localhost:8081/user/get-user-id', {
-                            params: { email: user.email }
-                        });
-                    }
+                    let response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/user/get-user-id`, {
+                        params: { email: user.email },
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    });
 
                     if (response.data?.user_id) {
                         setUserId(response.data.user_id);  // Set the user_id dynamically
@@ -81,69 +75,45 @@ export default function EventsPage() {
             console.log("Getting events w comp_id ", comp_id, " and user_id ", user_id)
     
             try {
+                let token = await getAccessTokenSilently({
+                    audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+                });
 
-                let allEventsResponse;
-                try {
-                    // Try using the production backend
-                    allEventsResponse = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/events/display/${comp_id}`);
-                } catch (error) {
-                    console.warn('Error fetching from production backend, falling back to localhost...');
-                    // If the production URL fails, fallback to localhost
-                    allEventsResponse = await axios.get(`http://localhost:8081/events/display/${comp_id}`);
-                }
+                let allEventsResponse = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/events/display/${comp_id}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
                 const allEvents = allEventsResponse.data;
     
 
 
-                let approvedEventsResponse;
-                try {
-                    // Try using the production backend
-                    approvedEventsResponse = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/events/myevents`, {
-                        params: { user_id, comp_id }
+                let approvedEventsResponse = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/events/myevents`, {
+                        params: { user_id, comp_id },
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        }
                     });
-                } catch (error) {
-                    console.warn('Error fetching from production backend, falling back to localhost...');
-                    
-                    // If the production URL fails, fallback to localhost
-                    approvedEventsResponse = await axios.get(`http://localhost:8081/events/myevents`, {
-                        params: { user_id, comp_id }
-                    });
-                }
                 const approvedEvents = approvedEventsResponse.data;
     
 
 
-                let pendingEventsResponse;
-                try {
-                    // Try using the production backend
-                    pendingEventsResponse = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/events/pending-events`, {
-                        params: { user_id, comp_id }
+                let pendingEventsResponse = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/events/pending-events`, {
+                        params: { user_id, comp_id },
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        }
                     });
-                } catch (error) {
-                    console.warn('Error fetching from production backend, falling back to localhost...');
-                    // If the production URL fails, fallback to localhost
-                    pendingEventsResponse = await axios.get(`http://localhost:8081/events/pending-events`, {
-                        params: { user_id, comp_id }
-                    });
-                }
                 const pendingEvents = pendingEventsResponse.data;
     
 
 
-                let deniedEventsResponse;
-                try {
-                    // Try using the production backend
-                    deniedEventsResponse = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/events/denied-events`, {
-                        params: { user_id, comp_id }
+                let deniedEventsResponse = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/events/denied-events`, {
+                        params: { user_id, comp_id },
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        }
                     });
-                } catch (error) {
-                    console.warn('Error fetching from production backend, falling back to localhost...');
-                    
-                    // If the production URL fails, fallback to localhost
-                    deniedEventsResponse = await axios.get(`http://localhost:8081/events/denied-events`, {
-                        params: { user_id, comp_id }
-                    });
-                }
                 const deniedEvents = deniedEventsResponse.data; // List of denied event IDs
 
 
@@ -179,13 +149,19 @@ export default function EventsPage() {
     const handleDeleteEvent = async (id) => {
         try {
             // send the id of the resource to delete to the backend
-            try {
-                // Try using production URL first
-                await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/events/delete/${id}`);
-            } catch (err) {
-                console.warn('Error deleting event on production, falling back to localhost...');
-                await axios.delete(`http://localhost:8081/events/delete/${id}`);
-            }
+            let token = await getAccessTokenSilently({
+                audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+            });
+
+            await axios.delete(
+                `${process.env.REACT_APP_API_BASE_URL}/events/delete/${id}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            
             setEvents(events.filter((event) => event.event_id !== id)); // Update local state
         } catch (error) {
             console.error('Error deleting event:', error);

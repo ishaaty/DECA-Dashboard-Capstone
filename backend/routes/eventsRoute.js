@@ -4,9 +4,10 @@ const sequelize = require('../config/db');
 const Events = require('../models/eventsModel')(sequelize);
 const UserEventXref = require('../models/user_event_xrefModel')(sequelize);
 const { Op } = require('sequelize');
+const checkJwt = require('../config/jwtConfig');
 
 // Fetch an event by ID
-router.get('/display/:comp_id', async (req, res) => {
+router.get('/display/:comp_id', checkJwt, async (req, res) => {
     const { comp_id } = req.params;  // Get comp_id from URL parameter
 
     try {
@@ -29,7 +30,7 @@ router.get('/display/:comp_id', async (req, res) => {
 
 
 // Fetch a single event by event_id
-router.get('/event/:event_id', async (req, res) => {
+router.get('/event/:event_id', checkJwt, async (req, res) => {
     const { event_id } = req.params;  // Get event_id from URL parameter
 
     try {
@@ -50,7 +51,7 @@ router.get('/event/:event_id', async (req, res) => {
 
 
 // Add a new event to the database
-router.post('/add', async (req, res) => {
+router.post('/add', checkJwt, async (req, res) => {
     const { comp_id, event_name, event_descrip, req_1, req_2, req_3, req_4, req_5 } = req.body;
 
     if (!event_name) {
@@ -76,7 +77,7 @@ router.post('/add', async (req, res) => {
 });
 
 // Delete a resource by ID
-router.delete('/delete/:id', async (req, res) => {
+router.delete('/delete/:id', checkJwt, async (req, res) => {
     const { id } = req.params; // Get the resource ID from the URL parameter
   
     try {
@@ -103,7 +104,7 @@ router.delete('/delete/:id', async (req, res) => {
 
 
 // Edit an existing event while keeping comp_id and event_id unchanged
-router.put('/edit/:event_id', async (req, res) => {
+router.put('/edit/:event_id', checkJwt, async (req, res) => {
   const { event_id } = req.params; // Get event ID from the URL parameter
   const {
       event_name, event_descrip, req_1, req_2, req_3, req_4, req_5
@@ -137,7 +138,7 @@ router.put('/edit/:event_id', async (req, res) => {
 
 
 // Fetch "My Events" for a user in a specific competition
-router.get('/myevents', async (req, res) => {
+router.get('/myevents', checkJwt, async (req, res) => {
     const { user_id, comp_id } = req.query;  // Get user_id and comp_id from request query params
 
     if (!user_id || !comp_id) {
@@ -175,7 +176,7 @@ router.get('/myevents', async (req, res) => {
 
 // In your route handler
 // Fetch "My Events" for a user in a specific competition
-router.get('/pending-events', async (req, res) => {
+router.get('/pending-events', checkJwt, async (req, res) => {
     const { user_id, comp_id } = req.query;  // Get user_id and comp_id from request query params
 
     if (!user_id || !comp_id) {
@@ -211,7 +212,7 @@ router.get('/pending-events', async (req, res) => {
 });
 
 
-router.get('/denied-events', async (req, res) => {
+router.get('/denied-events', checkJwt, async (req, res) => {
     const { user_id, comp_id } = req.query;  // Get user_id and comp_id from request query params
 
     if (!user_id || !comp_id) {

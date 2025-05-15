@@ -2,28 +2,26 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom"; // Assuming you're using React Router
 import "./ApprovedUserCard.css";
+import { useAuth0 } from '@auth0/auth0-react';
 
 export default function ApprovedUserCard({ user_id, event_id, title }) {
     const [user, setUser] = useState(null);
-    const navigate = useNavigate();  // Correct usage of navigate
+    const navigate = useNavigate();
+    const { getAccessTokenSilently } = useAuth0();
 
     useEffect(() => {
         const fetchUserInfo = async () => {
             try {
-                let response;
-                try {
-                    // Try using the production backend
-                    response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/user/user-info`, {
-                        params: { user_id: user_id }
-                    });
-                } catch (error) {
-                    console.warn('Error fetching from production backend, falling back to localhost...');
-                    
-                    // If the production URL fails, fallback to localhost
-                    response = await axios.get('http://localhost:8081/user/user-info', {
-                        params: { user_id: user_id }
-                    });
-                }
+                let token = await getAccessTokenSilently({
+                    audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+                });
+                
+                let response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/user/user-info`, {
+                    params: { user_id: user_id },
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
                 setUser(response.data);
                 console.log(response.data);
             } catch (error) {
