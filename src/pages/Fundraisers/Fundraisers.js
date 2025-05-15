@@ -219,7 +219,7 @@ if (userRole === "admin") {
         <Header />
         <Menu />
 
-        <div id = "fundheader">Fundraisers</div>
+        <h1 id = "fundheader">Fundraisers</h1>
     
         <div className ="funds">
           {fundraisers.length > 0 ? (
