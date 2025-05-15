@@ -22,24 +22,27 @@ router.post('/add', upload.single('pdf'), checkJwt, async (req, res) => {
   }
 
   try {
-    const params = {
-      Bucket: process.env.AWS_BUCKET_NAME,
-      Key: `pdfs/${Date.now()}_${file.originalname}`, // Unique file name
-      Body: file.buffer, // Use file buffer from memory storage
-      // Removed ACL: 'public-read'
-    };
+    let file_url = null;
 
-    // Upload file to S3
-    const command = new PutObjectCommand(params);
-    const data = await s3.send(command); // Send the command using AWS SDK v3
+    // Only upload to S3 if a file is provided
+    if (file) {
+      const params = {
+        Bucket: process.env.AWS_BUCKET_NAME,
+        Key: `pdfs/${Date.now()}_${file.originalname}`,
+        Body: file.buffer,
+      };
 
-    const file_url = `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${params.Key}`;
+      const command = new PutObjectCommand(params);
+      await s3.send(command);
+
+      file_url = `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${params.Key}`;
+    }
 
     // Create a new resource entry in the database
     const newResource = await Resources.create({
       resource_name,
-      web_url,
-      file_url, // Store S3 file URL in the database
+      web_url: web_url || null,
+      file_url: file_url,
     });
 
     res.status(201).json(newResource);
@@ -48,6 +51,7 @@ router.post('/add', upload.single('pdf'), checkJwt, async (req, res) => {
     res.status(500).json({ error: 'Failed to add resource' });
   }
 });
+
 
 // Display resources
 router.get('/display', checkJwt, async (req, res) => {
