@@ -11,12 +11,16 @@
     color: #00984D;
 }
 
+#detailyears {
+    color: #00529B;
+}
+
 #detailname, #detailemail, #detailclass {
     margin-top: 1vh;
 }
 
 .partdetailcontainer {
-    grid-template-columns: auto;
+    grid-template-columns: auto auto;
     margin-left: 25vw;
     display: grid;
     padding: 5px;
@@ -56,4 +60,8 @@
 .roleselect {
     margin-left: 1vw;
     font-family: "Lexend Deca";
+}
+
+.roleselection {
+    margin-left: 18vw;
 }

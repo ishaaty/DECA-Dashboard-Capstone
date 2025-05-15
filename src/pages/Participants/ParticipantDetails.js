@@ -5,6 +5,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import './ParticipantDetails.css';
 import Header from '../../components/Header/Header';
 import Menu from '../../components/Menu/Menu';
+import PersonalCard from './PersonalCard/PersonalCard';
 
 import { UserRoleContext } from '../../context/UserRoleContext';
 
@@ -111,18 +112,30 @@ export default function ParticipantDetails() {
       <Menu />
       <h1 id="partheader">Participant Details</h1>
       <div className="partdetailcontainer">
+        <div className="generalinfo">
         <h3 id="detailname">Name: {participant.userFirst} {participant.userLast}</h3>
         <h3 id="detailemail">Email: {participant.userEmail}</h3>
         <h3 id="detailclass">Class: {participant.userClass}</h3>
+        <h3 id="detailyears">Years of Experience: {participant.userExperience}</h3>
         <div className="partevents">
           <h3 id="parteventhead">Events</h3>
           {renderEvents()}
         </div>
+        </div>
+        <div className="admincontent">
+        <PersonalCard
+          role={userRole}
+          cell={participant.userCell}
+          home={participant.userHome}
+          gender={participant.userGender}
+          demographic={participant.userDemographic}
+          dob={participant.dob}>
+        </PersonalCard>
 
         {/* Only show this section if userRole is "admin" */}
         {(userRole === "admin" || userRole === "board member") && (
           <div className="roleselection">
-            <label>Select Role: </label>
+            <label>Change Role: </label>
             <select className="roleselect" value={selectedRole} onChange={handleRoleChange}>
               <option id="pickrole" value="">--Select Role--</option>
               <option value="Admin">Admin</option>
@@ -133,6 +146,11 @@ export default function ParticipantDetails() {
             <button id="updatebtn" onClick={updateUserRole}>Update Role</button>
           </div>
         )}
+        </div>
+        
+
+        
+
       </div>
     </>
   );

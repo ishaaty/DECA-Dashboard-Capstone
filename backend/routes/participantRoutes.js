@@ -91,6 +91,12 @@ router.get('/displaydetails', checkJwt, async (req, res) => {
       userClass: user.user_class,
       events: userEvents,  // If no events, this will be an empty array
       userId: user.user_id,
+      userExperience: user.years_experience,
+      userCell: user.cell_phone,
+      userHome: user.home_phone,
+      userGender: user.gender,
+      userDemographic: user.demographic,
+      userDOB: user.dob,
     });
   } catch (error) {
     console.error('Error fetching participant details:', error);
