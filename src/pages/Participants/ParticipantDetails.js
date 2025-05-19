@@ -110,8 +110,22 @@ export default function ParticipantDetails() {
     <>
       <Header />
       <Menu />
-      <h1 id="partheader">Participant Details</h1>
+      {/* <div id="main">
+        <a href="competitions">
+          <button id="ahh">
+            <img id="eventimage" src="blue.png" alt=""></img>
+          </button>
+        </a>
+      </div> */}
+      {/* <h1 id="partheaders">Participant Details</h1> */}
+      <div className="partdetails-header">
+  <button className="back-button" onClick={() => window.history.back()}><img id="eventimage" src="blue.png" alt=""></img></button>
+  <h1 id="partheaders">Participant Details</h1>
+</div>
+
+
       <div className="partdetailcontainer">
+
         <div className="generalinfo">
         <h3 id="detailname">Name: {participant.userFirst} {participant.userLast}</h3>
         <h3 id="detailemail">Email: {participant.userEmail}</h3>
@@ -122,6 +136,10 @@ export default function ParticipantDetails() {
           {renderEvents()}
         </div>
         </div>
+      {/* <button id="ahh"><img id="eventimage" src="blue.png" alt=""></img></button> */}
+
+        
+
         <div className="admincontent">
         <PersonalCard
           role={userRole}
