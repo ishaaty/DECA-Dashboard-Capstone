@@ -134,8 +134,10 @@ function PendingApproval() {
         </div>
         <button id="pendingbtn" type="submit">Submit</button>
       </form>
-      {message && <p style={{ color: 'green' }}>{message}</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {message && alert(message)}
+      {error && alert(error)}
+      {/* {message && <p style={{ color: 'green' }}>{message}</p>}
+      {error && <p style={{ color: 'red' }}>{error}</p>} */}
     </div>
   );
 }

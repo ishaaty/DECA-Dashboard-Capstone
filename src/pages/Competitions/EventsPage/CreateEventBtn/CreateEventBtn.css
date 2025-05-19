@@ -1,8 +1,9 @@
-/* .create-event-container .center-button-container {
+.create-event-container .center-button-container {
   display: flex;
   justify-content: center;
   align-items: center;
-} */
+  margin: auto auto;
+}
 
 .create-event-container .center-button {
   background-color: #F5585E;
