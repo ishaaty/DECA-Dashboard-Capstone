@@ -31,7 +31,8 @@ export default function FundraiserCard(props) {
 
             // Handle success (e.g., show a sucess message or update the UI)
             props.setFundraisers(prevFundraisers=>prevFundraisers.filter(fundraiser=>fundraiser.fundraiser_id != props.fundraiser_id)); 
-            alert("Request canceled successfully."); 
+            //alert("Request canceled successfully."); 
+            window.location.reload();
         } catch (error) { 
             alert("Failed to cancel the request. Please try again.");
             console.error('Error canceling the request: ', error); 
@@ -56,7 +57,8 @@ export default function FundraiserCard(props) {
             }); 
 
             console.log("Response:", response);
-            alert("Request sent successfully."); 
+            //alert("Request sent successfully."); 
+            window.location.reload();
 
             // You can now update the UI or handle the fetched data
             props.setFundraisers(prevFundraisers => prevFundraisers.map(fundraiser =>
