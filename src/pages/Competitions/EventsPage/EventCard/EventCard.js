@@ -6,7 +6,7 @@ import ViewEventBtn from '../ViewEventBtn/ViewEventBtn'
 import { UserRoleContext } from "../../../../context/UserRoleContext";
 import { Link } from "react-router-dom";
 import axios from 'axios'; 
-const { useAuth0 } = require('@auth0/auth0-react');
+const { useAuth0, MissingRefreshTokenError } = require('@auth0/auth0-react');
 
 
 
@@ -35,7 +35,8 @@ export default function EventCard(props) {
 
             // Handle success (e.g., show a success message or update the UI)
             props.setEvents(prevEvents => prevEvents.filter(event => event.event_id !== props.event_id));
-            alert("Request canceled successfully.");
+            // alert("Request canceled successfully.");
+            window.location.reload();
         } catch (error) {
             alert("Failed to cancel the request. Please try again.");
             console.error('Error canceling the request:', error);
@@ -57,7 +58,8 @@ export default function EventCard(props) {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            alert("Request sent successfully.");
+            //alert("Request sent successfully.");
+            window.location.reload();
 
             // You can now update the UI or handle the fetched data
             props.setEvents(prevEvents => prevEvents.map(event => 

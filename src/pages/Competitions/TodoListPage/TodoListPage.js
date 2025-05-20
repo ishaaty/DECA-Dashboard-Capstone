@@ -146,7 +146,8 @@ export default function TodoListPage(props) {
 
             });
             
-            alert("Statuses saved successfully!");
+            //alert("Statuses saved successfully!");
+            window.location.reload();
             console.log("Response:", response.data);
         } catch (error) {
             console.error("Error saving statuses:", error);
