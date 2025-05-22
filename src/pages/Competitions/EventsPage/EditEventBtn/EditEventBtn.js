@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import './EditEventBtn.css';
+import { useAuth0 } from '@auth0/auth0-react';
 
 import axios from '../../../../services/axiosConfig';
 
 const EditEventBtn = (props) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const { getAccessTokenSilently } = useAuth0();
   const [newEvent, editEvent] = useState({ 
     title: props.title || '', 
     descrip: props.descrip || '',
@@ -18,16 +20,15 @@ const EditEventBtn = (props) => {
 
   const fetchEvents = async () => {
     try {
-      let response;
+      let token = await getAccessTokenSilently({
+        audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+      });
 
-      try {
-        // Try using the production backend
-        response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/events/display/${props.comp_id}`);
-      } catch (error) {
-        console.warn('Error fetching from production backend, falling back to localhost...');
-        // If the production URL fails, fallback to localhost
-        response = await axios.get(`http://localhost:8081/events/display/${props.comp_id}`);
-      }
+      let response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/events/display/${props.comp_id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       // Update the state with the new event
       props.setEvents(response.data); 
@@ -58,15 +59,15 @@ const EditEventBtn = (props) => {
         console.log("attempting to edit event with id: ");
         console.log(props.event_id);
 
-        let response;
-        try {
-          // Try using the production backend URL first
-          response = await axios.put(`${process.env.REACT_APP_API_BASE_URL}/events/edit/${props.event_id}`, eventData);
-        } catch (error) {
-          console.warn('Error posting to production backend, falling back to localhost...');
-          // If the production backend fails, fallback to localhost:8081
-          response = await axios.put(`http://localhost:8081/events/edit/${props.event_id}`, eventData);
-        }
+        let token = await getAccessTokenSilently({
+          audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+        });
+
+        let response = await axios.put(`${process.env.REACT_APP_API_BASE_URL}/events/edit/${props.event_id}`, eventData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         console.log('Updated Event:', response.data);
 

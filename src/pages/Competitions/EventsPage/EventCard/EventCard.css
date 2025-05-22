@@ -4,6 +4,7 @@
     border-radius: 5px;
     padding: 8px 16px;
     margin-top: 10px;
+    overflow-wrap: break-word;
 }
 
 .align-center {

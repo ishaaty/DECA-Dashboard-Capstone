@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './CreateEventBtn.css';
+import { useAuth0 } from '@auth0/auth0-react';
 
 import axios from '../../../../services/axiosConfig';
 
@@ -7,21 +8,21 @@ const CreateEventBtn = ({ events, setEvents, comp_id }) => {
 
   const [newEvent, setNewEvent] = useState({ comp_id: comp_id, title: '', descrip: '', req_1: '', req_2: '', req_3: '', req_4: '', req_5: '' });
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const { getAccessTokenSilently } = useAuth0();
   console.log("Received comp_id:", comp_id); // Debugging line
 
   // Fetch events from backend
   const fetchEvents = async () => {
     try {
+      let token = await getAccessTokenSilently({
+        audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+      });
 
-      let response;
-      try {
-        // Try using the production backend
-        response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/events/display/${comp_id}`);
-      } catch (error) {
-        console.warn('Error fetching from production backend, falling back to localhost...');
-        // If the production URL fails, fallback to localhost
-        response = await axios.get(`http://localhost:8081/events/display/${comp_id}`);
-      }
+      let response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/events/display/${comp_id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       // Update the state with the new event
       setEvents(response.data); 
@@ -80,16 +81,14 @@ const CreateEventBtn = ({ events, setEvents, comp_id }) => {
       };
   
       // Send the event data to the backend
-      let response;
-      try {
-        // Try using the production backend URL first
-        response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/events/add`, eventData);
-      } catch (error) {
-        console.warn('Error posting to production backend, falling back to localhost...');
-        // If the production backend fails, fallback to localhost:8081
-        response = await axios.post('http://localhost:8081/events/add', eventData);
-      }
-
+      let token = await getAccessTokenSilently({
+        audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+      });
+      let response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/events/add`, eventData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
   
       // Fetch updated events
       fetchEvents();
@@ -115,7 +114,7 @@ const CreateEventBtn = ({ events, setEvents, comp_id }) => {
   
 
   return (
-    <div className="create-event-container">
+    <div style={{paddingLeft: "18vw"}} className="create-event-container">
       <div>
         <button className="center-button" onClick={() => setIsPopupOpen(true)}>
           Create Event

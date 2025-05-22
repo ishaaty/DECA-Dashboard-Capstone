@@ -1,3 +1,32 @@
+/* Header layout container for button and h1 */
+.partdetails-header {
+  display: flex;
+  align-items: center;
+  gap: -4vh;
+  margin-left: 25vw; /* Match partdetailcontainer alignment */
+  margin-top: 5vh;
+  margin-bottom: -3vh;
+}
+
+/* Back button style */
+.back-button {
+  background-color: white;
+  /* color: white; */
+  border: none;
+  /* padding: 1vh; */
+  /* font-size: 16px; */
+  border-radius: 40vh;
+  cursor: pointer;
+}
+
+
+/* Participant Details header text */
+#partheaders {
+  color: #00529B;
+  font-size: 35px;
+  margin: 0; /* Remove default margin */
+}
+
 #detailname {
     color: #F5585E;
     padding-top: 8vh;
@@ -65,3 +94,20 @@
 .roleselection {
     margin-left: 18vw;
 }
+
+
+#partheaders {
+    color: #00529B;
+    text-align: center;
+    padding-left: 18vw;
+    font-size: 35px;
+    margin-top: 5vh;
+}
+/* 
+.partdetails-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-left: 20px;
+  margin-bottom: 20px;
+} */

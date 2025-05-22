@@ -100,13 +100,13 @@ export default function User() {
       { label: 'First Name', key: 'first_name' },
       { label: 'Last Name', key: 'last_name' },
       { label: 'Class', key: 'user_class' },
-      { label: 'Position', key: 'position' },
       { label: 'Cell Phone', key: 'cell_phone' },
       { label: 'Home Phone', key: 'home_phone' },
       { label: 'Gender', key: 'gender' },
       { label: 'Demographic', key: 'demographic' },
       { label: 'Date of Birth', key: 'dob' },
-      { label: 'Email', key: 'account_email' }
+      { label: 'Email', key: 'account_email' },
+      { label: 'Position', key: 'position' }
     ];
 
     return (
