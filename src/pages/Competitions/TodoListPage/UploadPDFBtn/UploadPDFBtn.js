@@ -33,7 +33,8 @@ const UploadPDFBtn = (props) => {
         );
 
       console.log('Upload successful:', response.data);
-      alert('PDF uploaded successfully!');
+      //alert('PDF uploaded successfully!');
+      window.location.reload();
     } catch (error) {
       console.error('Error uploading PDF:', error);
       alert('Failed to upload PDF');

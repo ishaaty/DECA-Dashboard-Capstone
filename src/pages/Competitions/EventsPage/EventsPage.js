@@ -183,10 +183,8 @@ export default function EventsPage() {
                         </a>
                     </div>
 
-                    <div className="btns-h-align">
-                        <h1 style={{ color: "#00529B" }}>{title}</h1>
-                        <CreateEventBtn events={events} setEvents={setEvents} comp_id={comp_id} />
-                    </div>
+                    <h1 id="eventheader">{title}</h1>
+                    <CreateEventBtn events={events} setEvents={setEvents} comp_id={comp_id} />
 
                     <div>
                         <h1 id="allevents">All Events:</h1>

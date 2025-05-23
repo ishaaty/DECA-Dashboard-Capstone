@@ -114,7 +114,7 @@ const CreateEventBtn = ({ events, setEvents, comp_id }) => {
   
 
   return (
-    <div className="create-event-container">
+    <div style={{paddingLeft: "18vw"}} className="create-event-container">
       <div>
         <button className="center-button" onClick={() => setIsPopupOpen(true)}>
           Create Event
