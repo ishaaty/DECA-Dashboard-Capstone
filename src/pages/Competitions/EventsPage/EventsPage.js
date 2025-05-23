@@ -230,7 +230,7 @@ export default function EventsPage() {
                     <CreateEventBtn events={events} setEvents={setEvents} comp_id={comp_id} />
 
                     <div>
-                        <h1 style={{ color: "#F5585E", zIndex: "999" }}>All Events:</h1>
+                        <h1 id="allevents">All Events:</h1>
                         <div className="events-container">
                             {pendingEvents?.map((event, index) => (
                                 <EventCard
@@ -273,7 +273,7 @@ export default function EventsPage() {
                     </div>
 
                     <div >
-                        <h1 style={{ color: "#F5585E", alignItems: "center", marginTop: "30px" }}>My Events:</h1>
+                        <h1 id="allevents">My Events:</h1>
                         <div className="events-container">
                             {myEvents?.map((event, index) => (
                                 <EventCard
@@ -317,7 +317,7 @@ export default function EventsPage() {
                     <h1 id="eventheader">{title}</h1>
 
                     <div>
-                        <h1 style={{ color: "#F5585E", zIndex: "999" }}>All Events:</h1>
+                        <h1 id="allevents">All Events:</h1>
                         <div className="events-container">
                             {pendingEvents?.map((event, index) => (
                                 <EventCard
@@ -360,7 +360,7 @@ export default function EventsPage() {
                     </div>
 
                     <div >
-                        <h1 style={{ color: "#F5585E", alignItems: "center", marginTop: "30px" }}>My Events:</h1>
+                        <h1 id="allevents">My Events:</h1>
                         <div className="events-container">
                             {myEvents?.map((event, index) => (
                                 <EventCard
