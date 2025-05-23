@@ -113,7 +113,7 @@ export default function User() {
       <div key={user.user_id} className="user-card">
         <h2>User Profile</h2>
         {fields.map(({ label, key }) => (
-          <h4 key={key} className="partname">
+          <h4 key={key} >
             {isCurrentEditing && key !== 'position' ? (
               <>
                 <span>{label}: </span>
@@ -166,7 +166,7 @@ export default function User() {
 
           {currentParticipant && (
             <div>
-              <div className="partlist">
+              <div>
                 {renderUserCard(currentParticipant)}
               </div>
             </div>
