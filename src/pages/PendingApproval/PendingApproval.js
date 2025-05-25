@@ -122,7 +122,7 @@ function PendingApproval() {
             <option value="Latino/Hispanic">Latino/Hispanic</option>
             <option value="Middle-Eastern">Middle-Eastern</option>
             <option value="Opt-Out">Opt-Out</option>
-            <option value="Other">Othe</option>
+            <option value="Other">Other</option>
             <option value="White/Caucasian">White/Caucasian</option>
           </select>
           {/* <input type="text" value={demographic} onChange={(e) => setDemographic(e.target.value)} /> */}

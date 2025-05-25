@@ -251,7 +251,7 @@ if (userRole === "admin") {
       <Header />
       <Menu />
 
-      <div id = "fundheader">Fundraisers</div>
+      <h1 id = "fundheader">Fundraisers</h1>
   
       <div className ="funds">
         {pendingFundraisers.length > 0 ? (
@@ -322,7 +322,7 @@ if (userRole === "admin") {
       <Header />
       <Menu />
 
-      <div id = "fundheader"><h1>Fundraisers</h1></div>
+      <h1 id = "fundheader">Fundraisers</h1>
   
       <div className ="funds">
         {pendingFundraisers.length > 0 ? (

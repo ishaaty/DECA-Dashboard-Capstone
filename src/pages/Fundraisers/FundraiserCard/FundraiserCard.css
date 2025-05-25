@@ -1,10 +1,9 @@
 .fundraiser-card {
-    background-color: white; /* Ensures text is visible */
-    color: black; /* Makes sure text is readable */
-    padding: 16px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px; /* Adds space between each card */
+    background-color: #E3E8F1;
+    color: #6786A3;
+    border-radius: 5px;
+    padding: 8px 16px;
+    margin-top: 10px;
 
 }
 

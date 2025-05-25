@@ -110,14 +110,6 @@ export default function ParticipantDetails() {
     <>
       <Header />
       <Menu />
-      {/* <div id="main">
-        <a href="competitions">
-          <button id="ahh">
-            <img id="eventimage" src="blue.png" alt=""></img>
-          </button>
-        </a>
-      </div> */}
-      {/* <h1 id="partheaders">Participant Details</h1> */}
       <div className="partdetails-header">
   <button className="back-button" onClick={() => window.history.back()}><img id="eventimage" src="blue.png" alt=""></img></button>
   <h1 id="partheaders">Participant Details</h1>

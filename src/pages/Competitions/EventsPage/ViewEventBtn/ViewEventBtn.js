@@ -24,12 +24,6 @@ const ViewEventBtn = (props) => {
               <strong>Description:</strong> {props.descrip}
             </label>
             <label>
-              <strong>Date:</strong> {props.date}
-            </label>
-            <label>
-              <strong>Time:</strong> {props.time}
-            </label>
-            <label>
               <strong>Requirements:</strong> {displayReqs}
             </label>
             <div className="popup-buttons">
