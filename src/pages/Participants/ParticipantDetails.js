@@ -147,7 +147,7 @@ export default function ParticipantDetails() {
           home={participant.userHome}
           gender={participant.userGender}
           demographic={participant.userDemographic}
-          dob={participant.dob}>
+          dob={participant.userDOB}>
         </PersonalCard>
 
         {/* Only show this section if userRole is "admin" */}
