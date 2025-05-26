@@ -253,6 +253,8 @@ if (userRole === "admin") {
 
       <h1 id = "fundheader">Fundraisers</h1>
 
+    <div>
+    <h2>All events:</h2>
       <div className ="funds-container">
         {pendingFundraisers.length > 0 ? (
           pendingFundraisers.map((fundraiser) => (
@@ -272,6 +274,25 @@ if (userRole === "admin") {
         ) : (
           <h2>Requested</h2>
         )}
+        {defaultFundraisers.length > 0 ? (
+          defaultFundraisers.map((fundraiser) => (
+            <FundraiserCard
+              key={fundraiser.fundraiser_id}
+              fundraiser_id={fundraiser.fundraiser_id}
+              fund_name={fundraiser.fund_name}
+              fund_description={fundraiser.fund_description}
+              fund_location={fundraiser.fund_location}
+              fund_date={fundraiser.fund_date}
+              user_id={user_id}
+              acquired={fundraiser.acquired}
+              status = {"default"}
+              setFundraisers={setFundraisers}
+              onDelete={() => handleDeleteFundraiser(fundraiser.fundraiser_id)}            />
+          ))
+        ) : (
+          <h2>[All other Fundraisers here]</h2>
+        )}
+      </div>
         <h2>My events:</h2>
         {myFundraisers.length > 0 ? (
           myFundraisers.map((fundraiser) => (
@@ -291,24 +312,6 @@ if (userRole === "admin") {
         ) : (
           <h2>Approved</h2>
         )}
-        {defaultFundraisers.length > 0 ? (
-          defaultFundraisers.map((fundraiser) => (
-            <FundraiserCard
-              key={fundraiser.fundraiser_id}
-              fundraiser_id={fundraiser.fundraiser_id}
-              fund_name={fundraiser.fund_name}
-              fund_description={fundraiser.fund_description}
-              fund_location={fundraiser.fund_location}
-              fund_date={fundraiser.fund_date}
-              user_id={user_id}
-              acquired={fundraiser.acquired}
-              status = {"default"}
-              setFundraisers={setFundraisers}
-              onDelete={() => handleDeleteFundraiser(fundraiser.fundraiser_id)}            />
-          ))
-        ) : (
-          <h2>[All other Fundraisers here]</h2>
-        )}
         </div>
 
         <div className = "createfund"><CreateFundraiserBtn setFundraisers={setFundraisers} /></div>
@@ -324,7 +327,8 @@ if (userRole === "admin") {
       <Menu />
 
       <h1 id = "fundheader">Fundraisers</h1>
-  
+    <div>
+    <h2>All events:</h2>
       <div className ="funds-container">
         {pendingFundraisers.length > 0 ? (
           pendingFundraisers.map((fundraiser) => (
@@ -360,6 +364,7 @@ if (userRole === "admin") {
         ) : (
           <h3>[All other Fundraisers here]</h3>
         )}
+        </div>
         <h2>My events:</h2>
         {myFundraisers.length > 0 ? (
           myFundraisers.map((fundraiser) => (
