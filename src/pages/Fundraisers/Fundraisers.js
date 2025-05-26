@@ -272,6 +272,7 @@ if (userRole === "admin") {
         ) : (
           <h2>Requested</h2>
         )}
+        <h2>My events:</h2>
         {myFundraisers.length > 0 ? (
           myFundraisers.map((fundraiser) => (
             <FundraiserCard
@@ -359,6 +360,7 @@ if (userRole === "admin") {
         ) : (
           <h3>[All other Fundraisers here]</h3>
         )}
+        <h2>My events:</h2>
         {myFundraisers.length > 0 ? (
           myFundraisers.map((fundraiser) => (
             <FundraiserCard
