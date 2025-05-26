@@ -48,12 +48,12 @@
   color: white;
 }
 
-/* .center-button-container {
-  display: flex;
-  justify-content: center;
-  margin-left: 43vh;
+.center-button-container {
+  text-align: center;
+  padding-left: 18vw;
   margin-top: 20px;
-} */
+}
+
 
 .center-button {
   background-color: #F5585E;
