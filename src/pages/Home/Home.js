@@ -117,6 +117,13 @@ export default function Home() {
             <div className="announcements-box">
               <h3>Announcements</h3>
 
+              {userRole === "admin" && (
+                <CreateAnnounceBtn setAnnouncements={setAnnouncements} />
+              )}
+              {userRole ==="board member" && (
+              <CreateAnnounceBtn setAnnouncements={setAnnouncements} />
+              )}
+
               {announcements.length > 0 ? (
                 announcements.map((announcement) => (
                   <AnnounceCard
@@ -134,12 +141,12 @@ export default function Home() {
                 <p>No announcements yet.</p>
 
               )}
-              {userRole === "admin" && (
+              {/* {userRole === "admin" && (
                 <CreateAnnounceBtn setAnnouncements={setAnnouncements} />
               )}
               {userRole ==="board member" && (
               <CreateAnnounceBtn setAnnouncements={setAnnouncements} />
-            )}
+              )} */}
             </div>
           </div>
         </div>
