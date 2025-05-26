@@ -272,7 +272,7 @@ if (userRole === "admin") {
               onDelete={() => handleDeleteFundraiser(fundraiser.fundraiser_id)}            />
           ))
         ) : (
-          <h2>Requested</h2>
+          <h2></h2>
         )}
         {defaultFundraisers.length > 0 ? (
           defaultFundraisers.map((fundraiser) => (
@@ -290,10 +290,11 @@ if (userRole === "admin") {
               onDelete={() => handleDeleteFundraiser(fundraiser.fundraiser_id)}            />
           ))
         ) : (
-          <h2>[All other Fundraisers here]</h2>
+          <h2></h2>
         )}
       </div>
         <h2>My events:</h2>
+        <div className ="funds-container">
         {myFundraisers.length > 0 ? (
           myFundraisers.map((fundraiser) => (
             <FundraiserCard
@@ -310,8 +311,9 @@ if (userRole === "admin") {
               onDelete={() => handleDeleteFundraiser(fundraiser.fundraiser_id)}            />
           ))
         ) : (
-          <h2>Approved</h2>
+          <h2></h2>
         )}
+        </div>
         </div>
 
         <div className = "createfund"><CreateFundraiserBtn setFundraisers={setFundraisers} /></div>
@@ -345,7 +347,7 @@ if (userRole === "admin") {
               status = {"pending"}           />
           ))
         ) : (
-          <h2>Requested</h2>
+          <h2></h2>
         )}
         {defaultFundraisers.length > 0 ? (
           defaultFundraisers.map((fundraiser) => (
@@ -362,10 +364,11 @@ if (userRole === "admin") {
               status = {"default"}           />
           ))
         ) : (
-          <h3>[All other Fundraisers here]</h3>
+          <h3></h3>
         )}
         </div>
         <h2>My events:</h2>
+        <div className ="funds-container">
         {myFundraisers.length > 0 ? (
           myFundraisers.map((fundraiser) => (
             <FundraiserCard
@@ -381,8 +384,8 @@ if (userRole === "admin") {
               status = {"approved"}           />
           ))
         ) : (
-          <h2>Approved</h2>
-        )}
+          <h2></h2>
+        )}</div>
         </div>
     </>
   );
