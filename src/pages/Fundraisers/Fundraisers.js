@@ -220,6 +220,7 @@ if (userRole === "admin") {
         <Menu />
 
         <h1 id = "fundheader">Fundraisers</h1>
+        <div className = "createfund"><CreateFundraiserBtn setFundraisers={setFundraisers} /></div>
     
         <div className ="funds-container">
           {fundraisers.length > 0 ? (
@@ -241,7 +242,7 @@ if (userRole === "admin") {
           )}
           </div>
 
-          <div className = "createfund"><CreateFundraiserBtn setFundraisers={setFundraisers} /></div>
+
 
       </>
     );
@@ -252,9 +253,10 @@ if (userRole === "admin") {
       <Menu />
 
       <h1 id = "fundheader">Fundraisers</h1>
+      <div className = "createfund"><CreateFundraiserBtn setFundraisers={setFundraisers} /></div>
 
     <div>
-    <h2>All events:</h2>
+    <h1 id="allfunds">All Fundraisers:</h1>
       <div className ="funds-container">
         {pendingFundraisers.length > 0 ? (
           pendingFundraisers.map((fundraiser) => (
@@ -293,7 +295,7 @@ if (userRole === "admin") {
           <h2></h2>
         )}
       </div>
-        <h2>My events:</h2>
+        <h1 id = "allfunds">My Fundraisers:</h1>
         <div className ="funds-container">
         {myFundraisers.length > 0 ? (
           myFundraisers.map((fundraiser) => (
@@ -316,8 +318,6 @@ if (userRole === "admin") {
         </div>
         </div>
 
-        <div className = "createfund"><CreateFundraiserBtn setFundraisers={setFundraisers} /></div>
-
 
 
     </>
@@ -330,7 +330,7 @@ if (userRole === "admin") {
 
       <h1 id = "fundheader">Fundraisers</h1>
     <div>
-    <h2>All events:</h2>
+    <h1 id = "allfunds">All Fundraisers:</h1>
       <div className ="funds-container">
         {pendingFundraisers.length > 0 ? (
           pendingFundraisers.map((fundraiser) => (
@@ -367,7 +367,7 @@ if (userRole === "admin") {
           <h3></h3>
         )}
         </div>
-        <h2>My events:</h2>
+        <h1 id = "allfunds">My events:</h1>
         <div className ="funds-container">
         {myFundraisers.length > 0 ? (
           myFundraisers.map((fundraiser) => (

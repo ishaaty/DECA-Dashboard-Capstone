@@ -12,6 +12,12 @@
     margin-left: 35vw;
 }
 
+#allfunds {
+    padding-left: 18vw;
+    color: #F5585E;
+    z-index: 999;
+}
+
 #fundheader {
     color: #00529B;
     text-align: center;
