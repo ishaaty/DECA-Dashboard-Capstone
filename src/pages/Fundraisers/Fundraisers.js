@@ -222,7 +222,6 @@ if (userRole === "admin") {
         <h1 id = "fundheader">Fundraisers</h1>
         <div className = "createfund"><CreateFundraiserBtn setFundraisers={setFundraisers} /></div>
       
-      <div id = "main">
         <div className ="funds-container">
           {fundraisers.length > 0 ? (
             fundraisers.map((fundraiser) => (
@@ -242,7 +241,6 @@ if (userRole === "admin") {
             <p></p>
           )}
           </div>
-          </div>
 
 
 
@@ -257,7 +255,6 @@ if (userRole === "admin") {
       <h1 id = "fundheader">Fundraisers</h1>
       <div className = "createfund"><CreateFundraiserBtn setFundraisers={setFundraisers} /></div>
 
-    <div id="main">
     <div>
       <h1 id="allfunds">All Fundraisers:</h1>
         <div className ="funds-container">
@@ -320,7 +317,6 @@ if (userRole === "admin") {
           )}
           </div>
         </div>
-        </div>
 
 
 
@@ -333,7 +329,6 @@ if (userRole === "admin") {
       <Menu />
 
       <h1 id = "fundheader">Fundraisers</h1>
-    <div id = "main">
     <div>
       <h1 id = "allfunds">All Fundraisers:</h1>
         <div className ="funds-container">
@@ -391,7 +386,6 @@ if (userRole === "admin") {
           ) : (
             <h2></h2>
           )}</div>
-        </div>
         </div>
     </>
   );
