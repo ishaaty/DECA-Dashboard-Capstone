@@ -255,7 +255,7 @@ if (userRole === "admin") {
       <h1 id = "fundheader">Fundraisers</h1>
       <div className = "createfund"><CreateFundraiserBtn setFundraisers={setFundraisers} /></div>
 
-    <div>
+    <div id = "main">
       <h1 id="allfunds">All Fundraisers:</h1>
         <div className ="funds-container">
           {pendingFundraisers.length > 0 ? (
@@ -329,7 +329,7 @@ if (userRole === "admin") {
       <Menu />
 
       <h1 id = "fundheader">Fundraisers</h1>
-    <div>
+    <div id = "main">
       <h1 id = "allfunds">All Fundraisers:</h1>
         <div className ="funds-container">
           {pendingFundraisers.length > 0 ? (
