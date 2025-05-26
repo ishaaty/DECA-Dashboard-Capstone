@@ -21,7 +21,7 @@
     padding-left: 18vw;
     color: #F5585E;
     z-index: 999;
-    margin-left: 10vw;
+    margin-left: 7vw;
 }
 
 #fundheader {
@@ -44,7 +44,7 @@
     gap: 28px;
     max-width: 80%;
     margin: 16px auto;
-    margin-left: 10vw;
+    margin-left: 7vw;
     text-align: center;
     padding-left: 18vw;
 }
