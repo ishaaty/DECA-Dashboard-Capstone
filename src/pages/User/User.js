@@ -105,7 +105,7 @@ export default function User() {
       { label: 'Gender', key: 'gender' },
       { label: 'Demographic', key: 'demographic' },
       { label: 'Date of Birth', key: 'dob' },
-      { label: 'Email', key: 'account_email' },
+      // { label: 'Email', key: 'account_email' },
       { label: 'Position', key: 'position' }
     ];
 
