@@ -128,10 +128,12 @@ const Resources = ({ resources, userRole }) => {
       {(userRole === 'admin' || userRole === "board member") && (
         <>
           <div className="center-button-container">
+            <h1 id="resources-header">Resources</h1>
             <button className="center-button" onClick={() => setIsPopupOpen(true)}>
               Add New Resource
             </button>
           </div>
+
           {isPopupOpen && (
             <div className="popup">
               <div className="popup-content">
@@ -177,6 +179,7 @@ const Resources = ({ resources, userRole }) => {
           )}
         </>
       )}
+
       <div className="resources-container">
         {resourceList.map((resource, index) => (
           <Resource
