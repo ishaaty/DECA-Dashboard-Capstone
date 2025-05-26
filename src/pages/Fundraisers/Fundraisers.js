@@ -221,7 +221,7 @@ if (userRole === "admin") {
 
         <h1 id = "fundheader">Fundraisers</h1>
     
-        <div className ="funds">
+        <div className ="funds-container">
           {fundraisers.length > 0 ? (
             fundraisers.map((fundraiser) => (
               <FundraiserCard
@@ -252,8 +252,8 @@ if (userRole === "admin") {
       <Menu />
 
       <h1 id = "fundheader">Fundraisers</h1>
-  
-      <div className ="funds">
+
+      <div className ="funds-container">
         {pendingFundraisers.length > 0 ? (
           pendingFundraisers.map((fundraiser) => (
             <FundraiserCard
@@ -324,7 +324,7 @@ if (userRole === "admin") {
 
       <h1 id = "fundheader">Fundraisers</h1>
   
-      <div className ="funds">
+      <div className ="funds-container">
         {pendingFundraisers.length > 0 ? (
           pendingFundraisers.map((fundraiser) => (
             <FundraiserCard
