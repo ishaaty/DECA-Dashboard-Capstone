@@ -113,7 +113,7 @@ const Resources = ({ resources, userRole }) => {
 
   return (
     <>
-      <div className="resources-container">
+      {/* <div className="resources-container">
         {resourceList.map((resource, index) => (
           <Resource
             key={resource.resource_id}
@@ -124,7 +124,7 @@ const Resources = ({ resources, userRole }) => {
             onDelete={() => handleDeleteResource(resource.resource_id)}
           />
         ))}
-      </div>
+      </div> */}
       {(userRole === 'admin' || userRole === "board member") && (
         <>
           <div className="center-button-container">
@@ -177,6 +177,19 @@ const Resources = ({ resources, userRole }) => {
           )}
         </>
       )}
+      <div className="resources-container">
+        {resourceList.map((resource, index) => (
+          <Resource
+            key={resource.resource_id}
+            text={resource.resource_name || resource.text}
+            link={resource.web_url || resource.link}
+            pdf={resource.file_url || resource.pdf}
+            userRole={userRole}
+            onDelete={() => handleDeleteResource(resource.resource_id)}
+          />
+        ))}
+      </div>
+
     </>
   );
 };
