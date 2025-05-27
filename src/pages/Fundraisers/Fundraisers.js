@@ -367,7 +367,7 @@ if (userRole === "admin") {
             <h3></h3>
           )}
         </div>
-          <h1 id = "allfunds">My events:</h1>
+          <h1 id = "allfunds">My Fundraisers:</h1>
           <div className ="funds-container">
           {myFundraisers.length > 0 ? (
             myFundraisers.map((fundraiser) => (
