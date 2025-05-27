@@ -79,7 +79,7 @@ export default function RequestedUserCard(props) {
             });
 
             // Make a request to deny the fundraiser
-            let response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/fundraiseres/deny-fundraiser/${props.fundraiser_id}/${props.user_id}`, {}, {
+            let response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/fundraisers/deny-fundraiser/${props.fundraiser_id}/${props.user_id}`, {}, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
