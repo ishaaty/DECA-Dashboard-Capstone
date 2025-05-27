@@ -180,6 +180,9 @@ const Resources = ({ resources, userRole }) => {
         </>
       )}
 
+      <div className="center-button-container">
+        <h1 style={{ marginBottom: "30px" }} id="resources-header">Resources</h1>
+      </div>
       <div className="resources-container">
         {resourceList.map((resource, index) => (
           <Resource
