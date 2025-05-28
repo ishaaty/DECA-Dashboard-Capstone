@@ -113,7 +113,7 @@ const Resources = ({ resources, userRole }) => {
 
   return (
     <>
-      <div className="resources-container">
+      {/* <div className="resources-container">
         {resourceList.map((resource, index) => (
           <Resource
             key={resource.resource_id}
@@ -124,14 +124,16 @@ const Resources = ({ resources, userRole }) => {
             onDelete={() => handleDeleteResource(resource.resource_id)}
           />
         ))}
-      </div>
+      </div> */}
       {(userRole === 'admin' || userRole === "board member") && (
         <>
           <div className="center-button-container">
+            <h1 id="resources-header">Resources</h1>
             <button className="center-button" onClick={() => setIsPopupOpen(true)}>
               Add New Resource
             </button>
           </div>
+
           {isPopupOpen && (
             <div className="popup">
               <div className="popup-content">
@@ -177,6 +179,25 @@ const Resources = ({ resources, userRole }) => {
           )}
         </>
       )}
+
+      {(userRole === 'participant') && (
+        <div className="center-button-container">
+          <h1 style={{ marginBottom: "30px" }} id="resources-header">Resources</h1>
+        </div>
+      )}
+      <div className="resources-container">
+        {resourceList.map((resource, index) => (
+          <Resource
+            key={resource.resource_id}
+            text={resource.resource_name || resource.text}
+            link={resource.web_url || resource.link}
+            pdf={resource.file_url || resource.pdf}
+            userRole={userRole}
+            onDelete={() => handleDeleteResource(resource.resource_id)}
+          />
+        ))}
+      </div>
+
     </>
   );
 };

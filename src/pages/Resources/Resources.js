@@ -42,7 +42,6 @@ const ResourcesPage = () => {
     <div className="resources-page">
       <Header />
       <Menu />
-      <h1 id="resources-header">Resources</h1>
       <ResourceCards resources={resources} setResources={setResources} userRole={userRole} />
     </div>
   );

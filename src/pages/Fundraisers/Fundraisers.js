@@ -218,10 +218,11 @@ if (userRole === "admin") {
       <>
         <Header />
         <Menu />
-
+        
         <h1 id = "fundheader">Fundraisers</h1>
-    
-        <div className ="funds">
+        <div className = "createfund"><CreateFundraiserBtn setFundraisers={setFundraisers} /></div>
+      
+        <div className ="funds-container">
           {fundraisers.length > 0 ? (
             fundraisers.map((fundraiser) => (
               <FundraiserCard
@@ -237,11 +238,11 @@ if (userRole === "admin") {
                 onDelete={() => handleDeleteFundraiser(fundraiser.fundraiser_id)}            />
             ))
           ) : (
-            <p></p>
+            null
           )}
           </div>
 
-          <div className = "createfund"><CreateFundraiserBtn setFundraisers={setFundraisers} /></div>
+
 
       </>
     );
@@ -251,66 +252,71 @@ if (userRole === "admin") {
       <Header />
       <Menu />
 
-      <div id = "fundheader">Fundraisers</div>
-  
-      <div className ="funds">
-        {pendingFundraisers.length > 0 ? (
-          pendingFundraisers.map((fundraiser) => (
-            <FundraiserCard
-              key={fundraiser.fundraiser_id}
-              fundraiser_id={fundraiser.fundraiser_id}
-              fund_name={fundraiser.fund_name}
-              fund_description={fundraiser.fund_description}
-              fund_location={fundraiser.fund_location}
-              fund_date={fundraiser.fund_date}
-              user_id={user_id}
-              acquired={fundraiser.acquired}
-              status = {"pending"}
-              setFundraisers={setFundraisers}
-              onDelete={() => handleDeleteFundraiser(fundraiser.fundraiser_id)}            />
-          ))
-        ) : (
-          <h2>Requested</h2>
-        )}
-        {myFundraisers.length > 0 ? (
-          myFundraisers.map((fundraiser) => (
-            <FundraiserCard
-              key={fundraiser.fundraiser_id}
-              fundraiser_id={fundraiser.fundraiser_id}
-              fund_name={fundraiser.fund_name}
-              fund_description={fundraiser.fund_description}
-              fund_location={fundraiser.fund_location}
-              fund_date={fundraiser.fund_date}
-              user_id={user_id}
-              acquired={fundraiser.acquired}
-              status = {"approved"}
-              setFundraisers={setFundraisers}
-              onDelete={() => handleDeleteFundraiser(fundraiser.fundraiser_id)}            />
-          ))
-        ) : (
-          <h2>Approved</h2>
-        )}
-        {defaultFundraisers.length > 0 ? (
-          defaultFundraisers.map((fundraiser) => (
-            <FundraiserCard
-              key={fundraiser.fundraiser_id}
-              fundraiser_id={fundraiser.fundraiser_id}
-              fund_name={fundraiser.fund_name}
-              fund_description={fundraiser.fund_description}
-              fund_location={fundraiser.fund_location}
-              fund_date={fundraiser.fund_date}
-              user_id={user_id}
-              acquired={fundraiser.acquired}
-              status = {"default"}
-              setFundraisers={setFundraisers}
-              onDelete={() => handleDeleteFundraiser(fundraiser.fundraiser_id)}            />
-          ))
-        ) : (
-          <h2>[All other Fundraisers here]</h2>
-        )}
-        </div>
+      <h1 id = "fundheader">Fundraisers</h1>
+      <div className = "createfund"><CreateFundraiserBtn setFundraisers={setFundraisers} /></div>
 
-        <div className = "createfund"><CreateFundraiserBtn setFundraisers={setFundraisers} /></div>
+    <div>
+      <h1 id="allfunds">All Fundraisers:</h1>
+        <div className ="funds-container">
+          {pendingFundraisers.length > 0 ? (
+            pendingFundraisers.map((fundraiser) => (
+              <FundraiserCard
+                key={fundraiser.fundraiser_id}
+                fundraiser_id={fundraiser.fundraiser_id}
+                fund_name={fundraiser.fund_name}
+                fund_description={fundraiser.fund_description}
+                fund_location={fundraiser.fund_location}
+                fund_date={fundraiser.fund_date}
+                user_id={user_id}
+                acquired={fundraiser.acquired}
+                status = {"pending"}
+                setFundraisers={setFundraisers}
+                onDelete={() => handleDeleteFundraiser(fundraiser.fundraiser_id)}            />
+            ))
+          ) : (
+            null
+          )}
+          {defaultFundraisers.length > 0 ? (
+            defaultFundraisers.map((fundraiser) => (
+              <FundraiserCard
+                key={fundraiser.fundraiser_id}
+                fundraiser_id={fundraiser.fundraiser_id}
+                fund_name={fundraiser.fund_name}
+                fund_description={fundraiser.fund_description}
+                fund_location={fundraiser.fund_location}
+                fund_date={fundraiser.fund_date}
+                user_id={user_id}
+                acquired={fundraiser.acquired}
+                status = {"default"}
+                setFundraisers={setFundraisers}
+                onDelete={() => handleDeleteFundraiser(fundraiser.fundraiser_id)}            />
+            ))
+          ) : (
+            null
+          )}
+      </div>
+          <h1 id = "allfunds">My Fundraisers:</h1>
+          <div className ="funds-container">
+          {myFundraisers.length > 0 ? (
+            myFundraisers.map((fundraiser) => (
+              <FundraiserCard
+                key={fundraiser.fundraiser_id}
+                fundraiser_id={fundraiser.fundraiser_id}
+                fund_name={fundraiser.fund_name}
+                fund_description={fundraiser.fund_description}
+                fund_location={fundraiser.fund_location}
+                fund_date={fundraiser.fund_date}
+                user_id={user_id}
+                acquired={fundraiser.acquired}
+                status = {"approved"}
+                setFundraisers={setFundraisers}
+                onDelete={() => handleDeleteFundraiser(fundraiser.fundraiser_id)}            />
+            ))
+          ) : (
+            null
+          )}
+          </div>
+        </div>
 
 
 
@@ -322,60 +328,64 @@ if (userRole === "admin") {
       <Header />
       <Menu />
 
-      <div id = "fundheader"><h1>Fundraisers</h1></div>
-  
-      <div className ="funds">
-        {pendingFundraisers.length > 0 ? (
-          pendingFundraisers.map((fundraiser) => (
-            <FundraiserCard
-              key={fundraiser.fundraiser_id}
-              fundraiser_id={fundraiser.fundraiser_id}
-              fund_name={fundraiser.fund_name}
-              fund_description={fundraiser.fund_description}
-              fund_location={fundraiser.fund_location}
-              fund_date={fundraiser.fund_date}
-              user_id={user_id}
-              acquired={fundraiser.acquired}
-              setFundraisers={setFundraisers}
-              status = {"pending"}           />
-          ))
-        ) : (
-          <h2>Requested</h2>
-        )}
-        {defaultFundraisers.length > 0 ? (
-          defaultFundraisers.map((fundraiser) => (
-            <FundraiserCard
-              key={fundraiser.fundraiser_id}
-              fundraiser_id={fundraiser.fundraiser_id}
-              fund_name={fundraiser.fund_name}
-              fund_description={fundraiser.fund_description}
-              fund_location={fundraiser.fund_location}
-              fund_date={fundraiser.fund_date}
-              user_id={user_id}
-              acquired={fundraiser.acquired}
-              setFundraisers={setFundraisers}
-              status = {"default"}           />
-          ))
-        ) : (
-          <h3>[All other Fundraisers here]</h3>
-        )}
-        {myFundraisers.length > 0 ? (
-          myFundraisers.map((fundraiser) => (
-            <FundraiserCard
-              key={fundraiser.fundraiser_id}
-              fundraiser_id={fundraiser.fundraiser_id}
-              fund_name={fundraiser.fund_name}
-              fund_description={fundraiser.fund_description}
-              fund_location={fundraiser.fund_location}
-              fund_date={fundraiser.fund_date}
-              user_id={user_id}
-              acquired={fundraiser.acquired}
-              setFundraisers={setFundraisers}
-              status = {"approved"}           />
-          ))
-        ) : (
-          <h2>Approved</h2>
-        )}
+      <h1 id = "fundheader">Fundraisers</h1>
+    <div>
+      <h1 id = "allfunds">All Fundraisers:</h1>
+        <div className ="funds-container">
+          {pendingFundraisers.length > 0 ? (
+            pendingFundraisers.map((fundraiser) => (
+              <FundraiserCard
+                key={fundraiser.fundraiser_id}
+                fundraiser_id={fundraiser.fundraiser_id}
+                fund_name={fundraiser.fund_name}
+                fund_description={fundraiser.fund_description}
+                fund_location={fundraiser.fund_location}
+                fund_date={fundraiser.fund_date}
+                user_id={user_id}
+                acquired={fundraiser.acquired}
+                setFundraisers={setFundraisers}
+                status = {"pending"}           />
+            ))
+          ) : (
+            null
+          )}
+          {defaultFundraisers.length > 0 ? (
+            defaultFundraisers.map((fundraiser) => (
+              <FundraiserCard
+                key={fundraiser.fundraiser_id}
+                fundraiser_id={fundraiser.fundraiser_id}
+                fund_name={fundraiser.fund_name}
+                fund_description={fundraiser.fund_description}
+                fund_location={fundraiser.fund_location}
+                fund_date={fundraiser.fund_date}
+                user_id={user_id}
+                acquired={fundraiser.acquired}
+                setFundraisers={setFundraisers}
+                status = {"default"}           />
+            ))
+          ) : (
+            null
+          )}
+        </div>
+          <h1 id = "allfunds">My Fundraisers:</h1>
+          <div className ="funds-container">
+          {myFundraisers.length > 0 ? (
+            myFundraisers.map((fundraiser) => (
+              <FundraiserCard
+                key={fundraiser.fundraiser_id}
+                fundraiser_id={fundraiser.fundraiser_id}
+                fund_name={fundraiser.fund_name}
+                fund_description={fundraiser.fund_description}
+                fund_location={fundraiser.fund_location}
+                fund_date={fundraiser.fund_date}
+                user_id={user_id}
+                acquired={fundraiser.acquired}
+                setFundraisers={setFundraisers}
+                status = {"approved"}           />
+            ))
+          ) : (
+            null
+          )}</div>
         </div>
     </>
   );
