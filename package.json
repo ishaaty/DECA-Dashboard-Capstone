@@ -2,6 +2,7 @@
     "name": "rp-project",
     "version": "0.1.0",
     "private": true,
+    
     "dependencies": {
         "@auth0/auth0-react": "^2.3.0",
         "@aws-sdk/client-s3": "^3.779.0",
