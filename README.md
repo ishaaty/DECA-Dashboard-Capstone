@@ -4,14 +4,14 @@ Developed by Ashley Johnson, Jeannelle Tellado, Julia Thompson, Isha Tyagi, &amp
 
 ## Setup
 
-1 - Clone the GitHub repository \
+1 - Clone this repository \
 2 - Run npm install in the terminal \
 3 - Run npm install express axios express-jwt jwks-rsa in the terminal \
 4 - Run npm start in the terminal \
 \
-Note: All calls are currently running on the hosted backend server. If this is changed to use the local backend, in a second terminal,  simultaneously run: \
+Note: All calls are currently running on the hosted backend server. If this is changed to use the local backend, run the frontend as specified and simultaneously in a second terminal run: \
    1 - cd backend \
-   2 - server.js
+   2 - node server.js
 
 
 # Getting Started with Create React App
