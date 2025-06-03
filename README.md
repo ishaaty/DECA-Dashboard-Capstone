@@ -11,7 +11,7 @@ Developed by Ashley Johnson, Jeannelle Tellado, Julia Thompson, Isha Tyagi, &amp
 \
 Note: All calls are currently running on the hosted backend server. If this is changed to use the local backend, in a second terminal,  simultaneously run: \
    1 - cd backend \
-   2 - server.js \
+   2 - server.js
 
 
 # Getting Started with Create React App
