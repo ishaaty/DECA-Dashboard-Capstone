@@ -1,5 +1,5 @@
 const { Sequelize } = require('sequelize');
-require('dotenv').config({ path: '../.env' }); // Adjust path to locate .env
+require('dotenv').config(); // No path needed
 
 // Replace with your actual database credentials
 const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
@@ -13,4 +13,16 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, proces
   }
 });
 
-module.exports = sequelize;
+// Railway DB
+const railwaySequelize = new Sequelize(process.env.RAILWAY_DB_URL, {
+  dialect: 'mysql',
+  logging: console.log, // change to false later
+});
+
+
+module.exports = {
+  sequelize,
+  railwaySequelize,
+};
+
+// module.exports = sequelize;
