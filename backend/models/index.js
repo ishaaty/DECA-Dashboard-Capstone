@@ -1,4 +1,4 @@
-const { sequelize } = require('./config/db');
+const { sequelize } = require('../config/db');
 const { DataTypes } = require('sequelize');
 // require('dotenv').config();
 
@@ -6,7 +6,7 @@ const { DataTypes } = require('sequelize');
 sequelize.authenticate()
   .then(() => console.log('✅ Sequelize connected to Railway DB.'))
   .catch((err) => console.error('❌ Sequelize connection error:', err));
-  
+
 
 // Define your models
 const User = require('./userModel')(sequelize, DataTypes);
