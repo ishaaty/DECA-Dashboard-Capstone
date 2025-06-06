@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const sequelize = require('../config/db');
+const { sequelize } = require('../config/db');  // destructure the instance properly
 const Events = require('../models/eventsModel')(sequelize);
 const UserEventXref = require('../models/user_event_xrefModel')(sequelize);
 const { Op } = require('sequelize');

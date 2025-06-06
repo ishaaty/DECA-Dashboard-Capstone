@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const sequelize = require('../config/db');
+const { sequelize } = require('../config/db');  // destructure the instance properly
 const Announcements = require('../models/announcementsModel')(sequelize);
 const checkJwt = require('../config/jwtConfig');
 
