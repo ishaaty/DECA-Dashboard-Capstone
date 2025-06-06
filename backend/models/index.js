@@ -1,23 +1,12 @@
-const { Sequelize, DataTypes } = require('sequelize');
-require('dotenv').config();
+const { sequelize } = require('./config/db');
+const { DataTypes } = require('sequelize');
+// require('dotenv').config();
 
-const sequelize = new Sequelize(
-  process.env.DB_NAME,
-  process.env.DB_USER,
-  process.env.DB_PASSWORD,
-  {
-    host: process.env.DB_HOST,
-    dialect: 'mysql',
-  }
-);
-
+// Authenticate
 sequelize.authenticate()
-  .then(() => {
-    console.log('Sequelize connection has been established successfully.');
-  })
-  .catch((err) => {
-    console.error('Unable to connect to the database:', err);
-  });
+  .then(() => console.log('✅ Sequelize connected to Railway DB.'))
+  .catch((err) => console.error('❌ Sequelize connection error:', err));
+  
 
 // Define your models
 const User = require('./userModel')(sequelize, DataTypes);

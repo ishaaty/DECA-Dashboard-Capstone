@@ -25,8 +25,4 @@ const sequelize = new Sequelize(process.env.RAILWAY_DB_URL, {
 //   railwaySequelize,
 // };
 
-module.exports = {
-  sequelize
-};
-
-// module.exports = sequelize;
+module.exports = { sequelize };

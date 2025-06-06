@@ -1,5 +1,4 @@
-const { railwaySequelize } = require('./config/db');
-const sequelize = railwaySequelize;  // now this is a Sequelize instance
+const { sequelize } = require('./config/db');
 
 const defineAbout = require('./models/aboutModel');
 const defineAnnouncements = require('./models/announcementsModel');
