@@ -14,7 +14,7 @@ require('dotenv').config(); // No path needed
 // });
 
 // Railway DB
-const railwaySequelize = new Sequelize(process.env.RAILWAY_DB_URL, {
+const sequelize = new Sequelize(process.env.RAILWAY_DB_URL, {
   dialect: 'mysql',
   logging: console.log, // change to false later
 });
@@ -26,7 +26,7 @@ const railwaySequelize = new Sequelize(process.env.RAILWAY_DB_URL, {
 // };
 
 module.exports = {
-  railwaySequelize
+  sequelize
 };
 
 // module.exports = sequelize;
