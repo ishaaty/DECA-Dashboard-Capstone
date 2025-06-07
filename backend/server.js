@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const mysql = require('mysql'); // For raw SQL queries
+// const mysql = require('mysql'); // For raw SQL queries
 require('dotenv').config();
 
 const app = express();
@@ -28,23 +28,23 @@ app.use(cors({
 
 
 
-// Set up raw MySQL database connection
-const db = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-});
+// // Set up raw MySQL database connection
+// const db = mysql.createConnection({
+//   host: process.env.DB_HOST,
+//   user: process.env.DB_USER,
+//   password: process.env.DB_PASSWORD,
+//   database: process.env.DB_NAME,
+// });
 
 
-// Test MySQL connection
-db.connect(err => {
-  if (err) {
-    console.error('Error connecting to MySQL:', err);
-  } else {
-    console.log('Connected to MySQL database.');
-  }
-});
+// // Test MySQL connection
+// db.connect(err => {
+//   if (err) {
+//     console.error('Error connecting to MySQL:', err);
+//   } else {
+//     console.log('Connected to MySQL database.');
+//   }
+// });
 
 
 
@@ -82,18 +82,18 @@ app.use('/profile', profileRoutes);
 
 
 
-// Define test routes
-app.get('/', (req, res) => {
-  res.json("Backend is coming thru :)");
-});
+// // Define test routes
+// app.get('/', (req, res) => {
+//   res.json("Backend is coming thru :)");
+// });
 
-app.get('/users', (req, res) => {
-  const sql = "SELECT * FROM user";
-  db.query(sql, (err, data) => {
-    if (err) return res.json(err);
-    return res.json(data);
-  });
-});
+// app.get('/users', (req, res) => {
+//   const sql = "SELECT * FROM user";
+//   db.query(sql, (err, data) => {
+//     if (err) return res.json(err);
+//     return res.json(data);
+//   });
+// });
 
 
 // Start the server
